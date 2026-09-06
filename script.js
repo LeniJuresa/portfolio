@@ -174,7 +174,7 @@ setInterval(updateClock, 1000);
 const track = document.getElementById("profileTrack");
 cards = Array.from(track.querySelectorAll(".profile-card"));
 
-const CARD_WIDTH = 280;
+const CARD_WIDTH = 240;
 const GAP = 40;
 const STEP = CARD_WIDTH + GAP;
 
@@ -219,3 +219,13 @@ fitScene();
 window.addEventListener("resize", fitScene);
 
 // AI ^^
+
+window.addEventListener("load", () => {
+  const elements = document.querySelectorAll(".ease-in");
+
+  elements.forEach((el, i) => {
+    setTimeout(() => {
+      el.classList.add("appear");
+    }, i * 120); // each one starts 120ms after the previous
+  });
+});
