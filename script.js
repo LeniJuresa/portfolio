@@ -116,7 +116,7 @@ function pointOnDiagonal(t) {
 }
 
 const field = document.getElementById("sparkleField");
-const NUM_SPARKLES = 200;
+const NUM_SPARKLES = 300;
 
 for (let i = 0; i < NUM_SPARKLES; i++) {
   const t = rand(0, 1);
