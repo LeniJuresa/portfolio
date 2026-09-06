@@ -7,31 +7,87 @@
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body class="root-start">
-    <div class="light-rays-wrapper">
-      <div class="light-rays"></div>
-    </div>
-    <div class="sparkle-field" id="sparkleField"></div>
-
-    <div class="light"></div>
-
-    <p class="start-info-large">Welcome to My Website</p>
-    <p class="start-info-text">Who's using this website?</p>
-
+<body class="root-start">
+  <div class="scene-wrapper">
+     
+    <p class="start-info-large">Welcome Back to PlayStation</p>
+    <p class="start-info-text">Who's using this controller?</p>
     <div class="profile-selector">
       <div class="profile-track" id="profileTrack">
-        <div class="profile-card">1</div>
-        <div class="profile-card">2</div>
-        <div class="profile-card">3</div>
-        <div class="profile-card">4</div>
-        <div class="profile-card">5</div>
+        <div class="profile-item">
+          <div class="profile-card">+</div>
+          <span class="profile-name">Add User</span>
+        </div>
+
+        <div class="profile-item">
+          <div
+            class="profile-card profile-card--photo"
+            style="background-image: url(&quot;assets/images/leni.jpg&quot;)"
+          ></div>
+          <span class="profile-name">
+  Leni Jureša
+  <img src="assets/icons/plus.svg" alt="PS Plus" class="name-icon" />
+</span>
+        </div>
+
+        <div class="profile-item">
+          <div
+            class="profile-card profile-card--photo"
+            style="background-image: url(&quot;assets/images/default.png&quot;)"
+          ></div>
+          <span class="profile-name">Recruiter</span>
+        </div>
+      
+        <div class="profile-item">
+          <div
+            class="profile-card profile-card--photo"
+            style="background-image: url(&quot;assets/images/default.png&quot;)"
+          ></div>
+          <span class="profile-name">Guest</span>
+        </div>
       </div>
+      
+
+      
+
+      
+
+      
     </div>
+    <svg
+        class="icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-keyboard"
+      >
+        <path d="M10 8h.01" />
+        <path d="M12 12h.01" />
+        <path d="M14 8h.01" />
+        <path d="M16 12h.01" />
+        <path d="M18 8h.01" />
+        <path d="M6 8h.01" />
+        <path d="M7 16h10" />
+        <path d="M8 12h.01" />
+        <rect width="20" height="16" x="2" y="4" rx="2" />
+      </svg>
     <div class="clock" id="clock"></div>
 
     <p class="tooltip">
-      Use arrow keys to navigate <br />Press enter to select<br />
+      Use arrow keys to navigate
     </p>
+
+    <div class="light-rays-wrapper">
+  <div class="light-rays"></div>
+</div>
+    <div class="sparkle-field" id="sparkleField"></div>
+    <div class="light"></div>
 
     <!-- Smile :) 
     <div class="circle"></div>

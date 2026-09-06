@@ -5,6 +5,17 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  background-color: #0d0f18; 
+}
+
+.scene-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: center center;
+
 }
 
 .root-start {
@@ -42,9 +53,9 @@ body {
   position: absolute;
   top: -10%;
   left: 20%;
-  margin: -100vmax;
-  width: 200vmax;
-  height: 200vmax;
+  margin: -3000px;
+  width: 6000px;
+  height: 6000px;
   opacity: 0.5;
 }
 
@@ -140,9 +151,21 @@ body {
   filter: blur(5px);
 }
 
-/* SPARKLES 
+/* SPARKLES
 ====================================================================
 */
+
+.light-rays-wrapper,
+.sparkle-field,
+.light {
+  z-index: 0;
+}
+
+.sparkle-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
 
 .sparkle {
   position: absolute;
@@ -216,7 +239,6 @@ Profile page
   pointer-events: none;
 }
 
-
 .button-wrap:hover .button-start {
   box-shadow: 0 0 24px 8px rgba(255, 245, 210, 0.55) !important;
 }
@@ -225,8 +247,6 @@ Profile page
   animation-play-state: paused;
   opacity: 0 !important;
 }
-
-
 
 @keyframes circle-bounce {
   0% {
@@ -264,8 +284,6 @@ Profile page
   }
 }
 
-
-
 .ring {
   position: absolute;
   top: 50%;
@@ -296,7 +314,7 @@ Profile page
     transform: translate(-50%, -50%) scale(1.6);
     border-width: 8px;
     opacity: 1;
-    animation-timing-function: ease-out; /* eases the fade-out segment below */
+    animation-timing-function: ease-out; 
   }
   45% {
     transform: translate(-50%, -50%) scale(1.6);
@@ -309,8 +327,6 @@ Profile page
     opacity: 0;
   }
 }
-
-
 
 .ring-thin {
   width: 60px;
@@ -334,7 +350,7 @@ Profile page
     transform: translate(-50%, -50%) scale(1.8);
     border-width: 3px;
     opacity: 1;
-    animation-timing-function: ease-out; /* eases the fade-out segment below */
+    animation-timing-function: ease-out; 
   }
   60% {
     transform: translate(-50%, -50%) scale(1.9);
@@ -350,7 +366,8 @@ Profile page
 
 .start-info-large {
   position: absolute;
-  bottom: 75%;
+  z-index: 1;
+  bottom: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family:
@@ -360,14 +377,15 @@ Profile page
     -apple-system,
     BlinkMacSystemFont,
     sans-serif;
-  font-weight: 350;
-  font-size: 42px;
-  color: #f5f5f5;
+  font-weight: 200;
+  font-size: 58px;
+  color: #f5f5f5ea;
   text-align: center;
 }
 
 .start-info-text {
   position: absolute;
+  z-index: 1;
   bottom: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -379,15 +397,16 @@ Profile page
     BlinkMacSystemFont,
     sans-serif;
   font-weight: 300;
-  font-size: 24px;
-  color: #f5f5f5c2;
+  font-size: 28px;
+  color: #f5f5f5a8;
   text-align: center;
 }
 
 .clock {
   position: absolute;
-  top: 24px;
-  right: 32px;
+  z-index: 1;
+  top: 8%;
+  right: 4%;
   font-family:
     "SF Pro Display",
     "Segoe UI",
@@ -396,9 +415,19 @@ Profile page
     BlinkMacSystemFont,
     sans-serif;
   font-weight: 300;
-  font-size: 18px;
-  color: #f5f5f5c2;
+  font-size: 30px;
+  color: #f5f5f5ec;
   letter-spacing: 0.5px;
+}
+
+.icon {
+  position: absolute;
+  z-index: 1;
+  top: 31%;
+  right: 49%;
+  width: 40px;
+  height: 40px;
+  color: #f5f5f5a8;
 }
 
 /* profile page selector*/
@@ -415,7 +444,9 @@ Profile page
 
 .profile-selector {
   position: relative;
-  width: 100vw;
+  z-index: 1;
+  top: 200px;
+  width: 100%;
   height: 800px;
   overflow: hidden;
   display: flex;
@@ -431,15 +462,16 @@ Profile page
 }
 
 .profile-card {
-  width: 150px;
-  height: 150px;
-  border-radius: 30px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
   background: #6b6b6c;
   color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 80px;
+  font-weight: 300;
   font-family: sans-serif;
   flex-shrink: 0;
   transition:
@@ -457,7 +489,7 @@ Profile page
 .profile-card::after {
   content: "";
   position: absolute;
-  inset: -35px;
+  inset: -5px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.9);
   pointer-events: none;
@@ -473,10 +505,52 @@ Profile page
   transform: scale(1);
 }
 
+.profile-card--photo {
+  background-size: cover;
+  background-position: center;
+  background-color: #6b6b6c; 
+}
+
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+  flex-shrink: 0; 
+}
+
+.profile-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-weight: 200;
+  color: #f5f5f5;
+  opacity: 0.7;
+  transform: scale(0.8);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+.name-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.profile-track .profile-item:has(.profile-card.active) .profile-name {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .tooltip {
   position: absolute;
+  z-index: 1;
   top: 90%;
-  right: 32px;
+  right: 85%;
   font-family:
     "SF Pro Display",
     "Segoe UI",
@@ -485,8 +559,8 @@ Profile page
     BlinkMacSystemFont,
     sans-serif;
   font-weight: 300;
-  font-size: 18px;
-  color: #f5f5f557;
+  font-size: 24px;
+  color: #f5f5f538;
   letter-spacing: 0.5px;
 }
 

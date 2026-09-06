@@ -11,7 +11,6 @@ const SPARKLE_COLORS = [
   "255, 200, 60", // warm, saturated gold
 ];
 
-
 const SPARKLE_PRESETS = [
   {
     name: "small",
@@ -70,13 +69,13 @@ function createSparkle(x, y) {
   el.className = "sparkle";
 
   const preset = pickPreset();
-  const size = preset.size * rand(0.85, 1.15); 
+  const size = preset.size * rand(0.85, 1.15);
   const blur = size * preset.blurPct;
 
   const rgb = SPARKLE_COLORS[Math.floor(rand(0, SPARKLE_COLORS.length))];
 
-  el.style.left = x + "vw";
-  el.style.top = y + "vh";
+  el.style.left = x + "%";
+  el.style.top = y + "%";
   el.style.width = size + "px";
   el.style.height = size + "px";
   el.style.setProperty(
@@ -173,16 +172,15 @@ updateClock();
 setInterval(updateClock, 1000);
 
 const track = document.getElementById("profileTrack");
-const cards = Array.from(track.children);
+cards = Array.from(track.querySelectorAll(".profile-card"));
 
-const CARD_WIDTH = 150;
+const CARD_WIDTH = 280;
 const GAP = 40;
 const STEP = CARD_WIDTH + GAP;
 
-let currentIndex = 0;
+let currentIndex = 1;
 
 function updateSelector() {
-  
   const offset = -currentIndex * STEP - CARD_WIDTH / 2;
   track.style.transform = `translateX(${offset}px)`;
 
@@ -207,4 +205,17 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-updateSelector(); 
+updateSelector();
+function fitScene() {
+  const wrapper = document.querySelector(".scene-wrapper");
+  const scaleX = window.innerWidth / 1920;
+  const scaleY = window.innerHeight / 1080;
+  const scale = Math.max(scaleX, scaleY); // was Math.min — this is the key change
+
+  wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+
+fitScene();
+window.addEventListener("resize", fitScene);
+
+// AI ^^
