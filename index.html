@@ -4,35 +4,130 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style_profile.css" />
   </head>
 
   <body class="root-start">
-    <div class="light-rays-wrapper">
-      <div class="light-rays"></div>
+    <div class="scene-wrapper">
+      <!--   WELCOME TEXT   -->
+      <p class="start-info-large ease-in">Welcome Back to Leni's Portfolio</p>
+      <p class="start-info-text ease-in">Who's using this computer?</p>
+
+      <!--   PROFILE SELECTOR   -->
+      <div class="profile-selector">
+        <div class="profile-track ease-in" id="profileTrack">
+          <!-- Add User -->
+          <div class="profile-item">
+            <div class="profile-card">+</div>
+            <span class="profile-name">Add User</span>
+          </div>
+
+          <!-- Leni -->
+          <div class="profile-item ease-in" data-href="leni/leni.html">
+            <div
+              class="profile-card profile-card--photo"
+              style="
+                background-image: url(&quot;assets/images/leni_funny.jpg&quot;);
+              "
+            ></div>
+            <span class="profile-name">
+              Leni Jureša
+              <img
+                src="assets/icons/badge.svg"
+                alt="PS Plus"
+                class="name-icon"
+              />
+            </span>
+          </div>
+
+          <!-- Recruiter -->
+          <div
+            class="profile-item ease-in"
+            data-href="recruiter/recruiter.html"
+          >
+            <div
+              class="profile-card profile-card--photo"
+              style="
+                background-image: url(&quot;assets/images/default.png&quot;);
+              "
+            ></div>
+            <span class="profile-name">Recruiter</span>
+          </div>
+
+          <!-- Developer -->
+          <div
+            class="profile-item ease-in"
+            data-href="developer/developer.html"
+          >
+            <div
+              class="profile-card profile-card--photo"
+              style="
+                background-image: url(&quot;assets/images/default.png&quot;);
+              "
+            ></div>
+            <span class="profile-name">Developer</span>
+          </div>
+
+          <!-- Guest -->
+          <div class="profile-item ease-in" data-href="guest/guest.html">
+            <div
+              class="profile-card profile-card--photo"
+              style="
+                background-image: url(&quot;assets/images/default.png&quot;);
+              "
+            ></div>
+            <span class="profile-name">Guest</span>
+          </div>
+        </div>
+      </div>
+
+      <!--   KEYBOARD HINT ICON   -->
+      <svg
+        class="icon lucide lucide-keyboard"
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M10 8h.01" />
+        <path d="M12 12h.01" />
+        <path d="M14 8h.01" />
+        <path d="M16 12h.01" />
+        <path d="M18 8h.01" />
+        <path d="M6 8h.01" />
+        <path d="M7 16h10" />
+        <path d="M8 12h.01" />
+        <rect width="20" height="16" x="2" y="4" rx="2" />
+      </svg>
+
+      <!--   CLOCK   -->
+      <div class="clock" id="clock"></div>
+
+      <!--   TOOLTIP   -->
+      <p class="tooltip">Use arrow keys to navigate</p>
+      <p class="select">press ENTER to Select</p>
+
+      <!--   BACKGROUND: LIGHT RAYS, SPARKLES, GLOW   -->
+      <div class="light-rays-wrapper">
+        <div class="light-rays"></div>
+      </div>
+      <div class="sparkle-field" id="sparkleField"></div>
+      <div class="light"></div>
+
+      <!-- Smile :) 
+      <div class="circle"></div>
+      <div class="eyes"></div>
+      <div class="mouth"></div>
+      <div class="eyebrow-left"></div>
+      <div class="eyebrow-right"></div>
+      -->
     </div>
 
-    <p class="start-info-text">Press the LJ button to view your profile</p>
-
-    <a href="profile.html" class="button-wrap">
-      <div class="button-start">
-        <span class="button-label">LJ</span>
-      </div>
-      <span class="ring ring-thick"></span>
-      <span class="ring ring-thin"></span>
-    </a>
-
-    <div class="sparkle-field" id="sparkleField"></div>
-
-    <div class="light"></div>
-
-    <!-- Smile :) 
-    <div class="circle"></div>
-    <div class="eyes"></div>
-    <div class="mouth"></div>
-    <div class="eyebrow-left"></div>
-    <div class="eyebrow-right"></div>
-    -->
     <script src="script.js"></script>
   </body>
 </html>

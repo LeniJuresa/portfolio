@@ -1,0 +1,305 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #0d0f18;
+}
+
+.scene-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: center center;
+}
+
+.root-start {
+  background-color: #0d0f18;
+}
+
+/*
+Profile page
+*/
+
+.clock {
+  position: absolute;
+  z-index: 1;
+  top: 8%;
+  right: 4%;
+  font-family:
+    "SF Pro Display",
+    "Segoe UI",
+    Roboto,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  color: #f5f5f5ec;
+  letter-spacing: 0.5px;
+}
+
+/* top-left navigation bar */
+.nav-bar {
+  position: absolute;
+  z-index: 3;
+  top: 60px;
+  left: 5%;
+  display: flex;
+  gap: 40px;
+}
+
+.nav-tab {
+  background: none;
+  border: none;
+  padding: 0 0 8px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 30px;
+  font-weight: 200;
+  color: #f5f5f5;
+  opacity: 0.5;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition:
+    opacity 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.nav-tab:hover {
+  opacity: 0.8;
+}
+
+.nav-tab.active {
+  opacity: 1;
+  font-weight: 400;
+}
+
+/* view switching — only the .profile-selector with .active-view shows */
+.profile-selector.view {
+  display: none;
+}
+
+.profile-selector.view.active-view {
+  display: flex;
+}
+
+/* profile page selector*/
+.profile_ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+.profile-selector {
+  position: relative;
+  z-index: 1;
+  right: 10%;
+  top: 100px;
+  width: 100%;
+  height: 800px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.profile-track {
+  position: absolute;
+  left: 20%;
+  top: 5%;
+  display: flex;
+  gap: 20px; 
+  transition: transform 0.35s ease;
+}
+
+.profile-card {
+  width: 180px;
+  height: 180px;
+  border-radius: 20%;
+  background: #6b6b6c;
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 90px;
+  font-weight: 350;
+  font-family: sans-serif;
+  flex-shrink: 0;
+
+  --scale: 0.85; 
+  transform-origin: top left; 
+  margin-right: calc(180px * (var(--scale) - 1));
+
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    margin-right 0.35s ease,
+    box-shadow 0.25s ease;
+
+  opacity: 0.5;
+  transform: scale(var(--scale));
+}
+
+.profile-card.active {
+  --scale: 1.15;
+  opacity: 1;
+}
+
+.profile-card::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 20%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.profile-card.active::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.profile-card--photo {
+  background-size: cover;
+  background-position: center;
+  background-color: #6b6b6c;
+}
+
+.profile-item {
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  position: absolute;
+  right: -40%; 
+  left: calc(100% + 20px);
+  top: calc(
+    125px * 1.15 + 20px
+  ); 
+  display: inline-flex;
+  align-items: left;
+  gap: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-weight: 200;
+  color: #f5f5f5;
+  opacity: 0; 
+  transform: scale(0.8);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+  text-align: right;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.name-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.profile-track .profile-item:has(.profile-card.active) .profile-name {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.ease-in {
+  opacity: 0;
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.2s ease-out;
+}
+
+.ease-in.appear {
+  opacity: 1;
+}
+
+.profile-card {
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.profile-card:hover {
+  box-shadow: 0 0 24px 6px rgba(179, 179, 179, 0.829);
+}
+
+/*  Smile :)
+.circle {
+  width: 300px;
+  height: 300px;
+  background-color: rgb(251, 255, 11);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.eyes {
+  width: 40px;
+  height: 50px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+  position: absolute;
+  top: 47%;
+  left: 46%;
+  transform: translate(-50%, -50%);
+  box-shadow: 120px 0px 0px rgb(0, 0, 0);
+}
+
+.mouth {
+  width: 150px;
+  height: 100px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 10px 10px 100px 100px;
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, 0); 
+}
+
+.eyebrow-left {
+  width: 40px;
+  height: 20px;
+  background-color: black;
+  position: absolute;
+  top: 38%;
+  left: 45.5%;
+  transform: translate(-50%, -50%);
+  rotate: -20deg;
+}
+
+.eyebrow-right {
+  width: 40px;
+  height: 20px;
+  background-color: black;
+  position: absolute;
+  top: 40%;
+  left: 54.5%;
+  transform: translate(-50%, -50%);
+  rotate: 20deg;
+}
+
+*/

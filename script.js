@@ -116,7 +116,7 @@ function pointOnDiagonal(t) {
 }
 
 const field = document.getElementById("sparkleField");
-const NUM_SPARKLES = 300;
+const NUM_SPARKLES = 200;
 
 for (let i = 0; i < NUM_SPARKLES; i++) {
   const t = rand(0, 1);
@@ -202,6 +202,14 @@ document.addEventListener("keydown", (e) => {
     moveSelector(1);
   } else if (e.key === "ArrowLeft") {
     moveSelector(-1);
+  } else if (e.key === "Enter") {
+    const activeCard = cards[currentIndex];
+    const activeItem = activeCard.closest(".profile-item");
+    const destination = activeItem.dataset.href;
+
+    if (destination) {
+      window.location.href = destination;
+    }
   }
 });
 
@@ -227,5 +235,22 @@ window.addEventListener("load", () => {
     setTimeout(() => {
       el.classList.add("appear");
     }, i * 120); // each one starts 120ms after the previous
+  });
+});
+
+cards.forEach((card, i) => {
+  card.addEventListener("click", () => {
+    if (i === currentIndex) {
+      // already selected — this click means "open it"
+      const item = card.closest(".profile-item");
+      const destination = item.dataset.href;
+      if (destination) {
+        window.location.href = destination;
+      }
+    } else {
+      // not selected yet — this click just moves it to center
+      currentIndex = i;
+      updateSelector();
+    }
   });
 });

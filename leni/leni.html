@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="style_profile.css" />
+  </head>
+
+  <body class="root-start">
+    <div class="scene-wrapper">
+      <!--   NAV BAR   -->
+      <nav class="nav-bar ease-in" id="navBar">
+        <button class="nav-tab active" type="button" data-view="projects">
+          Projects
+        </button>
+        <button class="nav-tab" type="button" data-view="media">Media</button>
+      </nav>
+
+      <!-- picture example-
+          <div class="profile-item ease-in" data-href="profiles/recruiter.html">
+            <div
+              class="profile-card profile-card--photo"
+              style="
+                background-image: url(&quot;../assets/images/default.png&quot;);
+              "
+            ></div>
+            <span class="profile-name">Recruiter</span>
+          </div>-->
+
+      <!--   PROFILE SELECTOR — PROJECTS   -->
+      <div class="profile-selector view active-view" data-view="projects">
+        <div class="profile-track ease-in" id="profileTrack-projects">
+          <!-- Add User -->
+          <div class="profile-item">
+            <div class="profile-card">$</div>
+            <span class="profile-name">Store </span>
+          </div>
+
+          <div class="profile-item">
+            <div class="profile-card">+</div>
+            <span class="profile-name"
+              >Welcome<img
+                src="../assets/icons/badge.svg"
+                alt="PS Plus"
+                class="name-icon"
+            /></span>
+          </div>
+
+          <!-- Leni -->
+          <div
+            class="profile-item ease-in"
+            data-href="profiles/leni/leniprofile.html"
+          >
+            <div class="profile-card">1</div>
+            <span class="profile-name"> Project 1 </span>
+          </div>
+
+          <!-- Recruiter -->
+          <div class="profile-item">
+            <div class="profile-card">2</div>
+            <span class="profile-name">Project 2</span>
+          </div>
+
+          <!-- Developer -->
+          <div class="profile-item">
+            <div class="profile-card">3</div>
+            <span class="profile-name">Project 3</span>
+          </div>
+
+          <!-- Guest -->
+          <div class="profile-item ease-in" data-href="profile/guest.html">
+            <div
+              class="profile-card profile-card--photo"
+              style="
+                background-image: url(&quot;../assets/images/default.png&quot;);
+              "
+            ></div>
+            <span class="profile-name">Guest</span>
+          </div>
+        </div>
+      </div>
+
+      <!--   PROFILE SELECTOR — MEDIA   -->
+      <div class="profile-selector view" data-view="media">
+        <div class="profile-track ease-in" id="profileTrack-media">
+          <!-- Add User -->
+          <div class="profile-item">
+            <div class="profile-card">-</div>
+            <span class="profile-name">project pictures</span>
+          </div>
+
+          <div class="profile-item">
+            <div class="profile-card">-</div>
+            <span class="profile-name"
+              >My profile<img
+                src="../assets/icons/badge.svg"
+                alt="PS Plus"
+                class="name-icon"
+            /></span>
+          </div>
+
+          <!-- Leni -->
+          <div
+            class="profile-item ease-in"
+            data-href="profiles/leni/leniprofile.html"
+          >
+            <div class="profile-card">-</div>
+            <span class="profile-name">pictures 2</span>
+          </div>
+
+          <!-- Recruiter -->
+          <div class="profile-item">
+            <div class="profile-card">-</div>
+            <span class="profile-name">pictures 3</span>
+          </div>
+
+          <!-- Developer -->
+          <div class="profile-item">
+            <div class="profile-card">-</div>
+            <span class="profile-name">pictures 4</span>
+          </div>
+
+          <!-- Guest -->
+          <div class="profile-item ease-in" data-href="profile/guest.html">
+            <div
+              class="profile-card profile-card--photo"
+              style="
+                background-image: url(&quot;../assets/images/default.png&quot;);
+              "
+            ></div>
+            <span class="profile-name">Guest</span>
+          </div>
+        </div>
+      </div>
+
+      <!--   CLOCK   -->
+      <div class="clock" id="clock"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
