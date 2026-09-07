@@ -22,7 +22,7 @@ body {
   background: linear-gradient(
     353deg,
     rgba(0, 0, 0, 1) 0%,
-    rgb(34, 25, 58) 100%
+    rgb(47, 25, 58) 100%
   );
 }
 
@@ -33,7 +33,7 @@ Profile page
 .clock {
   position: absolute;
   z-index: 1;
-  top: 8%;
+  top: 5%;
   right: 4%;
   font-family:
     "SF Pro Display",
@@ -42,17 +42,17 @@ Profile page
     -apple-system,
     BlinkMacSystemFont,
     sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 30px;
   color: #f5f5f5ec;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.8px;
 }
 
 /* top-left navigation bar */
 .nav-bar {
   position: absolute;
   z-index: 3;
-  top: 60px;
+  top: 5%;
   left: 5%;
   display: flex;
   gap: 40px;
@@ -88,8 +88,43 @@ Profile page
   display: none;
 }
 
+.profile-nav {
+  position: fixed;
+  left: 80%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #6b6b6c;
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+
+  font-family: sans-serif;
+  flex-shrink: 0;
+
+  border-bottom: 2px solid transparent;
+  transition:
+    opacity 0.25s ease,
+    border-color 0.25s ease;
+
+  opacity: 0.5;
+  transform: scale(var(--scale));
+}
+
+.profile-nav:hover {
+  opacity: 1;
+}
+
 .profile-selector.view.active-view {
   display: flex;
+}
+
+.profile-nav--photo {
+  background-size: cover;
+  background-position: center;
+  background-color: #6b6b6c;
 }
 
 /* profile page selector*/
