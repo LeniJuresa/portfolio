@@ -8,191 +8,239 @@
   </head>
 
   <body class="root-start">
-    <div class="scene-wrapper">
-      <!--   NAV BAR   -->
-      <nav class="nav-bar ease-in" id="navBar">
-        <button class="nav-tab active" type="button" data-view="projects">
-          Projects
-        </button>
-        <button class="nav-tab" type="button" data-view="media">Media</button>
+    <!-- ================= 1. HERO ================= -->
+    <div class="hero">
+      <div class="scene-wrapper">
+        <!-- ---- Nav bar: Projects/Media tabs + profile switcher ---- -->
 
-        <!--profile selection button-->
-        <div class="profile-nav-wrapper">
-          <button
-            class="profile-nav profile-nav--photo"
-            type="button"
-            id="profileNavButton"
-            aria-haspopup="true"
-            aria-expanded="false"
-            style="
-              background-image: url(&quot;../assets/images/leni_funny.jpg&quot;);
-            "
-          ></button>
+        <nav class="nav-bar ease-in" id="navBar">
+          <button class="nav-tab active" type="button" data-view="projects">
+            Projects
+          </button>
+          <button class="nav-tab" type="button" data-view="media">Media</button>
 
-          <div class="profile-menu" id="profileMenu">
-            <span class="profile-menu-item current" aria-current="page">
-              <span
-                class="profile-menu-avatar"
-                style="
-                  background-image: url(&quot;../assets/images/leni_funny.jpg&quot;);
-                "
-              ></span>
-              Leni Juresa
-            </span>
-            <a class="profile-menu-item" href="../recruiter/recruiter.html">
-              <span
-                class="profile-menu-avatar"
+          <!-- profile switcher (avatar button + dropdown) -->
+          <div class="profile-nav-wrapper">
+            <button
+              class="profile-nav profile-nav--photo"
+              type="button"
+              id="profileNavButton"
+              aria-haspopup="true"
+              aria-expanded="false"
+              style="
+                background-image: url(&quot;../assets/images/leni_funny.jpg&quot;);
+              "
+            ></button>
+
+            <div class="profile-menu" id="profileMenu">
+              <span class="profile-menu-item current" aria-current="page">
+                <span
+                  class="profile-menu-avatar"
+                  style="
+                    background-image: url(&quot;../assets/images/leni_funny.jpg&quot;);
+                  "
+                ></span>
+                Leni Juresa
+              </span>
+              <a class="profile-menu-item" href="../recruiter/recruiter.html">
+                <span
+                  class="profile-menu-avatar"
+                  style="
+                    background-image: url(&quot;../assets/images/default.png&quot;);
+                  "
+                ></span>
+                Recruiter
+              </a>
+              <a class="profile-menu-item" href="../developer/developer.html">
+                <span
+                  class="profile-menu-avatar"
+                  style="
+                    background-image: url(&quot;../assets/images/default.png&quot;);
+                  "
+                ></span>
+                Developer
+              </a>
+              <a class="profile-menu-item" href="../guest/guest.html">
+                <span
+                  class="profile-menu-avatar"
+                  style="
+                    background-image: url(&quot;../assets/images/default.png&quot;);
+                  "
+                ></span>
+                Guest
+              </a>
+              <a class="profile-menu-item" href="../index.html">log out</a>
+            </div>
+          </div>
+        </nav>
+
+        <!-- ---- Card selector: PROJECTS tab ---- -->
+        <div class="profile-selector view active-view" data-view="projects">
+          <div class="profile-track ease-in" id="profileTrack-projects">
+            <!-- Discover -->
+            <div
+              class="profile-item"
+              data-title="Discover"
+              data-desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            >
+              <div class="profile-card">D</div>
+              <span class="profile-name">Discover </span>
+            </div>
+
+            <!-- Welcome (default selected on load) -->
+            <div
+              class="profile-item"
+              data-title="Welcome"
+              data-desc="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            >
+              <div class="profile-card">W</div>
+              <span class="profile-name"
+                >Welcome<img
+                  src="../assets/icons/badge.svg"
+                  alt="PS Plus"
+                  class="name-icon"
+              /></span>
+            </div>
+
+            <!-- Project 1 -->
+            <div
+              class="profile-item ease-in"
+              data-href="profiles/leni/leniprofile.html"
+              data-title="Project 1"
+              data-desc="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."
+            >
+              <div class="profile-card">1</div>
+              <span class="profile-name"> Project 1 </span>
+            </div>
+
+            <!-- Project 2 -->
+            <div
+              class="profile-item"
+              data-title="Project 2"
+              data-desc="Sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, ut interdum tellus elit sed risus."
+            >
+              <div class="profile-card">2</div>
+              <span class="profile-name">Project 2</span>
+            </div>
+
+            <!-- Project 3 -->
+            <div
+              class="profile-item"
+              data-title="Project 3"
+              data-desc="Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+            >
+              <div class="profile-card">3</div>
+              <span class="profile-name">Project 3</span>
+            </div>
+
+            <!-- Guest -->
+            <div
+              class="profile-item ease-in"
+              data-title="Guest"
+              data-desc="Per inceptos himenaeos. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor."
+            >
+              <div
+                class="profile-card profile-card--photo"
                 style="
                   background-image: url(&quot;../assets/images/default.png&quot;);
                 "
-              ></span>
-              Recruiter
-            </a>
-            <a class="profile-menu-item" href="../developer/developer.html">
-              <span
-                class="profile-menu-avatar"
-                style="
-                  background-image: url(&quot;../assets/images/default.png&quot;);
-                "
-              ></span>
-              Developer
-            </a>
-            <a class="profile-menu-item" href="../guest/guest.html">
-              <span
-                class="profile-menu-avatar"
-                style="
-                  background-image: url(&quot;../assets/images/default.png&quot;);
-                "
-              ></span>
-              Guest
-            </a>
-            <a class="profile-menu-item" href="../index.html"> log out </a>
+              ></div>
+              <span class="profile-name">Guest</span>
+            </div>
           </div>
         </div>
-      </nav>
 
-      <!-- picture example-
-          <div class="profile-item ease-in" data-href="profiles/recruiter.html">
+        <!-- ---- Card selector: MEDIA tab ---- -->
+        <div class="profile-selector view" data-view="media">
+          <div class="profile-track ease-in" id="profileTrack-media">
+            <!-- Project pictures -->
             <div
-              class="profile-card profile-card--photo"
-              style="
-                background-image: url(&quot;../assets/images/default.png&quot;);
-              "
-            ></div>
-            <span class="profile-name">Recruiter</span>
-          </div>-->
+              class="profile-item"
+              data-title="Project pictures"
+              data-desc="Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus magna justo, lacinia eget consectetur sed."
+            >
+              <div class="profile-card">-</div>
+              <span class="profile-name">project pictures</span>
+            </div>
 
-      <!--   PROFILE SELECTOR — PROJECTS   -->
-      <div class="profile-selector view active-view" data-view="projects">
-        <div class="profile-track ease-in" id="profileTrack-projects">
-          <!-- Add User -->
-
-          <div class="profile-item">
-            <div class="profile-card">D</div>
-            <span class="profile-name">Discover </span>
-          </div>
-
-          <div class="profile-item">
-            <div class="profile-card">W</div>
-            <span class="profile-name"
-              >Welcome<img
-                src="../assets/icons/badge.svg"
-                alt="PS Plus"
-                class="name-icon"
-            /></span>
-          </div>
-
-          <!-- Leni -->
-          <div
-            class="profile-item ease-in"
-            data-href="profiles/leni/leniprofile.html"
-          >
-            <div class="profile-card">1</div>
-            <span class="profile-name"> Project 1 </span>
-          </div>
-
-          <!-- Recruiter -->
-          <div class="profile-item">
-            <div class="profile-card">2</div>
-            <span class="profile-name">Project 2</span>
-          </div>
-
-          <!-- Developer -->
-          <div class="profile-item">
-            <div class="profile-card">3</div>
-            <span class="profile-name">Project 3</span>
-          </div>
-
-          <!-- Guest -->
-          <div class="profile-item ease-in">
+            <!-- My profile -->
             <div
-              class="profile-card profile-card--photo"
-              style="
-                background-image: url(&quot;../assets/images/default.png&quot;);
-              "
-            ></div>
-            <span class="profile-name">Guest</span>
+              class="profile-item"
+              data-title="My profile"
+              data-desc="Convallis convallis tellus id interdum velit laoreet id donec ultrices. Nulla facilisi etiam dignissim diam quis enim lobortis."
+            >
+              <div class="profile-card">-</div>
+              <span class="profile-name"
+                >My profile<img
+                  src="../assets/icons/badge.svg"
+                  alt="PS Plus"
+                  class="name-icon"
+              /></span>
+            </div>
+
+            <!-- Pictures 2 -->
+            <div
+              class="profile-item ease-in"
+              data-href="profiles/leni/leniprofile.html"
+              data-title="Pictures 2"
+              data-desc="Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
+            >
+              <div class="profile-card">-</div>
+              <span class="profile-name">pictures 2</span>
+            </div>
+
+            <!-- Pictures 3 -->
+            <div
+              class="profile-item"
+              data-title="Pictures 3"
+              data-desc="Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae."
+            >
+              <div class="profile-card">-</div>
+              <span class="profile-name">pictures 3</span>
+            </div>
+
+            <!-- Pictures 4 -->
+            <div
+              class="profile-item"
+              data-title="Pictures 4"
+              data-desc="Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
+            >
+              <div class="profile-card">-</div>
+              <span class="profile-name">pictures 4</span>
+            </div>
+
+            <!-- Guest -->
+            <div
+              class="profile-item ease-in"
+              data-title="Guest"
+              data-desc="Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper nulla non metus auctor fringilla."
+            >
+              <div
+                class="profile-card profile-card--photo"
+                style="
+                  background-image: url(&quot;../assets/images/default.png&quot;);
+                "
+              ></div>
+              <span class="profile-name">Guest</span>
+            </div>
           </div>
         </div>
+
+        <!-- ---- Clock ---- -->
+        <div class="clock" id="clock"></div>
       </div>
-
-      <!--   PROFILE SELECTOR — MEDIA   -->
-      <div class="profile-selector view" data-view="media">
-        <div class="profile-track ease-in" id="profileTrack-media">
-          <!-- Add User -->
-          <div class="profile-item">
-            <div class="profile-card">-</div>
-            <span class="profile-name">project pictures</span>
-          </div>
-
-          <div class="profile-item">
-            <div class="profile-card">-</div>
-            <span class="profile-name"
-              >My profile<img
-                src="../assets/icons/badge.svg"
-                alt="PS Plus"
-                class="name-icon"
-            /></span>
-          </div>
-
-          <!-- Leni -->
-          <div
-            class="profile-item ease-in"
-            data-href="profiles/leni/leniprofile.html"
-          >
-            <div class="profile-card">-</div>
-            <span class="profile-name">pictures 2</span>
-          </div>
-
-          <!-- Recruiter -->
-          <div class="profile-item">
-            <div class="profile-card">-</div>
-            <span class="profile-name">pictures 3</span>
-          </div>
-
-          <!-- Developer -->
-          <div class="profile-item">
-            <div class="profile-card">-</div>
-            <span class="profile-name">pictures 4</span>
-          </div>
-
-          <!-- Guest -->
-          <div class="profile-item ease-in">
-            <div
-              class="profile-card profile-card--photo"
-              style="
-                background-image: url(&quot;../assets/images/default.png&quot;);
-              "
-            ></div>
-            <span class="profile-name">Guest</span>
-          </div>
-        </div>
-      </div>
-
-      <!--   CLOCK   -->
-      <div class="clock" id="clock"></div>
     </div>
 
+    <!-- ================= 2. CARD DETAIL ================= -->
+    <!-- Filled in by script.js from the selected card's data-title/data-desc -->
+    <section class="card-detail" id="cardDetail">
+      <div class="card-detail-inner">
+        <h2 class="card-detail-title" id="cardDetailTitle"></h2>
+        <p class="card-detail-text" id="cardDetailText"></p>
+      </div>
+    </section>
+
+    <!-- ================= 3. SCRIPTS ================= -->
     <script src="script.js"></script>
   </body>
 </html>

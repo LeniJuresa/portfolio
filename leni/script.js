@@ -12,7 +12,8 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-function createSelector(track) {
+
+function createSelector(track, onSelect) {
   const cards = Array.from(track.querySelectorAll(".profile-card"));
   const defaultIndex = Math.min(1, cards.length - 1);
   let currentIndex = defaultIndex;
@@ -31,6 +32,10 @@ function createSelector(track) {
       activeCard.offsetWidth / 2
     );
     track.style.transform = `translateX(${offset}px)`;
+
+    if (onSelect) {
+      onSelect(activeItem);
+    }
   }
 
   function moveSelector(direction) {
@@ -71,13 +76,33 @@ function createSelector(track) {
   return { updateSelector, moveSelector, activateCurrent, reset };
 }
 
-// One selector instance per tab.
+// Card detail panel (below the hero) — filled from the active card's
+// data-title / data-desc placeholder text.
+const cardDetailTitle = document.getElementById("cardDetailTitle");
+const cardDetailText = document.getElementById("cardDetailText");
+
+function updateCardDetail(item) {
+  if (!cardDetailTitle || !cardDetailText || !item) return;
+  cardDetailTitle.textContent = item.dataset.title || "";
+  cardDetailText.textContent = item.dataset.desc || "";
+}
+
+
 const selectors = {
-  projects: createSelector(document.getElementById("profileTrack-projects")),
-  media: createSelector(document.getElementById("profileTrack-media")),
+  projects: createSelector(
+    document.getElementById("profileTrack-projects"),
+    updateCardDetail,
+  ),
+  media: createSelector(
+    document.getElementById("profileTrack-media"),
+    updateCardDetail,
+  ),
 };
 
 let activeView = "projects";
+
+
+selectors[activeView].updateSelector();
 
 document.addEventListener("keydown", (e) => {
   const controller = selectors[activeView];

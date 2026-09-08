@@ -49,7 +49,7 @@ const SPARKLE_PRESETS = [
     size: 24,
     blurPct: 0.8,
     colorStrength: 0.1,
-    peakOpacity: 0.1,
+    peakOpacity: 0.2,
     weight: 5,
   },
 ];
