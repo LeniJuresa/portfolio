@@ -76,13 +76,23 @@ function createSelector(track, onSelect) {
   return { updateSelector, moveSelector, activateCurrent, reset };
 }
 
-// Card detail panel (below the hero) — filled from the active card's
-// data-title / data-desc placeholder text.
+const cardDetail = document.getElementById("cardDetail");
 const cardDetailTitle = document.getElementById("cardDetailTitle");
 const cardDetailText = document.getElementById("cardDetailText");
+const welcomeWidgets = document.getElementById("welcomeWidgets");
 
 function updateCardDetail(item) {
-  if (!cardDetailTitle || !cardDetailText || !item) return;
+  if (!item) return;
+
+  if (item.dataset.special === "welcome") {
+    if (cardDetail) cardDetail.classList.add("is-hidden");
+    if (welcomeWidgets) welcomeWidgets.classList.remove("is-hidden");
+    return;
+  }
+
+  if (welcomeWidgets) welcomeWidgets.classList.add("is-hidden");
+  if (cardDetail) cardDetail.classList.remove("is-hidden");
+  if (!cardDetailTitle || !cardDetailText) return;
   cardDetailTitle.textContent = item.dataset.title || "";
   cardDetailText.textContent = item.dataset.desc || "";
 }

@@ -79,7 +79,7 @@
           <div class="profile-track ease-in" id="profileTrack-projects">
             <!-- Discover -->
             <div
-              class="profile-item"
+              class="profile-item ease-in"
               data-title="Discover"
               data-desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             >
@@ -87,11 +87,12 @@
               <span class="profile-name">Discover </span>
             </div>
 
-            <!-- Welcome (default selected on load) -->
+            <!-- Welcome (default selected on load) — has its own widget grid
+                 below instead of the shared card-detail text panel -->
             <div
-              class="profile-item"
+              class="profile-item ease-in"
+              data-special="welcome"
               data-title="Welcome"
-              data-desc="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
             >
               <div class="profile-card">W</div>
               <span class="profile-name"
@@ -109,13 +110,13 @@
               data-title="Project 1"
               data-desc="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."
             >
-              <div class="profile-card">1</div>
-              <span class="profile-name"> Project 1 </span>
+              <div class="profile-card">L</div>
+              <span class="profile-name"> About me </span>
             </div>
 
             <!-- Project 2 -->
             <div
-              class="profile-item"
+              class="profile-item ease-in"
               data-title="Project 2"
               data-desc="Sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, ut interdum tellus elit sed risus."
             >
@@ -125,7 +126,7 @@
 
             <!-- Project 3 -->
             <div
-              class="profile-item"
+              class="profile-item ease-in"
               data-title="Project 3"
               data-desc="Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
             >
@@ -232,11 +233,49 @@
     </div>
 
     <!-- ================= 2. CARD DETAIL ================= -->
-    <!-- Filled in by script.js from the selected card's data-title/data-desc -->
+
     <section class="card-detail" id="cardDetail">
       <div class="card-detail-inner">
         <h2 class="card-detail-title" id="cardDetailTitle"></h2>
         <p class="card-detail-text" id="cardDetailText"></p>
+      </div>
+    </section>
+
+    <!-- ================= 2b. WELCOME WIDGETS ================= -->
+
+    <section class="widget-grid ease-in" id="welcomeWidgets">
+      <div class="widget-tile widget-tile--2">
+        <h3 class="widget-title">Welcome Back Leni</h3>
+        <p class="widget-text">
+          Browse the library above to see all of my projects. Head to Discover
+          to "pre-order" projects still in the works, or check the next card for
+          more about me. Switch to Media to see it all in action.
+        </p>
+      </div>
+
+      <div class="widget-tile widget-tile--1">
+        <h3 class="widget-title">Trophies</h3>
+        <p class="widget-text">IRL achivements like 2nd place hackathon...</p>
+      </div>
+
+      <div class="widget-tile widget-tile--1">
+        <h3 class="widget-title">Storage</h3>
+        <p class="widget-text">
+          Tech stack. showing what programing languages i know and which ones i know the best 
+        </p>
+      </div>
+
+      <div class="widget-tile widget-tile--1">
+        <h3 class="widget-title">Messages</h3>
+        <p class="widget-text">
+          Feedback from people, professors, someone who uses the apps..
+        </p>
+      </div>
+      <div class="widget-tile widget-tile--1">
+        <h3 class="widget-title">Latest activity</h3>
+        <p class="widget-text">
+          What project i'm working on right now.
+        </p>
       </div>
     </section>
 
