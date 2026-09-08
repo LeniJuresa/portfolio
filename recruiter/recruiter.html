@@ -15,13 +15,61 @@
           Projects
         </button>
         <button class="nav-tab" type="button" data-view="media">Media</button>
-        <button
-          class="profile-nav profile-nav--photo"
-          class="profile-card profile-card--photo"
-          style="
-            background-image: url(&quot;../assets/images/default.png&quot;);
-          "
-        ></button>
+
+        <!--profile selection button-->
+        <div class="profile-nav-wrapper">
+          <button
+            class="profile-nav profile-nav--photo"
+            type="button"
+            id="profileNavButton"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="
+              background-image: url(&quot;../assets/images/default.png&quot;);
+            "
+          ></button>
+
+          <div class="profile-menu" id="profileMenu">
+            <a class="profile-menu-item" href="../leni/leni.html">
+              <span
+                class="profile-menu-avatar"
+                style="
+                  background-image: url(&quot;../assets/images/leni_funny.jpg&quot;);
+                "
+              ></span>
+              Leni Juresa
+            </a>
+
+            <span class="profile-menu-item current" aria-current="page">
+              <span
+                class="profile-menu-avatar"
+                style="
+                  background-image: url(&quot;../assets/images/default.png&quot;);
+                "
+              ></span>
+              Recruiter
+            </span>
+
+            <a class="profile-menu-item" href="../developer/developer.html">
+              <span
+                class="profile-menu-avatar"
+                style="
+                  background-image: url(&quot;../assets/images/default.png&quot;);
+                "
+              ></span>
+              Developer
+            </a>
+            <a class="profile-menu-item" href="../guest/guest.html">
+              <span
+                class="profile-menu-avatar"
+                style="
+                  background-image: url(&quot;../assets/images/default.png&quot;);
+                "
+              ></span>
+              Guest
+            </a>
+          </div>
+        </div>
       </nav>
 
       <!-- picture example-
@@ -40,12 +88,12 @@
         <div class="profile-track ease-in" id="profileTrack-projects">
           <!-- Add User -->
           <div class="profile-item">
-            <div class="profile-card">$</div>
+            <div class="profile-card">S</div>
             <span class="profile-name">Store </span>
           </div>
 
           <div class="profile-item">
-            <div class="profile-card">+</div>
+            <div class="profile-card">W</div>
             <span class="profile-name"
               >Welcome<img
                 src="../assets/icons/badge.svg"

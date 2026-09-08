@@ -112,6 +112,36 @@ navTabs.forEach((tab) => {
   });
 });
 
+// Profile switcher dropdown
+const profileNavButton = document.getElementById("profileNavButton");
+const profileMenu = document.getElementById("profileMenu");
+
+if (profileNavButton && profileMenu) {
+  const setMenuOpen = (open) => {
+    profileMenu.classList.toggle("open", open);
+    profileNavButton.setAttribute("aria-expanded", String(open));
+  };
+
+  profileNavButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setMenuOpen(!profileMenu.classList.contains("open"));
+  });
+
+  // click anywhere outside the menu closes it
+  document.addEventListener("click", (e) => {
+    if (!profileMenu.classList.contains("open")) return;
+    if (!profileMenu.contains(e.target) && e.target !== profileNavButton) {
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      setMenuOpen(false);
+    }
+  });
+}
+
 function fitScene() {
   const wrapper = document.querySelector(".scene-wrapper");
   const scaleX = window.innerWidth / 1920;
