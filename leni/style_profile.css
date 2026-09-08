@@ -88,7 +88,6 @@ Profile page
   display: none;
 }
 
-
 .profile-nav-wrapper {
   position: fixed;
   z-index: 4;
@@ -191,7 +190,7 @@ Profile page
   opacity: 1;
   font-weight: 400;
   cursor: default;
-  background: rgba(255, 255, 255, 0.185);
+  background: rgba(43, 42, 42, 0.096);
   opacity: 1;
 }
 
@@ -203,7 +202,7 @@ Profile page
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #6b6b6c;
+  background-color: #29292b46;
   background-size: cover;
   background-position: center;
   flex-shrink: 0;
@@ -245,8 +244,8 @@ Profile page
 .profile-card {
   width: 180px;
   height: 180px;
-  border-radius: 20%;
-  background: #6b6b6c;
+  border-radius: 18%;
+  background: #00000088;
   color: #f5f5f5;
   display: flex;
   align-items: center;
@@ -279,8 +278,8 @@ Profile page
   content: "";
   position: absolute;
   inset: -5px;
-  border-radius: 22%;
-  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20%;
+  border: 1px solid rgba(255, 255, 255, 0.9);
   pointer-events: none;
   opacity: 0;
   transform: scale(0.9);
@@ -297,7 +296,7 @@ Profile page
 .profile-card--photo {
   background-size: cover;
   background-position: center;
-  background-color: #6b6b6c;
+  background-color: #00000088;
 }
 
 .profile-item {

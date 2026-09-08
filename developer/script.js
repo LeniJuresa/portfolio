@@ -146,7 +146,7 @@ function fitScene() {
   const wrapper = document.querySelector(".scene-wrapper");
   const scaleX = window.innerWidth / 1920;
   const scaleY = window.innerHeight / 1080;
-  const scale = Math.max(scaleX, scaleY); 
+  const scale = Math.min(scaleX, scaleY); // fit entirely inside the viewport, never crop
 
   wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }

@@ -12,7 +12,6 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-
 function createSelector(track) {
   const cards = Array.from(track.querySelectorAll(".profile-card"));
   const defaultIndex = Math.min(1, cards.length - 1);
@@ -56,7 +55,6 @@ function createSelector(track) {
       if (i === currentIndex) {
         activateCurrent();
       } else {
-
         currentIndex = i;
         updateSelector();
       }
@@ -146,7 +144,7 @@ function fitScene() {
   const wrapper = document.querySelector(".scene-wrapper");
   const scaleX = window.innerWidth / 1920;
   const scaleY = window.innerHeight / 1080;
-  const scale = Math.max(scaleX, scaleY); 
+  const scale = Math.min(scaleX, scaleY); // fit entirely inside the viewport, never crop
 
   wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }
@@ -162,6 +160,6 @@ window.addEventListener("load", () => {
   elements.forEach((el, i) => {
     setTimeout(() => {
       el.classList.add("appear");
-    }, i * 120); 
+    }, i * 120);
   });
 });
