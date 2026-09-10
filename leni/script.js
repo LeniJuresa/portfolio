@@ -12,7 +12,6 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-
 function createSelector(track, onSelect) {
   const cards = Array.from(track.querySelectorAll(".profile-card"));
   const defaultIndex = Math.min(1, cards.length - 1);
@@ -97,7 +96,6 @@ function updateCardDetail(item) {
   cardDetailText.textContent = item.dataset.desc || "";
 }
 
-
 const selectors = {
   projects: createSelector(
     document.getElementById("profileTrack-projects"),
@@ -111,10 +109,12 @@ const selectors = {
 
 let activeView = "projects";
 
-
 selectors[activeView].updateSelector();
 
 document.addEventListener("keydown", (e) => {
+  // don't hijack arrow/enter presses meant for a focused widget tile or popup
+  if (e.target.closest(".widget-tile, .widget-popup")) return;
+
   const controller = selectors[activeView];
   if (e.key === "ArrowRight") {
     controller.moveSelector(1);
@@ -178,10 +178,11 @@ if (profileNavButton && profileMenu) {
 function fitScene() {
   const wrapper = document.querySelector(".scene-wrapper");
   const scaleX = window.innerWidth / 1920;
-  const scaleY = window.innerHeight / 1080;
-  const scale = Math.min(scaleX, scaleY); // fit entirely inside the viewport, never crop
 
-  wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  const scaleY = window.innerHeight / 1080;
+  const scale = Math.min(scaleX, scaleY);
+
+  wrapper.style.transform = `translate(-50%, 0) scale(${scale})`;
 }
 
 fitScene();
@@ -198,3 +199,110 @@ window.addEventListener("load", () => {
     }, i * 120);
   });
 });
+
+// ==========================================================
+
+const widgetPopupContent = {
+  welcome: {
+    title: "Welcome to my portfolio! ",
+    body: `
+      <p>You've probably noticed by now, making this site i used inspiration from the PlayStation 5 UI. Browse it the same way: arrow keys work for switching between profiles just as well as your mouse, and everything clickable actually does something.</p>
+
+      <p>There are a few different profiles built for different people. Recruiter, Developer, Guest, and this one. They all cover my projects, but some go further into my personal or professional side, like hobbies and other things outside of work. Worth switching between them to see what's different.</p>
+
+      <p>A few things on this page do more than they let on. I won't say what... finding them is half the fun. ;)</p>
+
+      <p>I built this over a summer as a way to show off my projects without falling back on another plain list of links and screenshots. Hope you enjoy poking around.  </p>
+
+
+    `,
+  },
+  trophies: {
+    title: "Trophies",
+    body: `
+      <ul>
+        <li><strong>Platinum</strong> — built a Java app in real, everyday use by my church community.</li>
+        <li><strong>Gold</strong> — 2nd place, [hackathon name].</li>
+        <li><strong>Silver</strong> — [certification / course].</li>
+        <li><strong>Bronze</strong> — first finished solo project.</li>
+      </ul>
+    `,
+  },
+  storage: {
+    title: "Storage",
+    body: `
+      <p>What's actually taking up space — the languages and tools I use most, roughly ordered by how much I reach for them.</p>
+      <ul>
+        <li>Java — most real-world project experience</li>
+        <li>Python</li>
+        <li>HTML / CSS / JavaScript</li>
+        <li>[other tools]</li>
+      </ul>
+    `,
+  },
+  messages: {
+    title: "Messages",
+    body: `
+      <p>"Placeholder feedback quote — from a professor, classmate, or someone who actually uses one of my projects."</p>
+      <p>— [name, role]</p>
+    `,
+  },
+  activity: {
+    title: "Latest activity",
+    body: `
+      <p>Currently working on: [project name].</p>
+      <p>[A short note on what stage it's at, and what's next.]</p>
+    `,
+  },
+};
+
+const widgetPopupOverlay = document.getElementById("widgetPopupOverlay");
+const widgetPopupTitle = document.getElementById("widgetPopupTitle");
+const widgetPopupBody = document.getElementById("widgetPopupBody");
+const widgetPopupClose = document.getElementById("widgetPopupClose");
+
+if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
+  let lastFocusedTile = null;
+
+  function openWidgetPopup(key, triggerEl) {
+    const content = widgetPopupContent[key];
+    if (!content) return;
+
+    widgetPopupTitle.textContent = content.title;
+    widgetPopupBody.innerHTML = content.body;
+    widgetPopupOverlay.classList.add("open");
+    lastFocusedTile = triggerEl || null;
+    widgetPopupClose.focus();
+  }
+
+  function closeWidgetPopup() {
+    widgetPopupOverlay.classList.remove("open");
+    if (lastFocusedTile) lastFocusedTile.focus();
+  }
+
+  document.querySelectorAll(".widget-tile[data-popup]").forEach((tile) => {
+    tile.addEventListener("click", () => {
+      openWidgetPopup(tile.dataset.popup, tile);
+    });
+
+    tile.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openWidgetPopup(tile.dataset.popup, tile);
+      }
+    });
+  });
+
+  widgetPopupClose.addEventListener("click", closeWidgetPopup);
+
+  // click on the dark backdrop (not the card itself) closes it
+  widgetPopupOverlay.addEventListener("click", (e) => {
+    if (e.target === widgetPopupOverlay) closeWidgetPopup();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && widgetPopupOverlay.classList.contains("open")) {
+      closeWidgetPopup();
+    }
+  });
+}

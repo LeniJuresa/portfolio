@@ -11,17 +11,17 @@ body {
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 50vh; 
   overflow: hidden;
 }
 
 .scene-wrapper {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
   width: 1920px;
   height: 1080px;
-  transform-origin: center center;
+  transform-origin: top center;
 }
 
 .root-start {
@@ -378,7 +378,6 @@ Profile page
   width: 100%;
   min-height: 50vh;
   box-sizing: border-box;
-  margin-top: -30vh; 
   padding: 30px 10% 80px;
   background: transparent;
   color: #f5f5f5;
@@ -404,7 +403,6 @@ Profile page
   color: #f5f5f5cc;
 }
 
-
 .is-hidden {
   display: none !important;
 }
@@ -415,10 +413,9 @@ Profile page
 .widget-grid {
   width: 100%;
   box-sizing: border-box;
-  margin-top: -60vh; 
   padding: 30px 10% 80px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   background: transparent;
 }
@@ -460,11 +457,11 @@ Profile page
 
 .widget-tile--wide,
 .widget-tile--3 {
-  grid-column: span 3; 
+  grid-column: span 3;
 }
 
 .widget-tile--2 {
-  grid-column: span 2; 
+  grid-column: span 2;
 }
 
 .widget-title {
@@ -484,6 +481,131 @@ Profile page
   color: #f5f5f5aa;
 }
 
+/* widget tiles that open a popup get a pointer + a slightly stronger hover
+   so it reads as clickable */
+.widget-tile[data-popup] {
+  cursor: pointer;
+}
+
+.widget-tile[data-popup]:hover,
+.widget-tile[data-popup]:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+/* ==========================================================
+   WIDGET POPUP
+   One reusable modal, filled in per-tile by script.js. */
+.widget-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+
+  background: rgba(8, 8, 8, 0.801);
+  backdrop-filter: blur(4px);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.widget-popup-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.widget-popup {
+  position: relative;
+  width: 100%;
+  max-width: 1060px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 40px;
+
+  background: #1f2127ed;
+  border-radius: 18px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+
+  transform: translateY(10px) scale(0.98);
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+  opacity: 0;
+}
+
+.widget-popup-overlay.open .widget-popup {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.widget-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.widget-popup-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.widget-popup-title {
+  margin: 0 0 20px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #f5f5f5;
+}
+
+.widget-popup-body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #f5f5f5cc;
+}
+
+.widget-popup-body p {
+  margin: 0 0 16px 0;
+}
+
+.widget-popup-body p:last-child {
+  margin-bottom: 0;
+}
+
+.widget-popup-body ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.widget-popup-body li {
+  margin-bottom: 10px;
+}
+
+.widget-popup-body li:last-child {
+  margin-bottom: 0;
+}
+
+/** =========
+
+
+
+/** ===========
 /*  Smile :)
 .circle {
   width: 300px;

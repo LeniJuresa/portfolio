@@ -244,40 +244,92 @@
     <!-- ================= 2b. WELCOME WIDGETS ================= -->
 
     <section class="widget-grid ease-in" id="welcomeWidgets">
-      <div class="widget-tile widget-tile--2">
-        <h3 class="widget-title">Welcome Back Leni</h3>
+      <div
+        class="widget-tile widget-tile--2"
+        data-popup="welcome"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
+        <h3 class="widget-title">Welcome Back</h3>
         <p class="widget-text">
           Browse the library above to see all of my projects. Head to Discover
           to "pre-order" projects still in the works, or check the next card for
-          more about me. Switch to Media to see it all in action.
+          more about me. Switch to Media to see it all in action. Cards are
+          browsable using arrow keys or with your mouse. <br />
+          <strong>Click to see more!</strong>
         </p>
       </div>
 
-      <div class="widget-tile widget-tile--1">
+      <div
+        class="widget-tile widget-tile--1"
+        data-popup="trophies"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
         <h3 class="widget-title">Trophies</h3>
         <p class="widget-text">IRL achivements like 2nd place hackathon...</p>
       </div>
 
-      <div class="widget-tile widget-tile--1">
+      <div
+        class="widget-tile widget-tile--1"
+        data-popup="storage"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
         <h3 class="widget-title">Storage</h3>
         <p class="widget-text">
-          Tech stack. showing what programing languages i know and which ones i know the best 
+          Tech stack. showing what programing languages i know and which ones i
+          know the best
         </p>
       </div>
 
-      <div class="widget-tile widget-tile--1">
+      <div
+        class="widget-tile widget-tile--1"
+        data-popup="messages"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
         <h3 class="widget-title">Messages</h3>
         <p class="widget-text">
           Feedback from people, professors, someone who uses the apps..
         </p>
       </div>
-      <div class="widget-tile widget-tile--1">
+      <div
+        class="widget-tile widget-tile--1"
+        data-popup="activity"
+        tabindex="0"
+        role="button"
+        aria-haspopup="dialog"
+      >
         <h3 class="widget-title">Latest activity</h3>
-        <p class="widget-text">
-          What project i'm working on right now.
-        </p>
+        <p class="widget-text">What project i'm working on right now.</p>
       </div>
     </section>
+
+    <!-- ================= 2c. WIDGET POPUP ================= -->
+    <div class="widget-popup-overlay" id="widgetPopupOverlay">
+      <div
+        class="widget-popup"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="widgetPopupTitle"
+      >
+        <button
+          class="widget-popup-close"
+          id="widgetPopupClose"
+          type="button"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+        <h2 class="widget-popup-title" id="widgetPopupTitle"></h2>
+        <div class="widget-popup-body" id="widgetPopupBody"></div>
+      </div>
+    </div>
 
     <!-- ================= 3. SCRIPTS ================= -->
     <script src="script.js"></script>
