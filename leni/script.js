@@ -208,7 +208,7 @@ const widgetPopupContent = {
     body: `
       <p>You've probably noticed by now, making this site i used inspiration from the PlayStation 5 UI. Browse it the same way: arrow keys work for switching between profiles just as well as your mouse, and everything clickable actually does something.</p>
 
-      <p>There are a few different profiles built for different people. Recruiter, Developer, Guest, and this one. They all cover my projects, but some go further into my personal or professional side, like hobbies and other things outside of work. Worth switching between them to see what's different.</p>
+      <p>There are a few different profiles built for different people. They all cover my projects, but some go further into my personal or professional side, like hobbies and other things outside of work. Worth switching between them to see what's different.</p>
 
       <p>A few things on this page do more than they let on. I won't say what... finding them is half the fun. ;)</p>
 
@@ -250,8 +250,7 @@ const widgetPopupContent = {
   activity: {
     title: "Latest activity",
     body: `
-      <p>Currently working on: [project name].</p>
-      <p>[A short note on what stage it's at, and what's next.]</p>
+      <p>Connected github to this widget. Shows my github map aswell as my last updated repo.</p>
     `,
   },
 };
