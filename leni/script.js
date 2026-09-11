@@ -78,22 +78,65 @@ function createSelector(track, onSelect) {
 const cardDetail = document.getElementById("cardDetail");
 const cardDetailTitle = document.getElementById("cardDetailTitle");
 const cardDetailText = document.getElementById("cardDetailText");
-const welcomeWidgets = document.getElementById("welcomeWidgets");
+const widgetsPanel = document.getElementById("widgetsPanel");
+const cardBgLayers = [
+  document.getElementById("cardBgLayerA"),
+  document.getElementById("cardBgLayerB"),
+].filter(Boolean);
+let visibleBgLayerIndex = -1; // -1 = neither painted yet
+
+function updateCardBackground(item) {
+  if (!cardBgLayers.length) return;
+  const src = item && item.dataset.bg;
+
+  const nextIndex =
+    visibleBgLayerIndex === -1 ? 0 : (visibleBgLayerIndex + 1) % cardBgLayers.length;
+  const nextLayer = cardBgLayers[nextIndex];
+  const currentLayer =
+    visibleBgLayerIndex === -1 ? null : cardBgLayers[visibleBgLayerIndex];
+
+  nextLayer.style.setProperty(
+    "--card-bg-image",
+    src ? `url("${src}")` : "none",
+  );
+  nextLayer.classList.add("is-visible");
+  if (currentLayer) currentLayer.classList.remove("is-visible");
+
+  visibleBgLayerIndex = nextIndex;
+}
 
 function updateCardDetail(item) {
   if (!item) return;
 
-  if (item.dataset.special === "welcome") {
+  updateCardBackground(item);
+
+  // any card can define its own widgets by nesting a
+  // <template class="card-widgets"> inside it — if one's present, its
+  // content replaces the shared widgets panel and the text panel hides;
+  // otherwise the plain text panel is used as before
+  const widgetsTemplate = item.querySelector(".card-widgets");
+  if (widgetsTemplate) {
     if (cardDetail) cardDetail.classList.add("is-hidden");
-    if (welcomeWidgets) welcomeWidgets.classList.remove("is-hidden");
+    if (widgetsPanel) {
+      widgetsPanel.innerHTML = widgetsTemplate.innerHTML;
+      widgetsPanel.classList.remove("is-hidden");
+    }
     return;
   }
 
-  if (welcomeWidgets) welcomeWidgets.classList.add("is-hidden");
+  if (widgetsPanel) widgetsPanel.classList.add("is-hidden");
   if (cardDetail) cardDetail.classList.remove("is-hidden");
   if (!cardDetailTitle || !cardDetailText) return;
   cardDetailTitle.textContent = item.dataset.title || "";
-  cardDetailText.textContent = item.dataset.desc || "";
+
+  // prefer a <template class="profile-desc"> for styled/HTML descriptions;
+  // fall back to the plain data-desc attribute for cards that still use it
+  const descTemplate = item.querySelector(".profile-desc");
+  if (descTemplate) {
+    cardDetailText.innerHTML = descTemplate.innerHTML;
+  } else {
+    cardDetailText.textContent = item.dataset.desc || "";
+  }
 }
 
 const selectors = {
@@ -217,6 +260,12 @@ const widgetPopupContent = {
 
     `,
   },
+  fact: {
+    title: "fact ",
+    body: `hello
+
+    `,
+  },
   trophies: {
     title: "Trophies",
     body: `
@@ -279,17 +328,18 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
     if (lastFocusedTile) lastFocusedTile.focus();
   }
 
-  document.querySelectorAll(".widget-tile[data-popup]").forEach((tile) => {
-    tile.addEventListener("click", () => {
-      openWidgetPopup(tile.dataset.popup, tile);
-    });
 
-    tile.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openWidgetPopup(tile.dataset.popup, tile);
-      }
-    });
+  document.addEventListener("click", (e) => {
+    const tile = e.target.closest(".widget-tile[data-popup]");
+    if (tile) openWidgetPopup(tile.dataset.popup, tile);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const tile = e.target.closest(".widget-tile[data-popup]");
+    if (tile && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      openWidgetPopup(tile.dataset.popup, tile);
+    }
   });
 
   widgetPopupClose.addEventListener("click", closeWidgetPopup);
