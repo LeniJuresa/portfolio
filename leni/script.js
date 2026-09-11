@@ -1,3 +1,12 @@
+
+window.addEventListener(
+  "wheel",
+  (e) => {
+    if (e.ctrlKey) e.preventDefault();
+  },
+  { passive: false },
+);
+
 function updateClock() {
   const now = new Date();
   let hours = now.getHours();
@@ -110,10 +119,7 @@ function updateCardDetail(item) {
 
   updateCardBackground(item);
 
-  // any card can define its own widgets by nesting a
-  // <template class="card-widgets"> inside it — if one's present, its
-  // content replaces the shared widgets panel and the text panel hides;
-  // otherwise the plain text panel is used as before
+
   const widgetsTemplate = item.querySelector(".card-widgets");
   if (widgetsTemplate) {
     if (cardDetail) cardDetail.classList.add("is-hidden");
@@ -129,8 +135,7 @@ function updateCardDetail(item) {
   if (!cardDetailTitle || !cardDetailText) return;
   cardDetailTitle.textContent = item.dataset.title || "";
 
-  // prefer a <template class="profile-desc"> for styled/HTML descriptions;
-  // fall back to the plain data-desc attribute for cards that still use it
+  
   const descTemplate = item.querySelector(".profile-desc");
   if (descTemplate) {
     cardDetailText.innerHTML = descTemplate.innerHTML;

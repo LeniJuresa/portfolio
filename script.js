@@ -1,4 +1,12 @@
 // AI vv
+window.addEventListener(
+  "wheel",
+  (e) => {
+    if (e.ctrlKey) e.preventDefault();
+  },
+  { passive: false },
+);
+
 function rand(min, max) {
   return Math.random() * (max - min) + min;
 }
