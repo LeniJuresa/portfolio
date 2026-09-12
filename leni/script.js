@@ -1,4 +1,3 @@
-
 window.addEventListener(
   "wheel",
   (e) => {
@@ -99,7 +98,9 @@ function updateCardBackground(item) {
   const src = item && item.dataset.bg;
 
   const nextIndex =
-    visibleBgLayerIndex === -1 ? 0 : (visibleBgLayerIndex + 1) % cardBgLayers.length;
+    visibleBgLayerIndex === -1
+      ? 0
+      : (visibleBgLayerIndex + 1) % cardBgLayers.length;
   const nextLayer = cardBgLayers[nextIndex];
   const currentLayer =
     visibleBgLayerIndex === -1 ? null : cardBgLayers[visibleBgLayerIndex];
@@ -119,7 +120,6 @@ function updateCardDetail(item) {
 
   updateCardBackground(item);
 
-
   const widgetsTemplate = item.querySelector(".card-widgets");
   if (widgetsTemplate) {
     if (cardDetail) cardDetail.classList.add("is-hidden");
@@ -135,7 +135,6 @@ function updateCardDetail(item) {
   if (!cardDetailTitle || !cardDetailText) return;
   cardDetailTitle.textContent = item.dataset.title || "";
 
-  
   const descTemplate = item.querySelector(".profile-desc");
   if (descTemplate) {
     cardDetailText.innerHTML = descTemplate.innerHTML;
@@ -160,8 +159,12 @@ let activeView = "projects";
 selectors[activeView].updateSelector();
 
 document.addEventListener("keydown", (e) => {
-  // don't hijack arrow/enter presses meant for a focused widget tile or popup
-  if (e.target.closest(".widget-tile, .widget-popup")) return;
+  // don't hijack arrow/enter presses meant for a focused widget tile,
+  // gallery photo, or an open popup
+  if (
+    e.target.closest(".widget-tile, .widget-popup, .gallery-item, .image-popup")
+  )
+    return;
 
   const controller = selectors[activeView];
   if (e.key === "ArrowRight") {
@@ -266,9 +269,21 @@ const widgetPopupContent = {
     `,
   },
   fact: {
-    title: "fact ",
-    body: `hello
-
+    title: "Unrelated to CS",
+    body: `<p>
+      I've been scuba diving for five years now, and I'm past 250 logged dives.
+      Diving was actually my first job, and I'm now a divemaster and
+      assistant instructor. That means teaching people to dive, leading
+      dive trips, and occasional underwater work, cleaning boat hulls or
+      helping recover sunken ones.
+    </p>
+    <p>
+      Piano has been part of my life for twelve years. I mostly gravitate
+      toward classical music and epic film scores, Hans Zimmer, John
+      Williams, Howard Shore, and Ludovico Einaudi are the composers I keep
+      coming back to. Lately I've been teaching myself film music
+      composition and slowly building a home studio for it.
+    </p>
     `,
   },
   trophies: {
@@ -333,7 +348,6 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
     if (lastFocusedTile) lastFocusedTile.focus();
   }
 
-
   document.addEventListener("click", (e) => {
     const tile = e.target.closest(".widget-tile[data-popup]");
     if (tile) openWidgetPopup(tile.dataset.popup, tile);
@@ -357,6 +371,59 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && widgetPopupOverlay.classList.contains("open")) {
       closeWidgetPopup();
+    }
+  });
+}
+
+
+
+const imagePopupOverlay = document.getElementById("imagePopupOverlay");
+const imagePopupImg = document.getElementById("imagePopupImg");
+const imagePopupClose = document.getElementById("imagePopupClose");
+
+if (imagePopupOverlay && imagePopupImg && imagePopupClose) {
+  let lastFocusedGalleryItem = null;
+
+  function openImagePopup(src, alt, triggerEl) {
+    imagePopupImg.src = src;
+    imagePopupImg.alt = alt || "";
+    imagePopupOverlay.classList.add("open");
+    lastFocusedGalleryItem = triggerEl || null;
+    imagePopupClose.focus();
+  }
+
+  function closeImagePopup() {
+    imagePopupOverlay.classList.remove("open");
+    imagePopupImg.src = "";
+    if (lastFocusedGalleryItem) lastFocusedGalleryItem.focus();
+  }
+
+  document.addEventListener("click", (e) => {
+    const item = e.target.closest(".gallery-item");
+    if (!item) return;
+    const img = item.querySelector("img");
+    if (img) openImagePopup(img.src, img.alt, item);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const item = e.target.closest(".gallery-item");
+    if (item && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      const img = item.querySelector("img");
+      if (img) openImagePopup(img.src, img.alt, item);
+    }
+  });
+
+  imagePopupClose.addEventListener("click", closeImagePopup);
+
+  // click on the dark backdrop (not the photo itself) closes it
+  imagePopupOverlay.addEventListener("click", (e) => {
+    if (e.target === imagePopupOverlay) closeImagePopup();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && imagePopupOverlay.classList.contains("open")) {
+      closeImagePopup();
     }
   });
 }

@@ -179,7 +179,6 @@
                 </div>
               </template>
             </div>
-
             <!-- About me -->
             <div
               class="profile-item ease-in"
@@ -199,28 +198,44 @@
                   class="name-icon"
               /></span>
               <template class="profile-desc">
-                <p>
-                  I'm Leni, and I'm studying Informatics at the Polytechnic of
-                  Rijeka, in Rijeka, Croatia. I'm building this site over summer
-                  break as practice with both frontend and backend work, while I
-                  prepare for internships. I mostly work in Java and SQL, though
-                  I've also used PHP, Flask, and JS depending on the project.
-                  The one with actual users is an app I built for my local
-                  church, it replaced around a hundred handwritten notes a month
-                  with a system for managing people's duties, schedules, and
-                  printed documents. Everything else, like EDMS, an anonymous
-                  police reporting system with live dispatcher chat, and a
-                  flask-based ISS tracker with a live map, I built for fun or
-                  for class. Diving was my first job. I started out helping at a
-                  local dive center five years ago, and I'm now past 250 logged
-                  dives. Outside of that, I'm into gaming, being outdoors, and
-                  pretty much anything to do with the sea. I've played piano for
-                  twelve years and I'm slowly building my own composing studio.
-                  I'm also putting together OpenSoundRijeka, a nonprofit that
-                  brings musicians together to form an orchestra and teaches
-                  music on the side. Cars are a newer interest. I've liked them
-                  for a long time, but only started actually learning how they
-                  work in the last two years.
+                <p class="text">
+                  Hey, I'm Leni. I'm an Informatics student at the Polytechnic
+                  of Rijeka, based in <strong>Rijeka</strong>, Croatia.I enjoy
+                  programing websites, both frontend and backend, and I dabble
+                  in software development here and there. My main tools are
+                  HTML, CSS, Python, JavaScript, Java, PHP, SQL, NoSQL Right now
+                  I'm building this portfolio over summer break as practice.
+                </p>
+
+                <p class="text">
+                  EDMS, an anonymous police reporting system with live
+                  dispatcher chat, is a project I'm very proud of. I built it
+                  during a student exchange, working as a two-person team, and
+                  handled the entire backend myself. The project with actual
+                  users is an app I built for my local church. It replaced
+                  around a hundred handwritten notes a month and saved countless
+                  hours of manual work with a system for managing people's
+                  duties, schedules, and printed documents. I've also built
+                  smaller things for fun or for a college course, like an ISS
+                  tracker using a Flask API, with a live map showing the
+                  station's location.
+                </p>
+
+                <p class="text">
+                  What actually got me into programming was gaming, wondering
+                  how the games I played were built and how their mechanics
+                  worked. That curiosity spread to everyday systems too. I'm
+                  still curious about how a string of 0s and 1s can end up
+                  controlling something physical. I enjoy backend work the most,
+                  actually making something function, but I like frontend just
+                  as much.
+                </p>
+
+                <p class="text">
+                  Right now my main focus is finishing my degree, and these
+                  projects are a big part of that. They're where I actually get
+                  to apply what I'm learning. If you want to see more of what
+                  I've built, here's my GitHub: https://github.com/LeniJuresa.
                 </p>
 
                 <div
@@ -231,13 +246,73 @@
                   aria-haspopup="dialog"
                   style="max-width: 320px; margin: 20px 0"
                 >
-                  <h3 class="widget-title">Quick fact</h3>
+                  <h3 class="widget-title">Some facts about me!</h3>
                   <p class="widget-text">
-                    A small widget sitting right in the middle of the text.
+                    Click me for some unrelated facts about me
                   </p>
                 </div>
 
-                <p>Hvala, Lijepi pozdrav<br />Doviđenja<br /></p>
+                <h3 class="widget-title" style="margin: 40px 0 16px">
+                  Gallery
+                </h3>
+                <div class="gallery-grid">
+                  <div
+                    class="gallery-item"
+                    tabindex="0"
+                    role="button"
+                    aria-haspopup="dialog"
+                  >
+                    <img
+                      src="../assets/galery/default.png"
+                      alt="Gallery photo 1"
+                    />
+                  </div>
+                  <div
+                    class="gallery-item"
+                    tabindex="0"
+                    role="button"
+                    aria-haspopup="dialog"
+                  >
+                    <img
+                      src="../assets/galery/default.png"
+                      alt="Gallery photo 2"
+                    />
+                  </div>
+
+                  <div
+                    class="gallery-item"
+                    tabindex="0"
+                    role="button"
+                    aria-haspopup="dialog"
+                  >
+                    <img
+                      src="../assets/galery/default.png"
+                      alt="Gallery photo 4"
+                    />
+                  </div>
+                  <div
+                    class="gallery-item"
+                    tabindex="0"
+                    role="button"
+                    aria-haspopup="dialog"
+                  >
+                    <img
+                      src="../assets/galery/default.png"
+                      alt="Gallery photo 5"
+                    />
+                  </div>
+                  <div
+                    class="gallery-item"
+                    tabindex="0"
+                    role="button"
+                    aria-haspopup="dialog"
+                  >
+                    <img
+                      src="../assets/galery/default.png"
+                      alt="Gallery photo 6"
+                    />
+                  </div>
+                </div>
               </template>
             </div>
 
@@ -401,6 +476,27 @@
         </button>
         <h2 class="widget-popup-title" id="widgetPopupTitle"></h2>
         <div class="widget-popup-body" id="widgetPopupBody"></div>
+      </div>
+    </div>
+
+    <!-- ================= 2d. IMAGE POPUP ================= -->
+    <!-- Reused by any .gallery-item, wherever one exists. -->
+    <div class="image-popup-overlay" id="imagePopupOverlay">
+      <div
+        class="image-popup"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image preview"
+      >
+        <button
+          class="image-popup-close"
+          id="imagePopupClose"
+          type="button"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+        <img id="imagePopupImg" src="" alt="" />
       </div>
     </div>
 
