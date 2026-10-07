@@ -251,7 +251,7 @@
                     Click me for some unrelated facts about me
                   </p>
                 </div>
-                <!-- Gallery example
+  <!-- Gallery 
                 <h3 class="widget-title" style="margin: 40px 0 16px">
                   Gallery
                 </h3>
@@ -286,7 +286,7 @@
                     aria-haspopup="dialog"
                   >
                     <img
-                      src="../assets/galery/default.png"
+                      src="../assets/galery/blender.png"
                       alt="Gallery photo 4"
                     />
                   </div>
@@ -308,7 +308,7 @@
                     aria-haspopup="dialog"
                   >
                     <img
-                      src="../assets/galery/default.png"
+                      src="../assets/galery/leni_funny.jpg"
                       alt="Gallery photo 6"
                     />
                   </div>
@@ -454,7 +454,7 @@
                     aria-haspopup="dialog"
                   >
                     <img
-                      src="../assets/galery/default.png"
+                      src="../assets/galery/leni_funny.jpg"
                       alt="Gallery photo 6"
                     />
                   </div>
@@ -562,6 +562,14 @@
     <!-- ================= 2d. IMAGE POPUP ================= -->
     <!-- Reused by any .gallery-item, wherever one exists. -->
     <div class="image-popup-overlay" id="imagePopupOverlay">
+      <button
+        class="image-popup-nav image-popup-prev"
+        id="imagePopupPrev"
+        type="button"
+        aria-label="Previous image"
+      >
+        &#10094;
+      </button>
       <div
         class="image-popup"
         role="dialog"
@@ -578,6 +586,14 @@
         </button>
         <img id="imagePopupImg" src="" alt="" />
       </div>
+      <button
+        class="image-popup-nav image-popup-next"
+        id="imagePopupNext"
+        type="button"
+        aria-label="Next image"
+      >
+        &#10095;
+      </button>
     </div>
 
     <!-- ================= 3. SCRIPTS ================= -->

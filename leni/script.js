@@ -380,13 +380,44 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
 const imagePopupOverlay = document.getElementById("imagePopupOverlay");
 const imagePopupImg = document.getElementById("imagePopupImg");
 const imagePopupClose = document.getElementById("imagePopupClose");
+const imagePopupPrev = document.getElementById("imagePopupPrev");
+const imagePopupNext = document.getElementById("imagePopupNext");
 
-if (imagePopupOverlay && imagePopupImg && imagePopupClose) {
+if (
+  imagePopupOverlay &&
+  imagePopupImg &&
+  imagePopupClose &&
+  imagePopupPrev &&
+  imagePopupNext
+) {
   let lastFocusedGalleryItem = null;
+  let galleryItems = [];
+  let currentGalleryIndex = -1;
+
+  function showGalleryImage(index) {
+    const item = galleryItems[index];
+    const img = item && item.querySelector("img");
+    if (!img) return;
+
+    currentGalleryIndex = index;
+    imagePopupImg.src = img.src;
+    imagePopupImg.alt = img.alt || "";
+    imagePopupImg.classList.remove("slide-from-left", "slide-from-right");
+  }
 
   function openImagePopup(src, alt, triggerEl) {
     imagePopupImg.src = src;
     imagePopupImg.alt = alt || "";
+    imagePopupImg.classList.remove("slide-from-left", "slide-from-right");
+    galleryItems = triggerEl
+      ? Array.from(
+          triggerEl.closest(".gallery-grid")?.querySelectorAll(".gallery-item") || [],
+        )
+      : [];
+    currentGalleryIndex = galleryItems.indexOf(triggerEl);
+    const canNavigate = galleryItems.length > 1;
+    imagePopupPrev.disabled = !canNavigate;
+    imagePopupNext.disabled = !canNavigate;
     imagePopupOverlay.classList.add("open");
     lastFocusedGalleryItem = triggerEl || null;
     imagePopupClose.focus();
@@ -395,7 +426,21 @@ if (imagePopupOverlay && imagePopupImg && imagePopupClose) {
   function closeImagePopup() {
     imagePopupOverlay.classList.remove("open");
     imagePopupImg.src = "";
+    galleryItems = [];
+    currentGalleryIndex = -1;
     if (lastFocusedGalleryItem) lastFocusedGalleryItem.focus();
+  }
+
+  function moveGalleryImage(direction) {
+    if (galleryItems.length < 2) return;
+    const nextIndex =
+      (currentGalleryIndex + direction + galleryItems.length) %
+      galleryItems.length;
+    showGalleryImage(nextIndex);
+    void imagePopupImg.offsetWidth;
+    imagePopupImg.classList.add(
+      direction > 0 ? "slide-from-right" : "slide-from-left",
+    );
   }
 
   document.addEventListener("click", (e) => {
@@ -415,6 +460,8 @@ if (imagePopupOverlay && imagePopupImg && imagePopupClose) {
   });
 
   imagePopupClose.addEventListener("click", closeImagePopup);
+  imagePopupPrev.addEventListener("click", () => moveGalleryImage(-1));
+  imagePopupNext.addEventListener("click", () => moveGalleryImage(1));
 
   // click on the dark backdrop (not the photo itself) closes it
   imagePopupOverlay.addEventListener("click", (e) => {
@@ -422,6 +469,16 @@ if (imagePopupOverlay && imagePopupImg && imagePopupClose) {
   });
 
   document.addEventListener("keydown", (e) => {
+    if (imagePopupOverlay.classList.contains("open")) {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        moveGalleryImage(-1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        moveGalleryImage(1);
+      }
+    }
+
     if (e.key === "Escape" && imagePopupOverlay.classList.contains("open")) {
       closeImagePopup();
     }

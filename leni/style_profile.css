@@ -753,6 +753,81 @@ Profile page
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
 }
 
+.image-popup img.slide-from-right {
+  animation: image-slide-from-right 240ms ease-out both;
+}
+
+.image-popup img.slide-from-left {
+  animation: image-slide-from-left 240ms ease-out both;
+}
+
+@keyframes image-slide-from-right {
+  from {
+    opacity: 0.5;
+    transform: translateX(48px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes image-slide-from-left {
+  from {
+    opacity: 0.5;
+    transform: translateX(-48px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-popup img.slide-from-right,
+  .image-popup img.slide-from-left {
+    animation-duration: 1ms;
+  }
+}
+
+.image-popup-nav {
+  position: fixed;
+  top: 50%;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(8, 8, 8, 0.6);
+  color: #f5f5f5;
+  font-size: 22px;
+  cursor: pointer;
+  transform: translateY(-50%);
+  z-index: 1;
+  transition: background 0.2s ease;
+}
+
+.image-popup-prev {
+  left: clamp(12px, 2vw, 32px);
+}
+
+.image-popup-next {
+  right: clamp(12px, 2vw, 32px);
+}
+
+.image-popup-nav:hover,
+.image-popup-nav:focus-visible {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.image-popup-nav:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
 .image-popup-close {
   position: absolute;
   top: -18px;
