@@ -6,6 +6,13 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #0d0f18;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .hero {
@@ -438,7 +445,7 @@ Profile page
 }
 
 .card-detail-inner {
-  max-width: 900px;
+  max-width: 100%;
 }
 
 .card-detail-title {
