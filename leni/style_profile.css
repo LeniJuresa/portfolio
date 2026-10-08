@@ -79,7 +79,7 @@ body::-webkit-scrollbar {
   background-position: center;
   background-repeat: no-repeat;
 
-  --card-bg-blur: 4px;
+  --card-bg-blur: 2px;
   filter: blur(var(--card-bg-blur));
   transform: scale(1.1);
 
@@ -501,7 +501,7 @@ Profile page
 }
 
 .widget-tile {
-  background: rgba(5, 5, 5, 0.689);
+  background: rgba(31, 31, 31, 0.788);
   border-radius: 15px;
   padding: 32px;
   box-sizing: border-box;
@@ -512,7 +512,7 @@ Profile page
 }
 
 .widget-tile:hover {
-  background: rgba(197, 192, 192, 0.5);
+  background: rgb(26, 26, 26);
   transform: translateY(-2px);
 }
 
@@ -528,18 +528,18 @@ Profile page
 .widget-title {
   margin: 0 0 14px 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 26px;
-  font-weight: 400;
+  font-size: 28px;
+  font-weight: 450;
   color: #f5f5f5;
 }
 
 .widget-text {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 300;
   line-height: 1.6;
-  color: #f5f5f5aa;
+  color: #ffffffe4;
 }
 
 /* widget tiles that open a popup get a pointer + a slightly stronger hover
@@ -552,6 +552,53 @@ Profile page
 .widget-tile[data-popup]:focus-visible {
   background: rgba(255, 255, 255, 0.1);
   outline: none;
+}
+
+/* ==========================================================
+   INFO WIDGET (static, non-clickable)
+ */
+.widget-info {
+  background: #212121;
+  background: linear-gradient(
+    270deg,
+    rgba(33, 33, 33, 0.922) 0%,
+    rgba(59, 59, 59, 0.915) 100%
+  );
+  border-radius: 15px;
+  padding: 32px;
+  box-sizing: border-box;
+  cursor: default;
+  /* no hover, transform, or transition: it's purely informational */
+}
+
+/* Optional: span helpers so it can fit any layout */
+.widget-info--2 {
+  grid-column: span 2;
+}
+
+.widget-info--3 {
+  grid-column: span 3;
+}
+
+/* Container for whatever you want to put inside */
+.widget-info__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Responsive: mirror what your tiles already do */
+@media (max-width: 900px) {
+  .widget-info--3 {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .widget-info--2,
+  .widget-info--3 {
+    grid-column: span 1;
+  }
 }
 
 /* ==========================================================
@@ -660,6 +707,54 @@ Profile page
 
 .widget-popup-body li:last-child {
   margin-bottom: 0;
+}
+
+/* ==========================================================
+   CONTACT BUTTONS (inside .widget-info)
+ */
+.contact-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.contact-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.contact-btn:hover,
+.contact-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  outline: none;
 }
 
 /* ==========================================================

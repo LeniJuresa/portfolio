@@ -108,9 +108,15 @@
               data-title="Welcome"
               data-bg="../assets/images/temp-bg-ai.jpg"
             >
+            
               <div class="profile-card">👋</div>
-              <span class="profile-name">Welcome</span>
+              <span class="profile-name">Welcome<img
+                  src="../assets/icons/badge.svg"
+                  alt="dev icon"
+                  class="name-icon"
+              /></span>
               <template class="card-widgets">
+                
                 <div
                   class="widget-tile widget-tile--2"
                   data-popup="welcome"
@@ -118,6 +124,7 @@
                   role="button"
                   aria-haspopup="dialog"
                 >
+                
                   <h3 class="widget-title">Welcome Back</h3>
                   <p class="widget-text">
                     Browse the library above to see all of my projects. Head to
@@ -127,6 +134,50 @@
                     or with your mouse. <br />
                     <strong>Click to see more!</strong>
                   </p>
+                  
+                </div>
+                
+                <div class="widget-info widget-info--1">
+                  <h3 class="widget-title">Contact</h3>
+                  <div class="widget-info__body">
+                    <p class="widget-text">Want to work together or just say hi? Reach out:</p>
+
+                    <div class="contact-buttons">
+                      <a
+                        class="contact-btn"
+                        href="https://www.linkedin.com/in/YOUR-USERNAME"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                          <rect x="2" y="9" width="4" height="12" />
+                          <circle cx="4" cy="4" r="2" />
+                        </svg>
+                        LinkedIn
+                      </a>
+
+                      <a
+                        class="contact-btn"
+                        href="https://github.com/YOUR-USERNAME"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                        </svg>
+                        GitHub
+                      </a>
+
+                      <a class="contact-btn" href="mailto:you@example.com">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                          <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                        Email
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
                 <div
@@ -136,37 +187,9 @@
                   role="button"
                   aria-haspopup="dialog"
                 >
-                  <h3 class="widget-title">Trophies</h3>
+                  <h3 class="widget-title">Achievements</h3>
                   <p class="widget-text">
                     IRL achivements like 2nd place hackathon...
-                  </p>
-                </div>
-
-                <div
-                  class="widget-tile widget-tile--1"
-                  data-popup="storage"
-                  tabindex="0"
-                  role="button"
-                  aria-haspopup="dialog"
-                >
-                  <h3 class="widget-title">Storage</h3>
-                  <p class="widget-text">
-                    Tech stack. showing what programing languages i know and
-                    which ones i know the best
-                  </p>
-                </div>
-
-                <div
-                  class="widget-tile widget-tile--1"
-                  data-popup="messages"
-                  tabindex="0"
-                  role="button"
-                  aria-haspopup="dialog"
-                >
-                  <h3 class="widget-title">Messages</h3>
-                  <p class="widget-text">
-                    Feedback from people, professors, someone who uses the
-                    apps..
                   </p>
                 </div>
                 <div
@@ -181,45 +204,49 @@
                     What project i'm working on right now.
                   </p>
                 </div>
+
+
+                <div class="widget-info widget-info--2">
+                  <h3 class="widget-title">Info widget</h3>
+                  <div class="widget-info__body">
+                    <p class="widget-text">
+                      This is a static info widget. It can be used to display
+                      information that doesn't require user interaction.
+                    </p>
+                  </div>
+                </div>
+
+                
               </template>
+              
             </div>
-            <!-- About me -->
+            <!-- Placeholder project  -->
             <div
               class="profile-item ease-in"
-              data-title="About me"
+              data-title="Project"
               data-bg="../assets/images/aboutme-temp-ai.jpg"
             >
               <div
                 class="profile-card profile-card--photo"
                 style="
-                  background-image: url(&quot;../assets/images/leni_funny.jpg&quot;);
+                  background-image: url(&quot;../assets/images/placeholder.svg&quot;);
                 "
               ></div>
               <span class="profile-name"
-                >About me<img
-                  src="../assets/icons/badge.svg"
-                  alt="dev icon"
-                  class="name-icon"
-              /></span>
+                >Project</span>
               <template class="profile-desc">
                 <p class="text">
                   
-Nibh sem sapien orci lacinia quis nibh porta leo velit felis consectetur nulla. In iaculis rhoncus ut mollis enim curabitur. Pretium nisi sed imperdiet quam at aliquam at condimentum lacinia. Aliquam duis et donec egestas cursus posuere viverra a scelerisque erat eu. Mi gravida arcu ornare eget sed nec in maximus tellus. Id duis sed nisl fusce.
+                Nibh sem sapien orci lacinia quis nibh porta leo velit felis consectetur nulla. In iaculis rhoncus ut mollis enim curabitur. Pretium nisi sed imperdiet quam at aliquam at condimentum lacinia. Aliquam duis et donec egestas cursus posuere viverra a scelerisque erat eu. Mi gravida arcu ornare eget sed nec in maximus tellus. Id duis sed nisl fusce.
 
-Velit tellus magna lacinia porttitor metus nisl volutpat turpis sit. Imperdiet arcu nunc sollicitudin urna. Blandit sed et nec eget aenean pellentesque augue aliquam sed eget duis feugiat. Maecenas lacus justo vitae cursus varius eget. Eget enim ipsum venenatis sit suscipit aenean fusce. Aliquam vestibulum eu sed sem dictum vestibulum.
+                Velit tellus magna lacinia porttitor metus nisl volutpat turpis sit. Imperdiet arcu nunc sollicitudin urna. Blandit sed et nec eget aenean pellentesque augue aliquam sed eget duis feugiat. Maecenas lacus justo vitae cursus varius eget. Eget enim ipsum venenatis sit suscipit aenean fusce. Aliquam vestibulum eu sed sem dictum vestibulum.
                 </p>
 
                 <p class="text">
                   Sit posuere convallis ante et vestibulum aliquam venenatis sed. Risus proin aenean non ante ac quis ipsum etiam nulla in pharetra. Gravida aliquam a nibh ipsum congue ex quam arcu turpis quis. Placerat accumsan ut non arcu lacus nunc mauris quis rutrum. Augue neque pretium lectus suspendisse ac fusce vestibulum semper posuere. Aliquam sem non sapien ac eleifend diam viverra. A egestas etiam pellentesque elementum facilisis ut consectetur quis quisque ultrices ipsum laoreet. Quisque aenean ex ornare mi consectetur rutrum est non ultrices nec quis nunc.
                 </p>
 
-                <p class="text">
-                  Ipsum luctus semper commodo vestibulum. Mattis etiam eget diam pellentesque eros cras eu sagittis eu. A sed nec justo nunc in pellentesque at curabitur. Ac sed venenatis ut non eros non vitae sagittis praesent dictum nunc.
-                </p>
 
-                <p class="text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum feugiat orci purus pulvinar ipsum iaculis donec elit varius sed ex. Arcu enim dolor elit vitae odio aliquam quis. Id eget et faucibus ac mattis sit mi. Fringilla morbi pretium diam finibus volutpat.
-                </p>
                 <!-- popup button-->
                 <div
                   class="widget-tile widget-tile--1"
@@ -235,8 +262,6 @@ Velit tellus magna lacinia porttitor metus nisl volutpat turpis sit. Imperdiet a
                     Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
                   </p>
                 </div>
-  
-
               </template>
             </div>
 
@@ -272,20 +297,20 @@ Velit tellus magna lacinia porttitor metus nisl volutpat turpis sit. Imperdiet a
               <span class="profile-name">Project 2</span>
             </div>
 
-            <!-- guest placeholder project 3 -->
+            <!-- Placeholder project 3 -->
             <div
               class="profile-item ease-in"
-              data-title="Guest"
+              data-title="Project 3"
               data-desc="Per inceptos himenaeos. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor."
-              data-bg="../assets/images/default.png"
+              data-bg="../assets/images/placeholder.svg"
             >
               <div
                 class="profile-card profile-card--photo"
                 style="
-                  background-image: url(&quot;../assets/images/default.png&quot;);
+                  background-image: url(&quot;../assets/images/placeholder.svg&quot;);
                 "
               ></div>
-              <span class="profile-name">Guest</span>
+              <span class="profile-name">Project 3</span>
             </div>
           </div>
         </div>
@@ -293,12 +318,12 @@ Velit tellus magna lacinia porttitor metus nisl volutpat turpis sit. Imperdiet a
         <!-- ! ---- Card selector: MEDIA tab ---- -->
         <div class="profile-selector view" data-view="media">
           <div class="profile-track ease-in" id="profileTrack-media">
-            <!-- Project pictures -->
+            <!-- Dog -->
             <div
               class="profile-item"
               data-title="placeholder"
               data-desc="Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
-              data-bg="../assets/images/bg-pictures4.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
               <div class="profile-card">Dog</div>
               <span class="profile-name">Placeholder dog</span>
@@ -363,6 +388,7 @@ Velit tellus magna lacinia porttitor metus nisl volutpat turpis sit. Imperdiet a
                   </div>
                   
                 </div>
+                
 
               </template>
             </div>
