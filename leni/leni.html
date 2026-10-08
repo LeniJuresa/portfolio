@@ -79,26 +79,30 @@
           </div>
         </nav>
 
-        <!-- ---- Card selector: PROJECTS tab ---- -->
+        <!-- ! ---- Card selector: PROJECTS tab ---- -->
         <div class="profile-selector view active-view" data-view="projects">
           <div class="profile-track ease-in" id="profileTrack-projects">
+
+
             <!-- Discover -->
             <div
               class="profile-item ease-in"
               data-title="Discover"
               data-desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-              data-bg="../assets/images/bg-discover.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
-              <div class="profile-card">🔍</div>
+              <!--  <div class="profile-card">🔍</div>  -->
+              <div
+                class="profile-card profile-card--photo"
+                style="
+                  background-image: url(&quot;../assets/images/placeholder.svg&quot;);
+                "
+              ></div>
+              
               <span class="profile-name">Discover </span>
             </div>
 
-            <!-- Welcome (default selected on load) — has its own widgets
-                 below instead of the shared card-detail text panel. Any
-                 card can do this: add a <template class="card-widgets">
-                 with your own <div class="widget-tile"> tiles inside it,
-                 and its widgets show up instead of the text panel when
-                 that card is selected. -->
+            <!-- Welcome  -->
             <div
               class="profile-item ease-in"
               data-title="Welcome"
@@ -199,45 +203,24 @@
               /></span>
               <template class="profile-desc">
                 <p class="text">
-                  Hey, I'm Leni. I'm an Informatics student at the Polytechnic
-                  of Rijeka, based in <strong>Rijeka</strong>, Croatia.I enjoy
-                  programing websites, both frontend and backend, and I dabble
-                  in software development here and there. My main tools are
-                  HTML, CSS, Python, JavaScript, Java, PHP, SQL, NoSQL Right now
-                  I'm building this portfolio over summer break as practice.
+                  
+Nibh sem sapien orci lacinia quis nibh porta leo velit felis consectetur nulla. In iaculis rhoncus ut mollis enim curabitur. Pretium nisi sed imperdiet quam at aliquam at condimentum lacinia. Aliquam duis et donec egestas cursus posuere viverra a scelerisque erat eu. Mi gravida arcu ornare eget sed nec in maximus tellus. Id duis sed nisl fusce.
+
+Velit tellus magna lacinia porttitor metus nisl volutpat turpis sit. Imperdiet arcu nunc sollicitudin urna. Blandit sed et nec eget aenean pellentesque augue aliquam sed eget duis feugiat. Maecenas lacus justo vitae cursus varius eget. Eget enim ipsum venenatis sit suscipit aenean fusce. Aliquam vestibulum eu sed sem dictum vestibulum.
                 </p>
 
                 <p class="text">
-                  EDMS, an anonymous police reporting system with live
-                  dispatcher chat, is a project I'm very proud of. I built it
-                  during a student exchange, working as a two-person team, and
-                  handled the entire backend myself. The project with actual
-                  users is an app I built for my local church. It replaced
-                  around a hundred handwritten notes a month and saved countless
-                  hours of manual work with a system for managing people's
-                  duties, schedules, and printed documents. I've also built
-                  smaller things for fun or for a college course, like an ISS
-                  tracker using a Flask API, with a live map showing the
-                  station's location.
+                  Sit posuere convallis ante et vestibulum aliquam venenatis sed. Risus proin aenean non ante ac quis ipsum etiam nulla in pharetra. Gravida aliquam a nibh ipsum congue ex quam arcu turpis quis. Placerat accumsan ut non arcu lacus nunc mauris quis rutrum. Augue neque pretium lectus suspendisse ac fusce vestibulum semper posuere. Aliquam sem non sapien ac eleifend diam viverra. A egestas etiam pellentesque elementum facilisis ut consectetur quis quisque ultrices ipsum laoreet. Quisque aenean ex ornare mi consectetur rutrum est non ultrices nec quis nunc.
                 </p>
 
                 <p class="text">
-                  What actually got me into programming was gaming, wondering
-                  how the games I played were built and how their mechanics
-                  worked. That curiosity spread to everyday systems too. I'm
-                  still curious about how a string of 0s and 1s can end up
-                  controlling something physical. I enjoy backend work the most,
-                  actually making something function, but I like frontend just
-                  as much.
+                  Ipsum luctus semper commodo vestibulum. Mattis etiam eget diam pellentesque eros cras eu sagittis eu. A sed nec justo nunc in pellentesque at curabitur. Ac sed venenatis ut non eros non vitae sagittis praesent dictum nunc.
                 </p>
 
                 <p class="text">
-                  Right now my main focus is finishing my degree, and these
-                  projects are a big part of that. They're where I actually get
-                  to apply what I'm learning. If you want to see more of what
-                  I've built, here's my GitHub: https://github.com/LeniJuresa.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum feugiat orci purus pulvinar ipsum iaculis donec elit varius sed ex. Arcu enim dolor elit vitae odio aliquam quis. Id eget et faucibus ac mattis sit mi. Fringilla morbi pretium diam finibus volutpat.
                 </p>
-
+                <!-- popup button-->
                 <div
                   class="widget-tile widget-tile--1"
                   data-popup="fact"
@@ -245,106 +228,56 @@
                   role="button"
                   aria-haspopup="dialog"
                   style="max-width: 320px; margin: 20px 0"
+                  
                 >
-                  <h3 class="widget-title">Some facts about me!</h3>
+                  <h3 class="widget-title">Lorem ipsum</h3>
                   <p class="widget-text">
-                    Click me for some unrelated facts about me
+                    Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
                   </p>
                 </div>
-  <!-- Gallery 
-                <h3 class="widget-title" style="margin: 40px 0 16px">
-                  Gallery
-                </h3>
-                <div class="gallery-grid">
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/default.png"
-                      alt="Gallery photo 1"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/default.png"
-                      alt="Gallery photo 2"
-                    />
-                  </div>
+  
 
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/blender.png"
-                      alt="Gallery photo 4"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/default.png"
-                      alt="Gallery photo 5"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/leni_funny.jpg"
-                      alt="Gallery photo 6"
-                    />
-                  </div>
-                </div>
--->
               </template>
             </div>
 
-            <!-- Project 1 -->
+            <!-- Placeholder project 1 -->
             <div
               class="profile-item ease-in"
               data-title="Project 1"
               data-desc="Sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, ut interdum tellus elit sed risus."
-              data-bg="../assets/images/bg-project1.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
-              <div class="profile-card">1</div>
+              <div
+                class="profile-card profile-card--photo"
+                style="
+                  background-image: url(&quot;../assets/images/placeholder.svg&quot;);
+                "
+              ></div>
               <span class="profile-name">EDMS</span>
             </div>
 
-            <!-- Project 2 -->
+            <!-- Placeholder project 2 -->
             <div
               class="profile-item ease-in"
               data-title="Project 2"
               data-desc="Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
-              data-bg="../assets/images/bg-project2.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
-              <div class="profile-card">2</div>
+              <div
+                class="profile-card profile-card--photo"
+                style="
+                  background-image: url(&quot;../assets/images/placeholder.svg&quot;);
+                "
+              ></div>
               <span class="profile-name">Project 2</span>
             </div>
 
-            <!-- guest placeholder -->
+            <!-- guest placeholder project 3 -->
             <div
               class="profile-item ease-in"
               data-title="Guest"
               data-desc="Per inceptos himenaeos. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor."
-              data-bg="../assets/images/bg-guest.jpg"
+              data-bg="../assets/images/default.png"
             >
               <div
                 class="profile-card profile-card--photo"
@@ -357,7 +290,7 @@
           </div>
         </div>
 
-        <!-- ---- Card selector: MEDIA tab ---- -->
+        <!-- ! ---- Card selector: MEDIA tab ---- -->
         <div class="profile-selector view" data-view="media">
           <div class="profile-track ease-in" id="profileTrack-media">
             <!-- Project pictures -->
@@ -434,10 +367,10 @@
               </template>
             </div>
 
-            <!-- My profile -->
-<div
+            <!--  My profile -->
+            <div
               class="profile-item"
-              data-title="My profile"
+              data-title="My life"
               data-desc="Convallis convallis tellus id interdum velit laoreet id donec ultrices. Nulla facilisi etiam dignissim diam quis enim lobortis."
               data-bg="../assets/images/leni_funny.jpg"
             >
@@ -508,10 +441,9 @@
             <!-- 3D -->
             <div
               class="profile-item ease-in"
-              data-href="profiles/leni/leniprofile.html"
               data-title="My Blender projects"
               data-desc="Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
-              data-bg="../assets/images/bg-pictures2.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
               <div
                 class="profile-card profile-card--photo"
@@ -590,7 +522,7 @@
               class="profile-item"
               data-title="My development projects"
               data-desc="Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae."
-              data-bg="../assets/images/bg-pictures3.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
               <div class="profile-card">💻</div>
               <span class="profile-name">Development</span>
@@ -677,7 +609,7 @@
               class="profile-item"
               data-title="placeholder"
               data-desc="Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
-              data-bg="../assets/images/bg-pictures4.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
               <div
                 class="profile-card profile-card--photo"
@@ -780,7 +712,7 @@
               class="profile-item"
               data-title="placeholder"
               data-desc="Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
-              data-bg="../assets/images/bg-pictures4.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
               <div
                 class="profile-card profile-card--photo"

@@ -269,20 +269,16 @@ const widgetPopupContent = {
     `,
   },
   fact: {
-    title: "Unrelated to CS",
+    title: "Lorem ipsum",
     body: `<p>
-      I've been scuba diving for five years now, and I'm past 250 logged dives.
-      Diving was actually my first job, and I'm now a divemaster and
-      assistant instructor. That means teaching people to dive, leading
-      dive trips, and occasional underwater work, cleaning boat hulls or
-      helping recover sunken ones.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ex velit dui risus nisl nunc. Duis justo felis auctor quisque sem. Lacus ligula justo ex leo justo ut.
+      Mauris justo est malesuada sollicitudin erat eu lectus nulla. Arcu volutpat vestibulum nulla suspendisse augue massa tortor pellentesque. Morbi vestibulum tellus iaculis ut diam rutrum vehicula ac neque id ligula. A porttitor sapien mi volutpat commodo tellus et lacinia eget eget. Consectetur donec mauris sodales scelerisque eleifend sit sed aenean in mollis lorem lectus. Id nisi vestibulum auctor amet in ac laoreet non nam viverra fermentum condimentum. Et vel vivamus sem viverra tempor tempor quam sit sed commodo nulla consectetur vel. Quis consectetur mauris at mauris.
+
     </p>
     <p>
-      Piano has been part of my life for twelve years. I mostly gravitate
-      toward classical music and epic film scores, Hans Zimmer, John
-      Williams, Howard Shore, and Ludovico Einaudi are the composers I keep
-      coming back to. Lately I've been teaching myself film music
-      composition and slowly building a home studio for it.
+      In faucibus feugiat amet ut quam a sapien at dolor suspendisse euismod quam. Luctus tellus nunc vitae ut diam felis. Proin aliquam magna ac eleifend vel egestas. Placerat et at lorem proin ut sagittis suspendisse varius neque eleifend nunc nisi.
+
+      Rhoncus sit quisque lacus egestas. Egestas libero donec euismod purus consectetur scelerisque at suscipit et mauris. Et sed eget consequat posuere. Nisi suscipit amet nisl porttitor condimentum et.
     </p>
     `,
   },
@@ -375,8 +371,6 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
   });
 }
 
-
-
 const imagePopupOverlay = document.getElementById("imagePopupOverlay");
 const imagePopupImg = document.getElementById("imagePopupImg");
 const imagePopupClose = document.getElementById("imagePopupClose");
@@ -411,7 +405,9 @@ if (
     imagePopupImg.classList.remove("slide-from-left", "slide-from-right");
     galleryItems = triggerEl
       ? Array.from(
-          triggerEl.closest(".gallery-grid")?.querySelectorAll(".gallery-item") || [],
+          triggerEl
+            .closest(".gallery-grid")
+            ?.querySelectorAll(".gallery-item") || [],
         )
       : [];
     currentGalleryIndex = galleryItems.indexOf(triggerEl);
