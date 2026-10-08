@@ -98,8 +98,38 @@
                   background-image: url(&quot;../assets/images/placeholder.svg&quot;);
                 "
               ></div>
-              
+
               <span class="profile-name">Discover </span>
+
+              <template class="card-widgets">
+                <div class="ps-store" id="psStore">
+                  <div class="ps-head">
+                    <div class="ps-brand">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                      Project Store <small>Everything is on sale!</small>
+                    </div>
+                    <div class="ps-filters" role="group" aria-label="Filter games">
+                      <button type="button" class="ps-chip active" data-act="filter" data-f="all">All</button>
+                      <button type="button" class="ps-chip" data-act="filter" data-f="out">Released</button>
+                      <button type="button" class="ps-chip" data-act="filter" data-f="soon">Coming soon</button>
+                      <button type="button" class="ps-chip" data-act="filter" data-f="lib">My library</button>
+                    </div>
+                  </div>
+
+                  <div id="psHero"></div>
+
+                  <h3 class="ps-section">Games</h3>
+                  <div class="ps-grid" id="psGrid"></div>
+                  <p class="ps-empty" id="psEmpty" hidden>Nothing here yet. Go grab something, it's free!</p>
+
+                  <div class="ps-overlay" id="psOverlay">
+                    <div class="ps-panel" id="psPanel" role="dialog" aria-modal="true" aria-labelledby="psTitle">
+                      <button class="ps-x" type="button" aria-label="Close" data-act="close">&times;</button>
+                      <div class="ps-scroll" id="psScroll"><div class="ps-body" id="psBody"></div></div>
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
 
             <!-- Welcome  -->
@@ -117,6 +147,7 @@
               /></span>
               <template class="card-widgets">
                 
+                
                 <div
                   class="widget-tile widget-tile--2"
                   data-popup="welcome"
@@ -125,7 +156,7 @@
                   aria-haspopup="dialog"
                 >
                 
-                  <h3 class="widget-title">Welcome Back</h3>
+                  <h3 class="widget-title">Welcome!</h3>
                   <p class="widget-text">
                     Browse the library above to see all of my projects. Head to
                     Discover to "pre-order" projects still in the works, or
@@ -223,6 +254,7 @@
             <!-- Placeholder project  -->
             <div
               class="profile-item ease-in"
+              data-project="test1"
               data-title="Project"
               data-bg="../assets/images/aboutme-temp-ai.jpg"
             >
