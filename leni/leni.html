@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leni Juresa</title>
     <link rel="stylesheet" href="style_profile.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap"
+  rel="stylesheet"
+/>
   </head>
 
   <body class="root-start">
@@ -118,7 +124,7 @@
 
                   <div id="psHero"></div>
 
-                  <h3 class="ps-section">Games</h3>
+                  <h3 class="ps-section">Projects</h3>
                   <div class="ps-grid" id="psGrid"></div>
                   <p class="ps-empty" id="psEmpty" hidden>Nothing here yet. Go grab something, it's free!</p>
 
@@ -138,16 +144,40 @@
               data-title="Welcome"
               data-bg="../assets/images/temp-bg-ai.jpg"
             >
-            
               <div class="profile-card">👋</div>
               <span class="profile-name">Welcome<img
                   src="../assets/icons/badge.svg"
                   alt="dev icon"
                   class="name-icon"
               /></span>
+
               <template class="card-widgets">
+
+                <!-- ===== TEXT ABOVE THE TILES (full width, not clickable) ===== -->
+              <div class="widget-intro">
+              <h2 class="widget-intro__title">Hi, I'm <span>Leni!</span></h2>
+
+              <p class="widget-intro__lead">
+                A 21 year old Informatics student based in
+                <mark class="widget-intro__mark">Rijeka, Croatia</mark>.<br />
+                <mark class="widget-intro__mark">Fullstack Web/Software developer</mark>
+                focusing on backend development with a little sprinkle of frontend :)
+              </p>
+
+              <div class="widget-intro__hint">
+
+                <p>
+                  Scroll through my projects using your mouse or Arrow keys. Go to the
+                  Media tab to view more about my projects or my life. You can also visit
+                  the <strong>"Store"</strong> to browse my upcoming projects! B)
+                </p>
+              </div>
+            </div>
+
+                  <!-- add more <p class="widget-intro__text"> lines, links or images here -->
                 
-                
+
+                <!-- ===== ABOUT ME (replaces the old Welcome tile) ===== -->
                 <div
                   class="widget-tile widget-tile--2"
                   data-popup="welcome"
@@ -155,31 +185,20 @@
                   role="button"
                   aria-haspopup="dialog"
                 >
-                
-                  <h3 class="widget-title">Welcome!</h3>
+                  <h3 class="widget-title">More about me</h3>
                   <p class="widget-text">
-                    Browse the library above to see all of my projects. Head to
-                    Discover to "pre-order" projects still in the works, or
-                    check the next card for more about me. Switch to Media to
-                    see it all in action. Cards are browsable using arrow keys
-                    or with your mouse. <br />
+                    My name is <strong>Leni Jureša</strong>. A 21 year old Informatics student based in Rijeka, Croatia. I enjoy all things coding but focus on FullStack Web Development.<br />
                     <strong>Click to see more!</strong>
                   </p>
-                  
                 </div>
-                
+
                 <div class="widget-info widget-info--1">
                   <h3 class="widget-title">Contact</h3>
                   <div class="widget-info__body">
                     <p class="widget-text">Want to work together or just say hi? Reach out:</p>
 
                     <div class="contact-buttons">
-                      <a
-                        class="contact-btn"
-                        href="https://www.linkedin.com/in/YOUR-USERNAME"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <a class="contact-btn" href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                           <rect x="2" y="9" width="4" height="12" />
@@ -188,12 +207,7 @@
                         LinkedIn
                       </a>
 
-                      <a
-                        class="contact-btn"
-                        href="https://github.com/YOUR-USERNAME"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <a class="contact-btn" href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                         </svg>
@@ -211,33 +225,17 @@
                   </div>
                 </div>
 
-                <div
-                  class="widget-tile widget-tile--1"
-                  data-popup="trophies"
-                  tabindex="0"
-                  role="button"
-                  aria-haspopup="dialog"
-                >
+                <div class="widget-tile widget-tile--2" data-popup="trophies" tabindex="0" role="button" aria-haspopup="dialog">
                   <h3 class="widget-title">Achievements</h3>
-                  <p class="widget-text">
-                    IRL achivements like 2nd place hackathon...
-                  </p>
+                  <p class="widget-text">IRL achivements like 2nd place hackathon...</p>
                 </div>
-                <div
-                  class="widget-tile widget-tile--1"
-                  data-popup="activity"
-                  tabindex="0"
-                  role="button"
-                  aria-haspopup="dialog"
-                >
+
+                <div class="widget-tile widget-tile--1" data-popup="activity" tabindex="0" role="button" aria-haspopup="dialog">
                   <h3 class="widget-title">Latest activity</h3>
-                  <p class="widget-text">
-                    What project i'm working on right now.
-                  </p>
+                  <p class="widget-text">What project i'm working on right now.</p>
                 </div>
 
-
-                <div class="widget-info widget-info--2">
+                <div class="widget-info widget-info--3">
                   <h3 class="widget-title">Info widget</h3>
                   <div class="widget-info__body">
                     <p class="widget-text">
@@ -247,15 +245,13 @@
                   </div>
                 </div>
 
-                
               </template>
-              
             </div>
-            <!-- Placeholder project  -->
+            <!-- Placeholder project EDMS  -->
             <div
               class="profile-item ease-in"
-              data-project="test1"
-              data-title="Project"
+              data-project="EDMS"
+              data-title="Emergency Dispatch Management System"
               data-bg="../assets/images/aboutme-temp-ai.jpg"
             >
               <div
@@ -265,7 +261,7 @@
                 "
               ></div>
               <span class="profile-name"
-                >Project</span>
+                >EDMS</span>
               <template class="profile-desc">
                 <p class="text">
                   
@@ -297,10 +293,10 @@
               </template>
             </div>
 
-            <!-- Placeholder project 1 -->
+            <!-- Placeholder project Church -->
             <div
               class="profile-item ease-in"
-              data-title="Project 1"
+              data-title="Church"
               data-desc="Sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, ut interdum tellus elit sed risus."
               data-bg="../assets/images/placeholder.svg"
             >
@@ -310,13 +306,13 @@
                   background-image: url(&quot;../assets/images/placeholder.svg&quot;);
                 "
               ></div>
-              <span class="profile-name">EDMS</span>
+              <span class="profile-name">Church management software</span>
             </div>
 
-            <!-- Placeholder project 2 -->
+            <!-- Placeholder project ISS -->
             <div
               class="profile-item ease-in"
-              data-title="Project 2"
+              data-title="ISS tracker"
               data-desc="Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
               data-bg="../assets/images/placeholder.svg"
             >
@@ -326,7 +322,7 @@
                   background-image: url(&quot;../assets/images/placeholder.svg&quot;);
                 "
               ></div>
-              <span class="profile-name">Project 2</span>
+              <span class="profile-name">ISS tracker</span>
             </div>
 
             <!-- Placeholder project 3 -->
@@ -868,25 +864,100 @@
     <section class="widget-grid ease-in" id="widgetsPanel"></section>
 
     <!-- ================= 2c. WIDGET POPUP ================= -->
-    <div class="widget-popup-overlay" id="widgetPopupOverlay">
-      <div
-        class="widget-popup"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="widgetPopupTitle"
-      >
-        <button
-          class="widget-popup-close"
-          id="widgetPopupClose"
-          type="button"
-          aria-label="Close"
-        >
-          &times;
-        </button>
-        <h2 class="widget-popup-title" id="widgetPopupTitle"></h2>
-        <div class="widget-popup-body" id="widgetPopupBody"></div>
+<div class="widget-popup-overlay" id="widgetPopupOverlay">
+  <div class="widget-popup" role="dialog" aria-modal="true" aria-labelledby="widgetPopupTitle">
+    <button class="widget-popup-close" id="widgetPopupClose" type="button" aria-label="Close">&times;</button>
+    <div class="widget-popup-cover" id="widgetPopupCover"></div>
+    <h2 class="widget-popup-title" id="widgetPopupTitle"></h2>
+    <div class="widget-popup-body" id="widgetPopupBody"></div>
+  </div>
+</div>
+
+<!-- ================= POPUP LIBRARY ================= -->
+
+<!-- Cover image on top, big intro text, two text columns -->
+<template data-popup-key="welcome" data-title="Welcome to my portfolio!" data-size="lg"
+          data-cover="../assets/images/temp-bg-ai.jpg">
+  <p class="pb-lead">I used the PlayStation 5 UI as inspiration for this site. Browse it the same way: arrow keys or mouse.</p>
+  <div class="pb-cols pb-cols--2">
+    <p>There are a few different profiles built for different people. They all cover my projects, but some go further into my personal or professional side.</p>
+    <p>A few things on this page do more than they let on. Finding them is half the fun. ;)</p>
+  </div>
+  <div class="pb-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+</template>
+
+<!-- Image beside text, stats row, checklist -->
+<template data-popup-key="about" data-title="About me" data-size="lg">
+  <div class="pb-cols pb-cols--side">
+    <figure class="pb-img pb-img--square">
+      <img src="../assets/images/leni_funny.jpg" alt="Leni">
+      <figcaption>[Caption]</figcaption>
+    </figure>
+    <div>
+      <p class="pb-lead">[Two or three sentences: who you are and what you build.]</p>
+      <div class="pb-stats">
+        <div class="pb-stat"><b>3+</b><span>Years coding</span></div>
+        <div class="pb-stat"><b>6</b><span>Projects</span></div>
+        <div class="pb-stat"><b>1</b><span>Hackathon podium</span></div>
       </div>
+      <h4 class="pb-h">Quick facts</h4>
+      <ul class="pb-list">
+        <li>Based in [City]</li>
+        <li>Studying [Programme]</li>
+        <li>Speaks [Croatian, English]</li>
+      </ul>
     </div>
+  </div>
+</template>
+
+<!-- Video + clickable photo gallery (photos open in your existing lightbox) -->
+<template data-popup-key="Pictures" data-title="Latest activity" data-size="xl">
+  <h4 class="pb-h">Screenshots</h4>
+  <div class="gallery-grid">
+    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 1" loading="lazy"></div>
+    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 2" loading="lazy"></div>
+    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 3" loading="lazy"></div>
+    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 4" loading="lazy"></div>
+  </div>
+</template>
+
+<template data-popup-key="activity" data-title="Latest activity" data-size="lg">
+  <div class="gh" data-gh-user="lenijuresa">
+
+    <div class="gh-stats">
+      <div class="pb-stat"><b data-gh-total>–</b><span>Contributions in the last year</span></div>
+      <div class="pb-stat"><b data-gh-repo>–</b><span>Last updated repo</span></div>
+    </div>
+
+    <h4 class="pb-h">Contribution map</h4>
+    <div class="gh-map" data-gh-map><p class="gh-loading">Loading…</p></div>
+
+    <h4 class="pb-h">Latest commits</h4>
+    <ul class="gh-commits" data-gh-commits><li class="gh-loading">Loading…</li></ul>
+
+    <div class="pb-btns">
+      <a class="pb-btn" href="https://github.com/lenijuresa" target="_blank" rel="noopener noreferrer">Open GitHub profile</a>
+    </div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 1" loading="lazy"></div>
+    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 2" loading="lazy"></div>
+    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 3" loading="lazy"></div>
+    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 4" loading="lazy"></div>
+  </div>
+</template>
+
+<!-- Small popup, no title, cards + buttons + quote -->
+<template data-popup-key="contact" data-title="Contact" data-size="sm">
+  <p>Want to work together or just say hi?</p>
+  <div class="pb-btns">
+    <a class="pb-btn" href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a class="pb-btn" href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a class="pb-btn" href="mailto:you@example.com">Email</a>
+  </div>
+  <hr class="pb-divider">
+  <blockquote class="pb-quote">"[Placeholder feedback quote.]"<cite>[Name, role]</cite></blockquote>
+</template>
 
     <!-- ================= 2d. IMAGE POPUP ================= -->
     <!-- Reused by any .gallery-item, wherever one exists. -->

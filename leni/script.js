@@ -324,16 +324,136 @@ const widgetPopupOverlay = document.getElementById("widgetPopupOverlay");
 const widgetPopupTitle = document.getElementById("widgetPopupTitle");
 const widgetPopupBody = document.getElementById("widgetPopupBody");
 const widgetPopupClose = document.getElementById("widgetPopupClose");
+const widgetPopupCover = document.getElementById("widgetPopupCover");
 
+// ---------- GitHub activity ----------
+const ghCache = {};
+
+function ghEsc(s) {
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[c],
+  );
+}
+
+function ghAgo(iso) {
+  const s = (Date.now() - new Date(iso)) / 1000;
+  if (s < 3600) return Math.max(1, Math.round(s / 60)) + " min ago";
+  if (s < 86400) return Math.round(s / 3600) + " h ago";
+  if (s < 2592000) return Math.round(s / 86400) + " days ago";
+  return new Date(iso).toLocaleDateString();
+}
+
+async function ghJson(url) {
+  if (ghCache[url]) return ghCache[url];
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(res.status);
+  return (ghCache[url] = await res.json());
+}
+
+function loadGithubActivity(root) {
+  const box = root.querySelector("[data-gh-user]");
+  if (!box) return;
+  const user = box.dataset.ghUser;
+  const q = (sel) => box.querySelector(sel);
+
+  ghJson(`https://github-contributions-api.jogruber.de/v4/${user}?y=last`)
+    .then((data) => {
+      const days = data.contributions;
+      q("[data-gh-total]").textContent = days.reduce((n, d) => n + d.count, 0);
+      const pad = new Date(days[0].date + "T00:00:00").getDay();
+      const map = q("[data-gh-map]");
+      map.innerHTML =
+        '<div class="gh-grid">' +
+        '<span class="gh-cell pad"></span>'.repeat(pad) +
+        days
+          .map(
+            (d) =>
+              `<span class="gh-cell" data-l="${d.level}" title="${d.count} on ${d.date}"></span>`,
+          )
+          .join("") +
+        "</div>";
+      map.scrollLeft = map.scrollWidth;
+    })
+    .catch(() => {
+      q("[data-gh-map]").innerHTML =
+        '<p class="gh-loading">Could not load the contribution map.</p>';
+    });
+
+  ghJson(`https://api.github.com/users/${user}/repos?sort=pushed&per_page=1`)
+    .then((r) => {
+      q("[data-gh-repo]").textContent = r[0] ? r[0].name : "–";
+    })
+    .catch(() => {
+      q("[data-gh-repo]").textContent = "–";
+    });
+
+  ghJson(`https://api.github.com/users/${user}/events/public?per_page=50`)
+    .then((events) => {
+      const commits = [];
+      events
+        .filter((e) => e.type === "PushEvent")
+        .forEach((e) => {
+          (e.payload.commits || [])
+            .slice()
+            .reverse()
+            .forEach((c) => {
+              commits.push({
+                repo: e.repo.name,
+                sha: c.sha,
+                at: e.created_at,
+                msg: c.message.split("\n")[0],
+              });
+            });
+        });
+      q("[data-gh-commits]").innerHTML =
+        commits
+          .slice(0, 8)
+          .map(
+            (c) => `
+          <li><a class="gh-commit" href="https://github.com/${c.repo}/commit/${c.sha}" target="_blank" rel="noopener noreferrer">
+            <b>${ghEsc(c.msg)}</b><time>${ghAgo(c.at)}</time>
+            <small>${ghEsc(c.repo)} · ${c.sha.slice(0, 7)}</small>
+          </a></li>`,
+          )
+          .join("") || '<li class="gh-loading">No recent public commits.</li>';
+    })
+    .catch(() => {
+      q("[data-gh-commits]").innerHTML =
+        '<li class="gh-loading">Could not load commits.</li>';
+    });
+}
+
+// ---------- popup open / close ----------
 if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
   let lastFocusedTile = null;
+  const popupBox = widgetPopupOverlay.querySelector(".widget-popup");
 
   function openWidgetPopup(key, triggerEl) {
-    const content = widgetPopupContent[key];
-    if (!content) return;
+    const tpl = document.querySelector(`template[data-popup-key="${key}"]`);
+    const legacy = widgetPopupContent[key];
+    if (!tpl && !legacy) return;
 
-    widgetPopupTitle.textContent = content.title;
-    widgetPopupBody.innerHTML = content.body;
+    widgetPopupTitle.textContent = tpl ? tpl.dataset.title || "" : legacy.title;
+    widgetPopupBody.innerHTML = tpl ? tpl.innerHTML : legacy.body;
+    widgetPopupOverlay.dataset.size = tpl ? tpl.dataset.size || "lg" : "lg";
+
+    const cover = tpl ? tpl.dataset.cover || "" : "";
+    if (widgetPopupCover) {
+      widgetPopupCover.style.backgroundImage = cover ? `url("${cover}")` : "";
+      widgetPopupCover.classList.toggle("has-cover", !!cover);
+    }
+
+    if (key === "activity") loadGithubActivity(widgetPopupBody);
+
+    if (popupBox) popupBox.scrollTop = 0;
     widgetPopupOverlay.classList.add("open");
     lastFocusedTile = triggerEl || null;
     widgetPopupClose.focus();
@@ -359,15 +479,16 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
 
   widgetPopupClose.addEventListener("click", closeWidgetPopup);
 
-  // click on the dark backdrop (not the card itself) closes it
   widgetPopupOverlay.addEventListener("click", (e) => {
     if (e.target === widgetPopupOverlay) closeWidgetPopup();
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && widgetPopupOverlay.classList.contains("open")) {
-      closeWidgetPopup();
-    }
+    if (e.key !== "Escape" || !widgetPopupOverlay.classList.contains("open"))
+      return;
+    const lightbox = document.getElementById("imagePopupOverlay");
+    if (lightbox && lightbox.classList.contains("open")) return;
+    closeWidgetPopup();
   });
 }
 
@@ -493,7 +614,7 @@ if (
 
   const FEAT = [
     "1 developer, fully solo project",
-    "Offline play enabled",
+    "Offline play Disabled",
     "Remote play supported, works in any browser",
     "Game help supported, documented code",
   ];
@@ -502,21 +623,92 @@ if (
   // status: "out" = released ("Buy now"), "soon" = in the works ("Pre-order")
   const GAMES = [
     {
+      id: "edms",
+      title: "EDMS",
+      tag: "PHP / Laravel",
+      status: "out",
+      card: "Emergency Dispatch Management System",
+      badges: ["featured"],
+      rating: 5,
+      count: 1,
+      price: 49.99, // the old / full price in euros
+      discount: 100, // percent off. Leave it out and it defaults to 100
+      per: "",
+      year: "2025",
+      href: LINK,
+      tags: ["PHP", "Laravel", "Web", "SQL", "XAMPP"],
+      blurb:
+        "Emergency dispatch management system for first responders. Dispatch center for police to manage, track, and coordinate responses for anonymous reports.",
+      desc: "Placeholder description for EDMS. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      tech: [
+        ["PHP", "What it's written in"],
+        ["Laravel", "What it runs on"],
+        ["XAMPP", "Anything else worth showing off"],
+      ],
+    },
+    {
+      id: "church",
+      title: "Church App",
+      tag: "Desktop / Java",
+      status: "out",
+      card: "Church", // Spojnica s profilnom karticom u biblioteci
+      badges: ["featured"],
+      rating: 4.8,
+      count: 212,
+      price: 24.99, // the old / full price in euros
+      discount: 100, // percent off. Leave it out and it defaults to 100
+      per: "",
+      year: "2025",
+      href: LINK,
+      tags: ["Java", "Desktop", "Community"],
+      blurb:
+        "A Java desktop app for church communities to manage events and members. Used constantly by my local church, Many hours of manual work into just a few clicks ",
+      desc: "Placeholder description. Explain what the app does, who uses it every day and what problem it solves.",
+      tech: [
+        ["Java", "Main language and application logic"],
+        ["[GUI toolkit]", "Replace with what you used"],
+        ["[Storage / database]", "Replace with what you used"],
+        ["Git / GitHub", "Version control"],
+      ],
+    },
+
+    {
+      id: "ISS",
+      title: "ISS tracker",
+      tag: "Python",
+      status: "out",
+      card: "ISS tracker",
+      badges: [],
+      rating: 4.5,
+      count: 34,
+      price: 19.99, // the old / full price in euros
+      discount: 100, // percent off. Leave it out and it defaults to 100
+      per: "",
+      year: "2024",
+      href: LINK,
+      tags: ["WIP", "Coming soon"],
+      blurb: "Placeholder blurb for ISS tracker.",
+      desc: "Placeholder description for ISS tracker. Maecenas eget condimentum velit, sit amet feugiat lectus.",
+      tech: [
+        ["Python", "Main language"],
+        ["[Library]", "Replace with what you used"],
+      ],
+    },
+    {
       id: "portfolio",
       title: "Portfolio: PS5 Edition",
       tag: "Web / Interactive",
       status: "out",
-      badges: ["featured"],
+      card: "Welcome",
+      badges: [],
       rating: 4.9,
       count: 128,
       price: 69.99, // the old / full price in euros
       discount: 100, // percent off. Leave it out and it defaults to 100
       per: "",
       year: "Summer 2026",
-      href: "../recruiter/recruiter.html",
       tags: ["Web", "UI / UX", "Solo", "sigma studio"],
-      blurb:
-        "The site you're standing in. A console-style portfolio built over one summer.",
+      blurb: "Coming soon! The site you're standing in.",
       desc: "A portfolio disguised as a console dashboard. Browse profiles with arrow keys or mouse, open widgets, flip through galleries and, of course, shop for things that cost nothing.",
       tech: [
         ["HTML", "Structure, templates, accessibility attributes"],
@@ -531,11 +723,11 @@ if (
       title: "Curriculum Vitae",
       tag: "In development",
       status: "soon",
-      badges: ["job", "featured"],
+      badges: ["job"],
       rating: 0,
       count: 0,
-      price: 1999,
-      discount: 30,
+      price: 2999,
+      discount: 100,
       per: "/m",
       year: "Coming soon",
       href: LINK,
@@ -552,11 +744,11 @@ if (
       title: "Resume",
       tag: "In development",
       status: "soon",
-      badges: ["job", "featured"],
+      badges: ["job"],
       rating: 0,
       count: 0,
-      price: 1999, // the old / full price in euros
-      discount: 30, // percent off. Leave it out and it defaults to 100
+      price: 2999, // the old / full price in euros
+      discount: 100, // percent off. Leave it out and it defaults to 100
       per: "/m",
       year: "Coming soon",
       href: LINK,
@@ -566,72 +758,6 @@ if (
       tech: [
         ["[Language]", "Planned stack"],
         ["[Tool]", "Planned tooling"],
-      ],
-    },
-    {
-      id: "church",
-      title: "Church Community App",
-      tag: "Desktop / Java",
-      status: "out",
-      badges: [],
-      rating: 4.8,
-      count: 212,
-      price: 24.99, // the old / full price in euros
-      discount: 100, // percent off. Leave it out and it defaults to 100
-      per: "",
-      year: "2025",
-      href: LINK,
-      tags: ["Java", "Desktop", "Community"],
-      blurb: "A Java app in real, everyday use by my church community.",
-      desc: "Placeholder description. Explain what the app does, who uses it every day and what problem it solves.",
-      tech: [
-        ["Java", "Main language and application logic"],
-        ["[GUI toolkit]", "Replace with what you used"],
-        ["[Storage / database]", "Replace with what you used"],
-        ["Git / GitHub", "Version control"],
-      ],
-    },
-    {
-      id: "edms",
-      title: "EDMS",
-      tag: "Placeholder",
-      status: "out",
-      badges: [],
-      rating: 4.6,
-      count: 57,
-      price: 49.99, // the old / full price in euros
-      discount: 100, // percent off. Leave it out and it defaults to 100
-      per: "",
-      year: "2025",
-      href: LINK,
-      tags: ["Project", "Placeholder"],
-      blurb: "Placeholder blurb for EDMS. One punchy sentence goes here.",
-      desc: "Placeholder description for EDMS. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      tech: [
-        ["[Language]", "What it's written in"],
-        ["[Framework]", "What it runs on"],
-        ["[Tool]", "Anything else worth showing off"],
-      ],
-    },
-    {
-      id: "p3",
-      title: "Project 3",
-      tag: "Python",
-      status: "soon",
-      badges: [],
-      rating: 4.5,
-      count: 34,
-      price: 19.99, // the old / full price in euros
-      discount: 100, // percent off. Leave it out and it defaults to 100
-      per: "",
-      year: "2024",
-      href: LINK,
-      tags: ["WIP", "Coming soon"],
-      blurb: "Placeholder blurb for Project 3.",
-      desc: "Placeholder description for Project 3. Maecenas eget condimentum velit, sit amet feugiat lectus.",
-      tech: [
-        ["Python", "Main language"],
-        ["[Library]", "Replace with what you used"],
       ],
     },
   ];
@@ -752,7 +878,6 @@ if (
       '<div class="ps-hero-shade"></div>' +
       arrows +
       '<div class="ps-hero-body">' +
-      '<span class="ps-eyebrow">Featured</span>' +
       badgesHTML(x) +
       "<h2>" +
       x.title +
@@ -887,9 +1012,9 @@ if (
       );
     if (dl >= 100)
       return (
-        '<a class="ps-btn ps-btn--primary" href="' +
-        x.href +
-        '" target="_blank" rel="noopener noreferrer">▶ Launch project</a>' +
+        '<button type="button" class="ps-btn ps-btn--primary" data-act="launch" data-id="' +
+        x.id +
+        '">▶ Launch project</button>' +
         '<span class="ps-installed">' +
         CHECK +
         " Installed</span>"
@@ -897,7 +1022,7 @@ if (
     return (
       '<button type="button" class="ps-btn ps-btn--primary" data-act="dl" data-id="' +
       x.id +
-      '">Download</button>'
+      '" data-tooltip="! pressing this will not download anything on your device">Download</button>'
     );
   }
   const li = (a) =>
@@ -1099,6 +1224,74 @@ if (
     lock(false);
     if (S.last && S.last.focus) S.last.focus();
   }
+  function launch(id) {
+    const x = game(id);
+    if (!x) return;
+
+    const target = x.card
+      ? [...document.querySelectorAll(".profile-item")].find(
+          (el) => el.dataset.title === x.card || el.dataset.project === x.card,
+        )
+      : null;
+
+    if (!target) {
+      window.open(x.href, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    closeGame();
+
+    const fire = (el) => {
+      ["pointerdown", "mousedown", "pointerup", "mouseup", "click"].forEach(
+        (type) =>
+          el.dispatchEvent(
+            new MouseEvent(type, {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+            }),
+          ),
+      );
+    };
+
+    const select = () => {
+      const card = target.querySelector(".profile-card") || target;
+      const name = target.querySelector(".profile-name");
+      fire(card);
+      // if the first try didn't change anything, try the item and its label too
+      setTimeout(() => {
+        const cur = document.getElementById("cardDetailTitle");
+        const done =
+          target.classList.contains("active") ||
+          target.classList.contains("selected") ||
+          target.classList.contains("is-active") ||
+          (cur && cur.textContent.trim() === target.dataset.title);
+        if (!done) {
+          fire(target);
+          if (name) fire(name);
+        }
+      }, 80);
+    };
+
+    // 1) scroll to the top, 2) wait until we're there, 3) open the card
+    const scrollTopThenSelect = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      const started = performance.now();
+      const check = () => {
+        const arrived = window.scrollY <= 2;
+        const timedOut = performance.now() - started > 1500; // safety net
+        if (arrived || timedOut) {
+          setTimeout(select, 150); // small pause so it feels deliberate
+        } else {
+          requestAnimationFrame(check);
+        }
+      };
+      requestAnimationFrame(check);
+    };
+
+    setTimeout(scrollTopThenSelect, 250); // let the popup finish closing first
+  }
   function go(step) {
     S.step = step;
     render(true);
@@ -1189,6 +1382,9 @@ if (
     const t = e.target.closest("[data-act]");
     if (!t) return;
     switch (t.dataset.act) {
+      case "launch":
+        launch(t.dataset.id);
+        break;
       case "open":
         openGame(t.dataset.id);
         break;
