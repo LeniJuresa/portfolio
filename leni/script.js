@@ -655,8 +655,8 @@ if (
       badges: ["featured"],
       rating: 4.8,
       count: 212,
-      price: 24.99, // the old / full price in euros
-      discount: 100, // percent off. Leave it out and it defaults to 100
+      price: 89.99, // the old / full price in euros
+      discount: 80, // percent off. Leave it out and it defaults to 100
       per: "",
       year: "2025",
       href: LINK,

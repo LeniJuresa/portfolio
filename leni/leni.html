@@ -185,7 +185,7 @@
                   role="button"
                   aria-haspopup="dialog"
                 >
-                  <h3 class="widget-title">More about me</h3>
+                  <h3 class="widget-title">Portfolio info</h3>
                   <p class="widget-text">
                     My name is <strong>Leni Jureša</strong>. A 21 year old Informatics student based in Rijeka, Croatia. I enjoy all things coding but focus on FullStack Web Development.<br />
                     <strong>Click to see more!</strong>
@@ -876,14 +876,67 @@
 <!-- ================= POPUP LIBRARY ================= -->
 
 <!-- Cover image on top, big intro text, two text columns -->
-<template data-popup-key="welcome" data-title="Welcome to my portfolio!" data-size="lg"
+<template data-popup-key="welcome" data-title="How this site works" data-size="xl"
           data-cover="../assets/images/temp-bg-ai.jpg">
-  <p class="pb-lead">I used the PlayStation 5 UI as inspiration for this site. Browse it the same way: arrow keys or mouse.</p>
+
+  <p class="pb-lead">
+    This portfolio is built like a PlayStation 5 home screen. Your projects are
+    "games" in a library, and there is even a store to browse them. It is written
+    from scratch with plain HTML, CSS and JavaScript , with no frameworks and minimal use of AI
+  </p>
+
+  <!-- <div class="pb-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div> -->
+
+  <h4 class="pb-h">Getting around</h4>
   <div class="pb-cols pb-cols--2">
-    <p>There are a few different profiles built for different people. They all cover my projects, but some go further into my personal or professional side.</p>
-    <p>A few things on this page do more than they let on. Finding them is half the fun. ;)</p>
+    <div class="pb-card">
+      <b>Profile row</b>
+      <p>The row of square cards at the top is the library. Use the <b>← →</b> arrow keys or click a card to select it. The title, background and widgets below change to match the selected card.<br> </br></p>
+    </div>
+    <div class="pb-card">
+      <b>Projects &amp; Media tabs</b>
+      <p><b>Projects</b> holds the store, this welcome page and my work. <b>Media</b> holds galleries and a look at my life outside of code. Switching tabs returns you to the second card.</p>
+    </div>
+    <div class="pb-card">
+      <b>Profile switcher</b>
+      <p>The round avatar in the top right opens a menu with other profiles (Recruiter, Developer, Guest), each tailored to a different visitor, and a log out link.<br>   </br></p>
+    </div>
+    <div class="pb-card">
+      <b>Widgets &amp; popups</b>
+      <p>Tiles with a pointer cursor open a popup like this one. Close it with <b>× or Esc</b> Photos in galleries open in a lightbox you can flip through with the arrow keys.</p>
+    </div>
   </div>
-  <div class="pb-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+
+  <h4 class="pb-h">The Project Store (Discover card)</h4>
+  <p>Discover is a fake store where every project is on sale for 100% off. Nothing is charged and nothing is downloaded to your device.</p>
+  <ul class="pb-list">
+    <li><b>Featured banner:</b> shows my highlighted projects and rotates every 5 seconds. It pauses while you hover it or focus it, and you can use the arrows or dots to change slides.</li>
+    <li><b>Filters:</b> <b>All</b>, <b>Released</b> (finished projects), <b>Coming soon</b> (in development) and <b>My library</b> (what you have "bought" so far).</li>
+    <li><b>Project page:</b> click any tile to see its description, tech stack, features, rating and tags.</li>
+    <li><b>Buying:</b> <b>Buy now</b> (or <b>Pre-order</b> for unfinished projects) walks through order summary, payment (tick the terms box), processing and a confirmation with an order number.</li>
+    <li><b>Download:</b> a released project can be "installed" with a progress bar. It is a simulation, but it unlocks the next step.</li>
+    <li><b>Launch project:</b> after installing, this scrolls you back up and jumps to that project's own card in the library.</li>
+    <li><b>Pre-orders:</b> unfinished projects show as pre-ordered and cannot be launched yet.</li>
+    <li><b>Wishlist:</b> save a project with the heart button.</li>
+  </ul>
+  <p class="pb-sub">Your library and wishlist are kept in memory only, so they reset when you refresh the page.</p>
+
+  <h4 class="pb-h">How it is built</h4>
+  <div class="pb-cols pb-cols--2">
+    <ul class="pb-list">
+      <li><b>Card selector:</b> one function handles every row, so adding a card is just adding HTML.</li>
+      <li><b>Templates:</b> widgets and popups are written as HTML <code>&lt;template&gt;</code> blocks and copied into the page when needed.</li>
+      <li><b>Scaling:</b> the whole scene is designed at 1920×1080 and scaled to fit the screen.</li>
+    </ul>
+    <ul class="pb-list">
+      <li><b>Backgrounds:</b> each card sets its own background image, crossfaded between two layers.</li>
+      <li><b>Store:</b> a single list of project objects in <code>script.js</code> drives the banner, tiles, filters and checkout.</li>
+      <li><b>GitHub activity:</b> the Latest activity popup reads public data from GitHub's API.</li>
+    </ul>
+  </div>
+
+  <hr class="pb-divider">
+  <p>Some parts of this site do more than they let on. Finding them is half the fun. ;)</p>
 </template>
 
 <!-- Image beside text, stats row, checklist -->
@@ -938,12 +991,6 @@
     <div class="pb-btns">
       <a class="pb-btn" href="https://github.com/lenijuresa" target="_blank" rel="noopener noreferrer">Open GitHub profile</a>
     </div>
-  </div>
-  <div class="gallery-grid">
-    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 1" loading="lazy"></div>
-    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 2" loading="lazy"></div>
-    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 3" loading="lazy"></div>
-    <div class="gallery-item" tabindex="0" role="button"><img src="../assets/galery/placeholder.svg" alt="Screenshot 4" loading="lazy"></div>
   </div>
 </template>
 

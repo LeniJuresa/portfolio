@@ -2376,14 +2376,24 @@ Profile page
   }
 }
 
-
 /* ==========================================================
    GITHUB ACTIVITY (inside the activity popup)
 ========================================================== */
-.gh-loading { opacity: 0.5; margin: 0; }
+.gh-loading {
+  opacity: 0.5;
+  margin: 0;
+}
 
-.gh-stats { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 8px; }
-.gh-stats .pb-stat b { font-size: 28px; word-break: break-word; }
+.gh-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.gh-stats .pb-stat b {
+  font-size: 28px;
+  word-break: break-word;
+}
 
 .gh-map {
   overflow-x: auto;
@@ -2399,15 +2409,34 @@ Profile page
   gap: 3px;
   width: max-content;
 }
-.gh-cell { border-radius: 3px; background: rgba(255, 255, 255, 0.07); }
-.gh-cell[data-l="1"] { background: #0e4d8a; }
-.gh-cell[data-l="2"] { background: #1670c4; }
-.gh-cell[data-l="3"] { background: #4aa3f0; }
-.gh-cell[data-l="4"] { background: #9fd3ff; }
-.gh-cell.pad { background: transparent; }
+.gh-cell {
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.07);
+}
+.gh-cell[data-l="1"] {
+  background: #0e4d8a;
+}
+.gh-cell[data-l="2"] {
+  background: #1670c4;
+}
+.gh-cell[data-l="3"] {
+  background: #4aa3f0;
+}
+.gh-cell[data-l="4"] {
+  background: #9fd3ff;
+}
+.gh-cell.pad {
+  background: transparent;
+}
 
-.widget-popup-body .gh-commits { list-style: none; margin: 0 0 8px; padding: 0; }
-.widget-popup-body .gh-commits li { margin: 0 0 10px; }
+.widget-popup-body .gh-commits {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+.widget-popup-body .gh-commits li {
+  margin: 0 0 10px;
+}
 .gh-commit {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -2417,13 +2446,66 @@ Profile page
   background: rgba(255, 255, 255, 0.06);
   color: inherit;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
-.gh-commit:hover, .gh-commit:focus-visible {
+.gh-commit:hover,
+.gh-commit:focus-visible {
   background: rgba(255, 255, 255, 0.14);
   transform: translateX(4px);
   outline: none;
 }
-.gh-commit b { font-weight: 450; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.gh-commit time { font-size: 14px; opacity: 0.55; white-space: nowrap; }
-.gh-commit small { grid-column: 1 / -1; opacity: 0.6; font-size: 14px; }
+.gh-commit b {
+  font-weight: 450;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gh-commit time {
+  font-size: 14px;
+  opacity: 0.55;
+  white-space: nowrap;
+}
+.gh-commit small {
+  grid-column: 1 / -1;
+  opacity: 0.6;
+  font-size: 14px;
+}
+
+.pb-card b {
+  display: block;
+  margin-bottom: 6px;
+  color: #fff;
+  font-weight: 450;
+}
+.pb-card p {
+  margin: 0;
+}
+.pb-sub {
+  font-size: 15px;
+  opacity: 0.6;
+}
+.widget-popup-body code {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.9em;
+}
+
+/* ---------- hide scrollbars in widgets / popups ---------- */
+.widget-popup,
+.widget-popup-body,
+.gh-map,
+.ps-scroll {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge */
+}
+
+.widget-popup::-webkit-scrollbar,
+.widget-popup-body::-webkit-scrollbar,
+.gh-map::-webkit-scrollbar,
+.ps-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, new Edge */
+}
