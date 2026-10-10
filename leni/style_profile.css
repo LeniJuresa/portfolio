@@ -1074,7 +1074,7 @@ Profile page
 .image-popup-overlay {
   position: fixed;
   inset: 0;
-  z-index: 11;
+  z-index: 13;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2508,4 +2508,317 @@ Profile page
 .gh-map::-webkit-scrollbar,
 .ps-scroll::-webkit-scrollbar {
   display: none; /* Chrome, Safari, new Edge */
+}
+
+/* ==========================================================
+   PRE-ORDER INFO (store popup, only "soon" projects)
+========================================================== */
+.ps-soon-info {
+  margin-top: 34px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.ps-soon-info h3 {
+  margin: 0 0 14px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+/* progress */
+.ps-dev {
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.ps-dev-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+  font-size: 17px;
+}
+.ps-dev-top span {
+  font-size: 28px;
+  font-weight: 500;
+}
+.ps-dev .ps-bar i {
+  background: linear-gradient(90deg, #0070d1, #5fb0ff);
+}
+.ps-dev-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin-top: 14px;
+  font-size: 15px;
+  opacity: 0.75;
+}
+.ps-dev-meta b {
+  margin-left: 6px;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* roadmap */
+.ps-cols--soon {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.ps-road {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ps-road li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+  font-weight: 300;
+}
+.ps-road li span {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+.ps-road li.done span {
+  background: #2f9e63;
+  border-color: #2f9e63;
+}
+.ps-road li.now span {
+  background: #0070d1;
+  border-color: #0070d1;
+}
+.ps-road li.next {
+  opacity: 0.55;
+}
+
+@media (max-width: 760px) {
+  .ps-dev {
+    padding: 18px;
+  }
+}
+
+html:has(.widget-popup-overlay.open),
+html:has(.image-popup-overlay.open),
+html:has(.ps-overlay.open),
+html:has(.widget-popup-overlay.open) body,
+html:has(.image-popup-overlay.open) body,
+html:has(.ps-overlay.open) body {
+  overflow: hidden;
+}
+
+.widget-popup,
+.ps-scroll {
+  overscroll-behavior: contain;
+}
+
+/* ==========================================================
+   WHISPER (floats out of the buy / pre-order button)
+========================================================== */
+.ps-whisper {
+  position: relative;
+}
+
+.ps-whisper-text {
+  position: absolute;
+  bottom: 85%;
+  z-index: 5;
+  white-space: nowrap;
+  pointer-events: none;
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.205);
+  text-shadow: 0 0 12px rgba(127, 195, 255, 0.322);
+  opacity: 0;
+  animation: psWhisper 3s ease-out forwards;
+}
+
+@keyframes psWhisper {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.9);
+    filter: blur(2px);
+  }
+  15% {
+    opacity: 0.85;
+    transform: translate(calc(var(--sway) * 0.5), -10px) scale(1);
+    filter: blur(0);
+  }
+  35% {
+    opacity: 0.7;
+    transform: translate(calc(var(--sway) * -1), -26px);
+    filter: blur(0);
+  }
+  55% {
+    opacity: 0.5;
+    transform: translate(var(--sway), -44px);
+    filter: blur(0.5px);
+  }
+  75% {
+    opacity: 0.25;
+    transform: translate(calc(var(--sway) * -1), -64px);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--sway), -86px) scale(1.05);
+    filter: blur(3px);
+  }
+}
+
+/* ==========================================================
+   SCROLL HINT (pre-order popup)
+========================================================== */
+.ps-scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  background: rgba(20, 22, 30, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f5f5f5;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 300;
+  cursor: pointer;
+  opacity: 0;
+  transform: translate(-50%, 10px);
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    background 0.2s ease;
+}
+.ps-scroll-hint.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+.ps-scroll-hint:hover,
+.ps-scroll-hint:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+.ps-scroll-hint svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: psHintBounce 1.4s ease-in-out infinite;
+}
+@keyframes psHintBounce {
+  0%,
+  100% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ps-scroll-hint svg {
+    animation: none;
+  }
+}
+
+/* ==========================================================
+   HIRE ME (order complete, projects with the "job" badge)
+========================================================== */
+.ps-hire {
+  width: 100%;
+  margin-top: 8px;
+  padding: 24px;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 216, 107, 0.14),
+    rgba(0, 112, 209, 0.14)
+  );
+  border: 1px solid rgba(255, 216, 107, 0.3);
+  box-shadow: 0 0 30px rgba(255, 200, 60, 0.12);
+}
+.ps-hire-title {
+  display: block;
+  font-size: 24px;
+  font-weight: 500;
+  color: #ffe38a;
+}
+.ps-hire-text {
+  margin: 6px 0 18px;
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 0.9;
+}
+.ps-hire-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.ps-hire-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #f5f5f5;
+  font-size: 15px;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.ps-hire-link:hover,
+.ps-hire-link:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+  outline: none;
+}
+.ps-hire-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.ps-dev .ps-bar i {
+  transition:
+    width 0.6s ease,
+    background 0.3s ease;
+}
+.ps-dev .ps-bar i.lvl-low {
+  background: linear-gradient(90deg, #4e26bd, #7866dd);
+}
+.ps-dev .ps-bar i.lvl-mid {
+  background: linear-gradient(90deg, #1d6bdf, #1679bb);
+}
+.ps-dev .ps-bar i.lvl-high {
+  background: linear-gradient(90deg, #2f9e63, #7fd6a0);
 }

@@ -656,7 +656,7 @@ if (
       rating: 4.8,
       count: 212,
       price: 89.99, // the old / full price in euros
-      discount: 80, // percent off. Leave it out and it defaults to 100
+      discount: 100, // percent off. Leave it out and it defaults to 100
       per: "",
       year: "2025",
       href: LINK,
@@ -698,7 +698,7 @@ if (
       id: "portfolio",
       title: "Portfolio: PS5 Edition",
       tag: "Web / Interactive",
-      status: "out",
+      status: "soon",
       card: "Welcome",
       badges: [],
       rating: 4.9,
@@ -706,7 +706,7 @@ if (
       price: 69.99, // the old / full price in euros
       discount: 100, // percent off. Leave it out and it defaults to 100
       per: "",
-      year: "Summer 2026",
+      year: "Winter 2026",
       tags: ["Web", "UI / UX", "Solo", "sigma studio"],
       blurb: "Coming soon! The site you're standing in.",
       desc: "A portfolio disguised as a console dashboard. Browse profiles with arrow keys or mouse, open widgets, flip through galleries and, of course, shop for things that cost nothing.",
@@ -717,28 +717,28 @@ if (
         ["Git / GitHub", "Version control and hosting"],
         ["Gangdam / Style", "Version control and hosting"],
       ],
-    },
-    {
-      id: "cv",
-      title: "Curriculum Vitae",
-      tag: "In development",
-      status: "soon",
-      badges: ["job"],
-      rating: 0,
-      count: 0,
-      price: 2999,
-      discount: 100,
-      per: "/m",
-      year: "Coming soon",
-      href: LINK,
-      tags: ["WIP", "Coming soon"],
-      blurb: "Still cooking. Pre-order to get notified at launch.",
-      desc: "This project is still in the works. Pre-order it now (it's free!) and it'll be waiting in your library when it ships.",
-      tech: [
-        ["[Language]", "Planned stack"],
-        ["[Tool]", "Planned tooling"],
+      stage: "Still figuring it all out ",
+      progress: 85,
+      eta: "Winter 2026",
+      roadmap: [
+        ["done", "Dizajn i koncept"],
+        ["done", "Biblioteka, trgovina i popupi"],
+        ["now", "Sadržaj i dokumentacija"],
+        ["next", "Završno testiranje i objava"],
+      ],
+      expect: [
+        "Svi moji projekti na jednom mjestu",
+        "Posebni profili za recruitere i developere",
+        "Galerije, demo i izvorni kod",
+      ],
+      gallery: [
+        "../assets/galery/placeholder.svg",
+        "../assets/galery/placeholder.svg",
+        "../assets/galery/placeholder.svg",
+        "../assets/galery/placeholder.svg",
       ],
     },
+
     {
       id: "Resume",
       title: "Resume",
@@ -747,17 +747,37 @@ if (
       badges: ["job"],
       rating: 0,
       count: 0,
-      price: 2999, // the old / full price in euros
+      price: 24.99, // the old / full price in euros
       discount: 100, // percent off. Leave it out and it defaults to 100
       per: "/m",
       year: "Coming soon",
       href: LINK,
       tags: ["WIP", "Coming soon"],
       blurb: "Still cooking. Pre-order to get notified at launch.",
-      desc: "This project is still in the works. Pre-order it now (it's free!) and it'll be waiting in your library when it ships.",
+      desc: "Display of all my employment history, education, and skills. This project is still in the works as i have not yet had a job :).",
       tech: [
-        ["[Language]", "Planned stack"],
-        ["[Tool]", "Planned tooling"],
+        ["English/Croatian", "Languages"],
+        ["MS Word", "Tools"],
+      ],
+      stage: "Still getting educated :/",
+      progress: 38,
+      eta: "2027",
+      roadmap: [
+        ["done", "Getting education"],
+        ["done", "Small projects"],
+        ["now", "Writing my resume"],
+        ["next", "Having a job!"],
+      ],
+      expect: [
+        "My employment history, education, and skills",
+        "Professional templates",
+        "Wanting to hire me B)",
+      ],
+      gallery: [
+        "../assets/galery/placeholder.svg",
+        "../assets/galery/placeholder.svg",
+        "../assets/galery/placeholder.svg",
+        "../assets/galery/placeholder.svg",
       ],
     },
   ];
@@ -1033,13 +1053,139 @@ if (
     (a[1] ? "<small>" + a[1] + "</small>" : "") +
     "</span></li>";
 
+  /* ---------- extra info, only for pre-order ("soon") projects ---------- */
+  const ROAD_ICON = { done: "✓", now: "●", next: "○" };
+  function soonHTML(x) {
+    const progress = x.progress == null ? 0 : x.progress;
+    const road = x.roadmap || [];
+    const expect = x.expect || [];
+    const gallery = x.gallery || [];
+    const level = progress < 34 ? "low" : progress < 80 ? "mid" : "high";
+
+    const dev =
+      '<div class="ps-dev"><div class="ps-dev-top"><b>Development progress</b><span>' +
+      progress +
+      '%</span></div><div class="ps-bar"><i class="lvl-' +
+      level +
+      '" style="width:' +
+      progress +
+      '%"></i></div><div class="ps-dev-meta"><span>Expected <b>' +
+      (x.eta || x.year) +
+      "</b></span><span>Stage <b>" +
+      (x.stage || "In development") +
+      "</b></span></div></div>";
+
+    const roadmap = road.length
+      ? '<div><h3>Roadmap</h3><ol class="ps-road">' +
+        road
+          .map(
+            (r) =>
+              '<li class="' +
+              r[0] +
+              '"><span>' +
+              ROAD_ICON[r[0]] +
+              "</span>" +
+              r[1] +
+              "</li>",
+          )
+          .join("") +
+        "</ol></div>"
+      : "";
+
+    const expectList = expect.length
+      ? "<div><h3>What to expect</h3><ul>" +
+        expect.map((e) => li([e])).join("") +
+        "</ul></div>"
+      : "";
+
+    const cols =
+      roadmap || expectList
+        ? '<div class="ps-cols ps-cols--soon">' +
+          roadmap +
+          expectList +
+          "</div>"
+        : "";
+
+    const gal = gallery.length
+      ? '<div class="ps-soon-gallery"><h3>Preview</h3><div class="gallery-grid">' +
+        gallery
+          .map(
+            (src, i) =>
+              '<div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="' +
+              src +
+              '" alt="' +
+              x.title +
+              " preview " +
+              (i + 1) +
+              '" loading="lazy"></div>',
+          )
+          .join("") +
+        "</div></div>"
+      : "";
+
+    return '<div class="ps-soon-info">' + dev + cols + gal + "</div>";
+  }
+
+  /* ---------- "hire me" block, only for projects with the "job" badge ---------- */
+  const HIRE = {
+    title: "You could be the first!",
+    text: "Why not hire me? :)",
+    links: [
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/YOUR-USERNAME",
+        icon: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/lenijuresa",
+        icon: '<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>',
+      },
+      {
+        label: "Email",
+        href: "mailto:you@example.com",
+        icon: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+      },
+      {
+        label: "Instagram",
+        href: "https://www.instagram.com/YOUR-USERNAME",
+        icon: '<rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>',
+      },
+    ],
+  };
+
+  const isJob = (x) => !!x.badges && x.badges.includes("job");
+
+  function hireHTML() {
+    return (
+      '<div class="ps-hire"><b class="ps-hire-title">' +
+      HIRE.title +
+      '</b><p class="ps-hire-text">' +
+      HIRE.text +
+      '</p><div class="ps-hire-links">' +
+      HIRE.links
+        .map(
+          (l) =>
+            '<a class="ps-hire-link" href="' +
+            l.href +
+            '" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true">' +
+            l.icon +
+            "</svg>" +
+            l.label +
+            "</a>",
+        )
+        .join("") +
+      "</div></div>"
+    );
+  }
+
   const V = {
     detail(x) {
       const own = S.lib[x.id];
       const p = pr(x);
       const actions = own
         ? '<div class="ps-actions">' + libUI(x) + "</div>"
-        : '<div class="ps-actions"><button type="button" class="ps-btn ps-btn--primary" data-act="go" data-step="cart">' +
+        : '<div class="ps-actions"><button type="button" class="ps-btn ps-btn--primary ps-whisper" data-act="go" data-step="cart">' +
           (x.status === "soon" ? "Pre-order" : "Buy now") +
           "</button>" +
           '<button type="button" class="ps-btn ps-btn--ghost" data-act="wish">' +
@@ -1088,7 +1234,8 @@ if (
         "</ul></div>" +
         "<div><h3>Features</h3><ul>" +
         (x.feat || FEAT).map((f) => li([f])).join("") +
-        "</ul></div></div>"
+        "</ul></div></div>" +
+        (x.status === "soon" ? soonHTML(x) : "")
       );
     },
     cart(x) {
@@ -1179,12 +1326,49 @@ if (
         " · " +
         p.now +
         "</p>" +
+        (isJob(x) ? hireHTML() : "") + // <-- add this line
+        '<div class="ps-actions" style="justify-content:center">' +
+        "</p>" +
         '<div class="ps-actions" style="justify-content:center">' +
         libUI(x) +
         '<button type="button" class="ps-btn ps-btn--ghost" data-act="close">Keep browsing</button></div></div>'
       );
     },
   };
+
+  /* ---------- "scroll for more" hint (pre-order popup only) ---------- */
+  function ensureHint() {
+    let b = $("psScrollHint");
+    if (!b) {
+      const p = $("psPanel");
+      if (!p) return null;
+      b = document.createElement("button");
+      b.type = "button";
+      b.id = "psScrollHint";
+      b.className = "ps-scroll-hint";
+      b.dataset.act = "scrolldown";
+      b.disabled = true;
+      b.innerHTML =
+        'Scroll for more <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
+      p.appendChild(b);
+    }
+    return b;
+  }
+
+  function updateHint() {
+    const s = $("psScroll");
+    const b = ensureHint();
+    if (!s || !b) return;
+    const g = game(S.cur);
+    const more =
+      !!g &&
+      g.status === "soon" &&
+      S.step === "detail" &&
+      isOpen() &&
+      s.scrollHeight - s.scrollTop - s.clientHeight > 40;
+    b.classList.toggle("show", more);
+    b.disabled = !more;
+  }
 
   function render(anim) {
     const body = $("psBody");
@@ -1195,6 +1379,8 @@ if (
       const s = $("psScroll");
       if (s) s.scrollTop = 0;
     }
+    updateHint();
+    requestAnimationFrame(updateHint);
   }
   function focusPrimary() {
     const b = document.querySelector(
@@ -1252,6 +1438,7 @@ if (
             }),
           ),
       );
+      updateHint();
     };
 
     const select = () => {
@@ -1374,6 +1561,56 @@ if (
     if (from && !(e.relatedTarget && from.contains(e.relatedTarget)))
       startHeroAuto();
   });
+  /* ---------- whispers: little wavy text floats out of the buy button ---------- */
+  const WHISPERS = [
+    "nothing real will happen...",
+    "it's free, I promise",
+    "press the button.....",
+    "your wallet is safe",
+    "Click meeee...",
+    "go on, click it",
+    "It's cool, I swear...",
+    "no payment will be talken... WoOoOoOo",
+    "WoOoOoOoOo, nothing real will happen....",
+  ];
+  let whisperTimer = null;
+
+  function whisper(btn) {
+    if (!btn.isConnected) return;
+    if (btn.querySelectorAll(".ps-whisper-text").length >= 3) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const s = document.createElement("span");
+    s.className = "ps-whisper-text";
+    s.setAttribute("aria-hidden", "true");
+    s.textContent = WHISPERS[Math.floor(Math.random() * WHISPERS.length)];
+    s.style.left = 10 + Math.random() * 55 + "%";
+    s.style.setProperty("--sway", 8 + Math.random() * 10 + "px");
+    s.style.animationDuration = 5.6 + Math.random() * 1.2 + "s";
+    s.addEventListener("animationend", () => s.remove());
+    btn.appendChild(s);
+  }
+
+  panel.addEventListener("mouseover", (e) => {
+    const btn = e.target.closest && e.target.closest(".ps-whisper");
+    if (!btn || (e.relatedTarget && btn.contains(e.relatedTarget))) return;
+    clearInterval(whisperTimer);
+    whisper(btn);
+    whisperTimer = setInterval(() => {
+      if (!btn.isConnected || !btn.matches(":hover")) {
+        clearInterval(whisperTimer);
+        return;
+      }
+      whisper(btn);
+    }, 2100);
+  });
+
+  panel.addEventListener("mouseout", (e) => {
+    const btn = e.target.closest && e.target.closest(".ps-whisper");
+    if (btn && !(e.relatedTarget && btn.contains(e.relatedTarget))) {
+      clearInterval(whisperTimer);
+    }
+  });
 
   // listeners go on the panel itself (it never gets replaced)
   panel.addEventListener("click", (e) => {
@@ -1394,6 +1631,11 @@ if (
       case "go":
         go(t.dataset.step);
         break;
+      case "scrolldown": {
+        const s = $("psScroll");
+        if (s) s.scrollBy({ top: s.clientHeight * 0.8, behavior: "smooth" });
+        break;
+      }
       case "hero": {
         const i = +t.dataset.i;
         const dir = i >= S.hero ? 1 : -1;
@@ -1438,6 +1680,21 @@ if (
   panel.addEventListener("keydown", (e) => {
     if (!e.target.closest("#psStore")) return;
     e.stopPropagation(); // stops the main card selector from reacting to arrows / Enter
+    const gi = e.target.closest(".gallery-item");
+    if (gi && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      gi.click();
+      return;
+    }
+    panel.addEventListener(
+      "scroll",
+      (e) => {
+        if (e.target.id === "psScroll") updateHint();
+      },
+      true,
+    );
+    panel.addEventListener("load", updateHint, true); // gallery images change the height
+    window.addEventListener("resize", updateHint);
 
     if (e.key === "Escape" && isOpen()) {
       e.preventDefault();
@@ -1474,7 +1731,14 @@ if (
   });
 
   // Escape still works if focus slipped out of the popup
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isOpen()) closeGame();
-  });
+  document.addEventListener(
+    "keydown",
+    (e) => {
+      if (e.key !== "Escape" || !isOpen()) return;
+      const lb = document.getElementById("imagePopupOverlay");
+      if (lb && lb.classList.contains("open")) return;
+      closeGame();
+    },
+    true,
+  );
 })();
