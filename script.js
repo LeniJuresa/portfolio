@@ -124,20 +124,31 @@ function pointOnDiagonal(t) {
 }
 
 const field = document.getElementById("sparkleField");
-const NUM_SPARKLES = 200;
+const NUM_SPARKLES = 300;
+const NUM_SCATTERED = 25; // random sparkles placed anywhere on the screen
 
-for (let i = 0; i < NUM_SPARKLES; i++) {
-  const t = rand(0, 1);
-  const center = pointOnDiagonal(t);
+for (let i = 0; i < NUM_SPARKLES + NUM_SCATTERED; i++) {
+  let x, y;
 
-  const spread = rand(10, 22);
-  const x = center.x + (rand(-spread, spread) + rand(-spread, spread)) / 2;
-  const y = center.y + (rand(-spread, spread) + rand(-spread, spread)) / 2;
+  if (i < NUM_SPARKLES) {
+    // original behaviour: follow the curve
+    const t = rand(0, 1);
+    const center = pointOnDiagonal(t);
+    const spread = rand(10, 22);
+    x = center.x + (rand(-spread, spread) + rand(-spread, spread)) / 2;
+    y = center.y + (rand(-spread, spread) + rand(-spread, spread)) / 2;
+  } else {
+    // scattered: anywhere on the screen
+    x = rand(0, 100);
+    y = rand(0, 100);
+  }
 
   const el = createSparkle(
     Math.min(Math.max(x, -5), 105),
     Math.min(Math.max(y, 0), 105),
   );
+
+  if (i >= NUM_SPARKLES) el.style.setProperty("--peak", "0.4"); // scattered ones are dimmer
   field.appendChild(el);
 }
 

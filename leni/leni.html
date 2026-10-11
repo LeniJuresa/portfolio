@@ -152,99 +152,197 @@
               /></span>
 
               <template class="card-widgets">
+                <style>
+                  #widgetsPanel {
+                    width: 90%;
+                    /* Welcome widget size and vertical position: adjust zoom and margin-top here. */
+                    margin: 12px auto 0;
+                    padding: 0 1% 24px;
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    grid-template-rows: min-content repeat(2, minmax(130px, auto));
+                  }
 
-                <!-- ===== TEXT ABOVE THE TILES (full width, not clickable) ===== -->
-              <div class="widget-intro">
-              <h2 class="widget-intro__title">Hi, I'm <span>Leni!</span></h2>
+                  #widgetsPanel .widget-featured-cover img {
+                    opacity: 0.34;
+                  }
 
-              <p class="widget-intro__lead">
-                A 21 year old Informatics student based in
-                <mark class="widget-intro__mark">Rijeka, Croatia</mark>.<br />
-                <mark class="widget-intro__mark">Fullstack Web/Software developer</mark>
-                focusing on backend development with a little sprinkle of frontend :)
-              </p>
+                  #widgetsPanel .widget-featured-overlay {
+                    background: linear-gradient(
+                      180deg,
+                      rgba(12, 14, 22, 0.2) 0%,
+                      rgba(10, 12, 20, 0.76) 50%,
+                      rgba(9, 10, 17, 0.98) 100%
+                    );
+                  }
 
-              <div class="widget-intro__hint">
+                  #widgetsPanel .widget-featured-title {
+                    font-size: clamp(28px, 1.9vw, 36px);
+                  }
 
-                <p>
-                  Scroll through my projects using your mouse or Arrow keys. Go to the
-                  Media tab to view more about my projects or my life. You can also visit
-                  the <strong>"Store"</strong> to browse my upcoming projects! B)
-                </p>
-              </div>
-            </div>
+                  #widgetsPanel .widget-featured-sub {
+                    font-size: clamp(16px, 1.1vw, 20px);
+                    opacity: 1;
+                  }
 
-                  <!-- add more <p class="widget-intro__text"> lines, links or images here -->
-                
+                  #widgetsPanel .widget-title {
+                    font-size: clamp(18px, 1.2vw, 23px);
+                  }
 
-                <!-- ===== ABOUT ME (replaces the old Welcome tile) ===== -->
-                <div
-                  class="widget-tile widget-tile--2"
-                  data-popup="welcome"
-                  tabindex="0"
-                  role="button"
-                  aria-haspopup="dialog"
-                >
-                  <h3 class="widget-title">Portfolio info</h3>
-                  <p class="widget-text">
-                    My name is <strong>Leni Jureša</strong>. A 21 year old Informatics student based in Rijeka, Croatia. I enjoy all things coding but focus on FullStack Web Development.<br />
-                    <strong>Click to see more!</strong>
-                  </p>
+                  #widgetsPanel .widget-text {
+                    font-size: clamp(16px, 1vw, 19px);
+                    color: #e1e3eb;
+                  }
+
+                  #widgetsPanel .widget-badge {
+                    font-size: clamp(13px, 0.8vw, 16px);
+                  }
+
+                  #widgetsPanel .widget-dim {
+                    font-size: clamp(14px, 0.85vw, 17px);
+                    opacity: 0.85;
+                    color: #d1d4df;
+                  }
+
+                  #widgetsPanel .widget-trophy {
+                    font-size: clamp(16px, 1vw, 19px);
+                  }
+
+                  #widgetsPanel .widget-store-pill {
+                    margin-bottom: 2px;
+                  }
+
+                  @media (max-width: 1200px) {
+                    #widgetsPanel {
+                      grid-template-columns: repeat(2, minmax(0, 1fr));
+                    }
+                  }
+
+                  @media (max-width: 650px) {
+                    #widgetsPanel {
+                      padding: 0 1% 24px;
+                      grid-template-columns: 1fr;
+                      grid-template-rows: auto;
+                      gap: 16px;
+                    }
+
+                    #widgetsPanel .widget-store-pill {
+                      margin-bottom: 0;
+                    }
+
+                    #widgetsPanel .widget-pill-btn {
+                      max-width: 100%;
+                      flex-wrap: wrap;
+                      font-size: 16px;
+                    }
+                  }
+                </style>
+                <!-- INTRO TEKST IZNAD KARTICA -->
+                <div class="widget-store-pill">
+                  <button type="button" class="widget-pill-btn" data-nav-target="Discover">
+                    <span class="widget-pill-plus"><img
+                  src="../assets/icons/badge.svg"
+                  alt="dev icon"
+                  class="name-icon"
+              /></span> Open the Store* to view and browse all projects
+                  </button>
+                  
                 </div>
 
-                <div class="widget-info widget-info--1">
-                  <h3 class="widget-title">Contact</h3>
-                  <div class="widget-info__body">
-                    <p class="widget-text">Want to work together or just say hi? Reach out:</p>
-
-                    <div class="contact-buttons">
-                      <a class="contact-btn" href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                          <rect x="2" y="9" width="4" height="12" />
-                          <circle cx="4" cy="4" r="2" />
-                        </svg>
-                        LinkedIn
-                      </a>
-
-                      <a class="contact-btn" href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                        </svg>
-                        GitHub
-                      </a>
-
-                      <a class="contact-btn" href="mailto:you@example.com">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                          <polyline points="22,6 12,13 2,6" />
-                        </svg>
-                        Email
-                      </a>
+                <!-- 1. GORE LIJEVO (Visok 2 widgeta) -->
+                <div class="widget-tile widget-tile--tall" data-popup="about" tabindex="0" role="button" aria-haspopup="dialog">
+                  <div class="widget-featured-cover">
+                    <img src="../assets/images/rijeka.png" alt="About Me background" />
+                    <div class="widget-featured-overlay">
+                      <span class="widget-badge widget-badge--gold">PROFILE &amp; BIO</span>
+                      <h3 class="widget-featured-title">About Me</h3>
+                      <p class="widget-featured-sub">Leni Jureša · 21 y/o Informatics student based in Rijeka, Croatia.<br /><strong>Click for More.</strong></p>
                     </div>
                   </div>
                 </div>
 
-                <div class="widget-tile widget-tile--2" data-popup="trophies" tabindex="0" role="button" aria-haspopup="dialog">
-                  <h3 class="widget-title">Achievements</h3>
-                  <p class="widget-text">IRL achivements like 2nd place hackathon...</p>
-                </div>
-
-                <div class="widget-tile widget-tile--1" data-popup="activity" tabindex="0" role="button" aria-haspopup="dialog">
-                  <h3 class="widget-title">Latest activity</h3>
-                  <p class="widget-text">What project i'm working on right now.</p>
-                </div>
-
-                <div class="widget-info widget-info--3">
-                  <h3 class="widget-title">Info widget</h3>
-                  <div class="widget-info__body">
-                    <p class="widget-text">
-                      This is a static info widget. It can be used to display
-                      information that doesn't require user interaction.
-                    </p>
+                <!-- 2. GORE SREDINA (Visok 2 widgeta) -->
+                <div class="widget-tile widget-tile--tall" data-popup="welcome" tabindex="0" role="button" aria-haspopup="dialog">
+                  <div class="widget-featured-cover">
+                    <img src="../assets/images/temp-bg-ai.jpg" alt="Portfolio background" />
+                    <div class="widget-featured-overlay">
+                      <span class="widget-badge widget-badge--gold">PORTFOLIO DOCUMENTATION</span>
+                      <h3 class="widget-featured-title">How This Site Works</h3>
+                      <p class="widget-featured-sub">Explore the console UI logic, navigation mechanics, and store features.</p>
+                    </div>
                   </div>
                 </div>
 
+                <!-- 3. GORE DESNO: Trophies -->
+                <div class="widget-tile" data-popup="trophies" tabindex="0" role="button" aria-haspopup="dialog">
+                  <div class="widget-card__head">
+                    <div class="widget-title-wrap">
+                      <span class="widget-icon">🏆</span>
+                      <h3 class="widget-title">Trophies &amp; Milestones</h3>
+                    </div>
+                    <span class="widget-dim">4 Unlocked</span>
+                  </div>
+                  <div class="widget-trophies-row">
+                    <div class="widget-trophy"><span class="widget-t-icon">💎</span> 1</div>
+                    <div class="widget-trophy"><span class="widget-t-icon">🥇</span> 1</div>
+                    <div class="widget-trophy"><span class="widget-t-icon">🥈</span> 2</div>
+                    <div class="widget-trophy"><span class="widget-t-icon">🥉</span> 4</div>
+                  </div>
+                </div>
+
+                <!-- 4. DESNO SREDINA: Contact -->
+                <div class="widget-tile" data-popup="contact" tabindex="0" role="button" aria-haspopup="dialog">
+                  <div class="widget-card__head widget-card__head--start">
+                    <span class="widget-icon">✉️</span>
+                    <h3 class="widget-title">Contact &amp; Socials</h3>
+                  </div>
+                  <p class="widget-text">Have a project or opportunity? Reach out via LinkedIn, GitHub, or Email.</p>
+                </div>
+
+                <!-- 5. DOLJE LIJEVO: Latest Release (EDMS) -->
+                <div class="widget-tile widget-tile--split" data-nav-target="EDMS" tabindex="0" role="button">
+                  <div class="widget-split-text">
+                    <span class="widget-badge widget-badge--blue">LATEST RELEASE</span>
+                    <h4 class="widget-title">Emergency Dispatch (EDMS)</h4>
+                    <p class="widget-text">Police &amp; emergency dispatch system. Click to open project profile.</p>
+                  </div>
+                  <div class="widget-split-thumb">
+                    <img src="../assets/images/placeholder.svg" alt="EDMS Thumbnail" />
+                  </div>
+                </div>
+
+                <!-- 6. DOLJE SREDINA: Tech Stack -->
+                <div class="widget-tile widget-tile--device" data-popup="storage" tabindex="0" role="button" aria-haspopup="dialog">
+                  <div class="widget-device-ring">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="widget-device-icon">
+                      <polyline points="16 18 22 12 16 6"></polyline>
+                      <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                  </div>
+                  <div class="widget-device-info">
+                    <h4 class="widget-title">Tech Stack</h4>
+                    <p class="widget-text">PHP / Laravel · Java · Python · JS</p>
+                  </div>
+                </div>
+
+                <!-- 7. DOLJE DESNO: GitHub Activity -->
+                <div class="widget-tile" data-popup="activity" tabindex="0" role="button" aria-haspopup="dialog">
+                  <div class="widget-card__head">
+                    <div class="widget-title-wrap">
+                      <span class="widget-icon">📡</span>
+                      <h3 class="widget-title">GitHub Activity</h3>
+                    </div>
+                    <span class="widget-dim">Live API</span>
+                  </div>
+                  <div class="widget-activity-item">
+                    <div class="widget-avatar-wrap">
+                      <img src="../assets/images/placeholder.svg" alt="Activity thumb" />
+                    </div>
+                    <div>
+                      <p class="widget-text"><strong>@lenijuresa</strong></p>
+                      <span class="widget-dim">Contribution map &amp; recent commits</span>
+                    </div>
+                  </div>
+                </div>
               </template>
             </div>
             <!-- Placeholder project EDMS  -->

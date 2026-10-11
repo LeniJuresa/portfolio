@@ -53,6 +53,17 @@ function createSelector(track, onSelect) {
     }
   }
 
+  function selectItem(item) {
+    const index = cards.findIndex(
+      (card) => card.closest(".profile-item") === item,
+    );
+    if (index < 0) return false;
+
+    currentIndex = index;
+    updateSelector();
+    return true;
+  }
+
   function activateCurrent() {
     const activeCard = cards[currentIndex];
     const activeItem = activeCard.closest(".profile-item");
@@ -80,7 +91,7 @@ function createSelector(track, onSelect) {
 
   updateSelector();
 
-  return { updateSelector, moveSelector, activateCurrent, reset };
+  return { updateSelector, moveSelector, selectItem, activateCurrent, reset };
 }
 
 const cardDetail = document.getElementById("cardDetail");
@@ -153,6 +164,36 @@ const selectors = {
     updateCardDetail,
   ),
 };
+
+if (widgetsPanel) {
+  function navigateToWidgetTarget(target) {
+    const item = Array.from(
+      document.querySelectorAll("#profileTrack-projects .profile-item"),
+    ).find(
+      (candidate) =>
+        candidate.dataset.title === target ||
+        candidate.dataset.project === target,
+    );
+
+    if (!item || !selectors.projects.selectItem(item)) {
+      console.error(`Could not find project card for widget target "${target}".`);
+    }
+  }
+
+  widgetsPanel.addEventListener("click", (e) => {
+    const target = e.target.closest("[data-nav-target]");
+    if (!target || !widgetsPanel.contains(target)) return;
+    navigateToWidgetTarget(target.dataset.navTarget);
+  });
+
+  widgetsPanel.addEventListener("keydown", (e) => {
+    const target = e.target.closest(".widget-tile[data-nav-target]");
+    if (!target || (e.key !== "Enter" && e.key !== " ")) return;
+
+    e.preventDefault();
+    navigateToWidgetTarget(target.dataset.navTarget);
+  });
+}
 
 let activeView = "projects";
 
