@@ -176,7 +176,9 @@ if (widgetsPanel) {
     );
 
     if (!item || !selectors.projects.selectItem(item)) {
-      console.error(`Could not find project card for widget target "${target}".`);
+      console.error(
+        `Could not find project card for widget target "${target}".`,
+      );
     }
   }
 
@@ -790,7 +792,7 @@ if (
       count: 0,
       price: 24.99, // the old / full price in euros
       discount: 100, // percent off. Leave it out and it defaults to 100
-      per: "/m",
+      per: "/month",
       year: "Coming soon",
       href: LINK,
       tags: ["WIP", "Coming soon"],
