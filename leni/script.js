@@ -792,7 +792,7 @@ if (
       count: 0,
       price: 24.99, // the old / full price in euros
       discount: 100, // percent off. Leave it out and it defaults to 100
-      per: "/month",
+      per: "/m",
       year: "Coming soon",
       href: LINK,
       tags: ["WIP", "Coming soon"],
