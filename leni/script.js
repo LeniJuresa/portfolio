@@ -167,8 +167,28 @@ function updateCardBackground(item) {
   visibleBgLayerIndex = nextIndex;
 }
 
+let currentCardItem = null;
+
+// page scroll lock
+function updateScrollLock() {
+  const onWelcome =
+    currentCardItem && currentCardItem.dataset.title === "Welcome";
+
+  let lock = false;
+  if (onWelcome && widgetsPanel) {
+    const bottom = widgetsPanel.getBoundingClientRect().bottom + window.scrollY;
+    lock = bottom <= window.innerHeight;
+  }
+
+  document.documentElement.classList.toggle("no-scroll", lock);
+  if (lock) window.scrollTo(0, 0);
+}
+
 function updateCardDetail(item) {
   if (!item) return;
+
+  currentCardItem = item;
+  requestAnimationFrame(updateScrollLock);
 
   updateCardBackground(item);
 
@@ -320,6 +340,11 @@ function fitScene() {
 
 fitScene();
 window.addEventListener("resize", fitScene);
+
+window.addEventListener("resize", updateScrollLock);
+if (widgetsPanel && "ResizeObserver" in window) {
+  new ResizeObserver(updateScrollLock).observe(widgetsPanel);
+}
 
 // AI ^^
 

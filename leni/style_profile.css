@@ -10,6 +10,11 @@ body {
   -ms-overflow-style: none;
 }
 
+html.no-scroll,
+html.no-scroll body {
+  overflow: hidden;
+}
+
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
@@ -465,7 +470,7 @@ Profile page
 ========================================================== */
 .widget-grid {
   width: 90%;
-  margin: 12px auto 0;
+  margin: -40px auto 0;
   box-sizing: border-box;
   padding: 0 1% 24px;
   display: grid;
@@ -3075,7 +3080,6 @@ html:has(.ps-overlay.open) body {
 .ps-dev .ps-bar i.lvl-high {
   background: linear-gradient(90deg, #2f9e63, #7fd6a0);
 }
-
 
 #widgetsPanel .widget-featured-cover img {
   opacity: 0.34;
