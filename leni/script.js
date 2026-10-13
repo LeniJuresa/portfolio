@@ -1,3 +1,44 @@
+/*  AI  */
+// ---------- shared keyboard helpers ----------
+
+// Every closable layer registers here. z matches the CSS z-index,
+// so Escape always closes the topmost open layer first.
+const escapeLayers = [];
+function registerEscape(z, isOpen, close) {
+  escapeLayers.push({ z, isOpen, close });
+}
+
+document.addEventListener(
+  "keydown",
+  (e) => {
+    if (e.key !== "Escape") return;
+    const top = escapeLayers
+      .filter((layer) => layer.isOpen())
+      .sort((a, b) => b.z - a.z)[0];
+    if (!top) return;
+    e.preventDefault();
+    top.close();
+  },
+  true, // capture, so the store's stopPropagation() can't block it
+);
+
+// Enter / Space activates any element matching `selector`.
+function onActivate(selector, handler, root = document) {
+  root.addEventListener(
+    "keydown",
+    (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const el = e.target.closest(selector);
+      if (!el) return;
+      e.preventDefault();
+      handler(el, e);
+    },
+    true,
+  );
+}
+
+/* AI */
+
 window.addEventListener(
   "wheel",
   (e) => {
@@ -188,13 +229,11 @@ if (widgetsPanel) {
     navigateToWidgetTarget(target.dataset.navTarget);
   });
 
-  widgetsPanel.addEventListener("keydown", (e) => {
-    const target = e.target.closest(".widget-tile[data-nav-target]");
-    if (!target || (e.key !== "Enter" && e.key !== " ")) return;
-
-    e.preventDefault();
-    navigateToWidgetTarget(target.dataset.navTarget);
-  });
+  onActivate(
+    ".widget-tile[data-nav-target]",
+    (tile) => navigateToWidgetTarget(tile.dataset.navTarget),
+    widgetsPanel,
+  );
 }
 
 let activeView = "projects";
@@ -262,11 +301,11 @@ if (profileNavButton && profileMenu) {
     }
   });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      setMenuOpen(false);
-    }
-  });
+  registerEscape(
+    4,
+    () => profileMenu.classList.contains("open"),
+    () => setMenuOpen(false),
+  );
 }
 
 function fitScene() {
@@ -311,20 +350,7 @@ const widgetPopupContent = {
 
     `,
   },
-  fact: {
-    title: "Lorem ipsum",
-    body: `<p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ex velit dui risus nisl nunc. Duis justo felis auctor quisque sem. Lacus ligula justo ex leo justo ut.
-      Mauris justo est malesuada sollicitudin erat eu lectus nulla. Arcu volutpat vestibulum nulla suspendisse augue massa tortor pellentesque. Morbi vestibulum tellus iaculis ut diam rutrum vehicula ac neque id ligula. A porttitor sapien mi volutpat commodo tellus et lacinia eget eget. Consectetur donec mauris sodales scelerisque eleifend sit sed aenean in mollis lorem lectus. Id nisi vestibulum auctor amet in ac laoreet non nam viverra fermentum condimentum. Et vel vivamus sem viverra tempor tempor quam sit sed commodo nulla consectetur vel. Quis consectetur mauris at mauris.
 
-    </p>
-    <p>
-      In faucibus feugiat amet ut quam a sapien at dolor suspendisse euismod quam. Luctus tellus nunc vitae ut diam felis. Proin aliquam magna ac eleifend vel egestas. Placerat et at lorem proin ut sagittis suspendisse varius neque eleifend nunc nisi.
-
-      Rhoncus sit quisque lacus egestas. Egestas libero donec euismod purus consectetur scelerisque at suscipit et mauris. Et sed eget consequat posuere. Nisi suscipit amet nisl porttitor condimentum et.
-    </p>
-    `,
-  },
   trophies: {
     title: "Trophies",
     body: `
@@ -346,19 +372,6 @@ const widgetPopupContent = {
         <li>HTML / CSS / JavaScript</li>
         <li>[other tools]</li>
       </ul>
-    `,
-  },
-  messages: {
-    title: "Messages",
-    body: `
-      <p>"Placeholder feedback quote — from a professor, classmate, or someone who actually uses one of my projects."</p>
-      <p>— [name, role]</p>
-    `,
-  },
-  activity: {
-    title: "Latest activity",
-    body: `
-      <p>Connected github to this widget. Shows my github map aswell as my last updated repo.</p>
     `,
   },
 };
@@ -512,27 +525,20 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
     if (tile) openWidgetPopup(tile.dataset.popup, tile);
   });
 
-  document.addEventListener("keydown", (e) => {
-    const tile = e.target.closest(".widget-tile[data-popup]");
-    if (tile && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      openWidgetPopup(tile.dataset.popup, tile);
-    }
-  });
-
   widgetPopupClose.addEventListener("click", closeWidgetPopup);
 
   widgetPopupOverlay.addEventListener("click", (e) => {
     if (e.target === widgetPopupOverlay) closeWidgetPopup();
   });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key !== "Escape" || !widgetPopupOverlay.classList.contains("open"))
-      return;
-    const lightbox = document.getElementById("imagePopupOverlay");
-    if (lightbox && lightbox.classList.contains("open")) return;
-    closeWidgetPopup();
-  });
+  onActivate(".widget-tile[data-popup]", (tile) =>
+    openWidgetPopup(tile.dataset.popup, tile),
+  );
+  registerEscape(
+    10,
+    () => widgetPopupOverlay.classList.contains("open"),
+    closeWidgetPopup,
+  );
 }
 
 const imagePopupOverlay = document.getElementById("imagePopupOverlay");
@@ -611,13 +617,25 @@ if (
   });
 
   document.addEventListener("keydown", (e) => {
-    const item = e.target.closest(".gallery-item");
-    if (item && (e.key === "Enter" || e.key === " ")) {
+    if (!imagePopupOverlay.classList.contains("open")) return;
+    if (e.key === "ArrowLeft") {
       e.preventDefault();
-      const img = item.querySelector("img");
-      if (img) openImagePopup(img.src, img.alt, item);
+      moveGalleryImage(-1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      moveGalleryImage(1);
     }
   });
+
+  onActivate(".gallery-item", (item) => {
+    const img = item.querySelector("img");
+    if (img) openImagePopup(img.src, img.alt, item);
+  });
+  registerEscape(
+    13,
+    () => imagePopupOverlay.classList.contains("open"),
+    closeImagePopup,
+  );
 
   imagePopupClose.addEventListener("click", closeImagePopup);
   imagePopupPrev.addEventListener("click", () => moveGalleryImage(-1));
@@ -1606,14 +1624,13 @@ if (
   });
   /* ---------- whispers: little wavy text floats out of the buy button ---------- */
   const WHISPERS = [
-    "nothing real will happen...",
     "it's free, I promise",
+    "you won't need to enter any information!",
     "press the button.....",
-    "your wallet is safe",
     "Click meeee...",
-    "go on, click it",
-    "It's cool, I swear...",
-    "no payment will be talken... WoOoOoOo",
+    "go on, click me...",
+    "WoOoOoOo, I'm floating away....",
+    "I'm a button :)",
     "WoOoOoOoOo, nothing real will happen....",
   ];
   let whisperTimer = null;
@@ -1723,27 +1740,7 @@ if (
   panel.addEventListener("keydown", (e) => {
     if (!e.target.closest("#psStore")) return;
     e.stopPropagation(); // stops the main card selector from reacting to arrows / Enter
-    const gi = e.target.closest(".gallery-item");
-    if (gi && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      gi.click();
-      return;
-    }
-    panel.addEventListener(
-      "scroll",
-      (e) => {
-        if (e.target.id === "psScroll") updateHint();
-      },
-      true,
-    );
-    panel.addEventListener("load", updateHint, true); // gallery images change the height
-    window.addEventListener("resize", updateHint);
 
-    if (e.key === "Escape" && isOpen()) {
-      e.preventDefault();
-      closeGame();
-      return;
-    }
     if (e.key === "Tab" && isOpen()) {
       const f = [
         ...$("psPanel").querySelectorAll(
@@ -1762,6 +1759,7 @@ if (
       }
       return;
     }
+
     if (!isOpen() && (e.key === "ArrowRight" || e.key === "ArrowLeft")) {
       const tiles = [...document.querySelectorAll(".ps-tile:not([hidden])")];
       const i = tiles.indexOf(document.activeElement);
@@ -1773,15 +1771,16 @@ if (
     }
   });
 
-  // Escape still works if focus slipped out of the popup
-  document.addEventListener(
-    "keydown",
+  // these used to live inside the keydown handler
+  panel.addEventListener(
+    "scroll",
     (e) => {
-      if (e.key !== "Escape" || !isOpen()) return;
-      const lb = document.getElementById("imagePopupOverlay");
-      if (lb && lb.classList.contains("open")) return;
-      closeGame();
+      if (e.target.id === "psScroll") updateHint();
     },
     true,
   );
+  panel.addEventListener("load", updateHint, true); // gallery images change the height
+  window.addEventListener("resize", updateHint);
+
+  registerEscape(12, isOpen, closeGame);
 })();
