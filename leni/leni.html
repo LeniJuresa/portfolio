@@ -953,27 +953,141 @@
   <p>Some parts of this site do more than they let on. Finding them is half the fun. ;)</p>
 </template>
 
-<!-- Image beside text, stats row, checklist -->
-<template data-popup-key="about" data-title="About me" data-size="lg">
-  <div class="pb-cols pb-cols--side">
-    <figure class="pb-img pb-img--square">
-      <img src="../assets/images/leni_funny.jpg" alt="Leni">
-      <figcaption>[Caption]</figcaption>
-    </figure>
-    <div>
-      <p class="pb-lead">[Two or three sentences: who you are and what you build.]</p>
-      <div class="pb-stats">
-        <div class="pb-stat"><b>3+</b><span>Years coding</span></div>
-        <div class="pb-stat"><b>6</b><span>Projects</span></div>
-        <div class="pb-stat"><b>1</b><span>Hackathon podium</span></div>
+<!-- Tech stack: full list on top, then per-project breakdown -->
+<template data-popup-key="storage" data-title="Tech Stack" data-size="lg">
+  <h4 class="pb-h">Everything I work with</h4>
+  <div class="pb-tags">
+
+    <span>HTML</span>
+    <span>CSS</span>
+    <span>JavaScript</span>
+    <span>Java</span>
+    <span>Python</span>
+    <span>SQL</span>
+    <span>PHP</span>
+    <span>Laravel</span>
+    <span>XAMPP</span>
+    <span>Quasar</span>
+    <span>Git / GitHub</span>    
+  </div>
+
+  <h4 class="pb-h">By project</h4>
+  <div class="stack-list">
+
+    <div class="stack-row">
+      <span class="stack-name">EDMS</span>
+      <a class="stack-gh" href="https://github.com/LeniJuresa/EDMS" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Repo
+      </a>
+      <div class="stack-tags">
+        <span>PHP</span><span>Laravel</span><span>SQL</span><span>XAMPP</span><span>HTML</span><span>CSS</span> 
       </div>
-      <h4 class="pb-h">Quick facts</h4>
-      <ul class="pb-list">
-        <li>Based in [City]</li>
-        <li>Studying [Programme]</li>
-        <li>Speaks [Croatian, English]</li>
-      </ul>
     </div>
+
+    <div class="stack-row">
+      <span class="stack-name">Church App</span>
+      <a class="stack-gh" href="https://github.com/lenijuresa/REPO-NAME" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Repo
+      </a>
+      <div class="stack-tags">
+        <span>Java</span><span>Eclipse WindowBuilder</span><span>SQL</span>
+      </div>
+    </div>
+
+    <div class="stack-row">
+      <span class="stack-name">ISS tracker</span>
+      <a class="stack-gh" href="https://github.com/LeniJuresa/RAPS" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Repo
+      </a>
+      <div class="stack-tags">
+        <span>Python</span><span>HTML</span><span>CSS</span><span>JS</span>
+      </div>
+    </div>
+
+    <div class="stack-row">
+      <span class="stack-name">Portfolio: PS5 Edition</span>
+      <a class="stack-gh" href="https://github.com/LeniJuresa/portfolio" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Repo
+      </a>
+      <div class="stack-tags">
+        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<!-- About me: round photo + name, bio, location/college, recent projects -->
+<template data-popup-key="about" data-title="About me" data-size="lg">
+  <div class="about-top">
+    <!-- left: photo + name -->
+    <div class="about-id">
+      <figure class="pb-img pb-img--round about-photo">
+        <img src="../assets/images/leni_funny.jpg" alt="Leni Juresa">
+      </figure>
+      <div class="about-name">
+        Leni Juresa
+        <img src="../assets/icons/badge.svg" alt="dev icon" class="name-icon" />
+      </div>
+    </div>
+
+    <!-- right: bio + facts -->
+    <div class="about-main">
+      <div class="pb-card about-bio">
+        <p>
+          [Placeholder text. Write two or three sentences about who you are,
+          what you build and what you are looking for. Lorem ipsum dolor sit
+          amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua.]
+        </p>
+      </div>
+
+      <div class="about-facts">
+        <div class="about-fact">
+          <span class="about-label">Based in:</span>
+          <a class="about-chip"
+             href="https://www.google.com/maps/place/Rijeka/"
+             target="_blank" rel="noopener noreferrer">
+            Rijeka - Croatia
+          </a>
+        </div>
+        <div class="about-fact">
+          <span class="about-label">Studying:</span>
+          <a class="about-chip"
+             href="https://www.veleri.hr/hr/studijski-programi/124/strucni-prijediplomski-studij-informatika"
+             target="_blank" rel="noopener noreferrer">
+            
+            Professional Undergraduate Study of Informatics
+          </a>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- recently created -->
+  <h4 class="pb-h">Recently created</h4>
+  <div class="about-projects">
+    <button type="button" class="about-proj" data-nav-target="EDMS">
+      <img src="../assets/images/placeholder.svg" alt="" loading="lazy">
+      <span>EDMS</span>
+    </button>
+    <button type="button" class="about-proj" data-nav-target="Church">
+      <img src="../assets/images/placeholder.svg" alt="" loading="lazy">
+      <span>Church App</span>
+    </button>
+    <button type="button" class="about-proj" data-nav-target="ISS tracker">
+      <img src="../assets/images/placeholder.svg" alt="" loading="lazy">
+      <span>ISS tracker</span>
+    </button>
+    <button type="button" class="about-proj" data-nav-target="Project 3">
+      <img src="../assets/images/placeholder.svg" alt="" loading="lazy">
+      <span>Project 3</span>
+    </button>
   </div>
 </template>
 
