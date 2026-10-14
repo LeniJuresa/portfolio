@@ -143,11 +143,14 @@ const cardBgLayers = [
   document.getElementById("cardBgLayerA"),
   document.getElementById("cardBgLayerB"),
 ].filter(Boolean);
-let visibleBgLayerIndex = -1; // -1 = neither painted yet
+let visibleBgLayerIndex = -1;
 
-function updateCardBackground(item) {
+const BG_INTERVAL = 8000;
+let bgTimer = null;
+
+// crossfades to one image using the two background layers
+function showBackground(src) {
   if (!cardBgLayers.length) return;
-  const src = item && item.dataset.bg;
 
   const nextIndex =
     visibleBgLayerIndex === -1
@@ -165,6 +168,29 @@ function updateCardBackground(item) {
   if (currentLayer) currentLayer.classList.remove("is-visible");
 
   visibleBgLayerIndex = nextIndex;
+}
+
+function updateCardBackground(item) {
+  clearInterval(bgTimer); // stop the previous card's rotation
+
+  const list = ((item && item.dataset.bg) || "")
+    .split(/[|,]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  showBackground(list[0] || "");
+  if (list.length < 2) return; // if one image: nothing to rotate
+
+  list.forEach((src) => {
+    new Image().src = src;
+  });
+
+  let i = 0;
+  bgTimer = setInterval(() => {
+    if (document.hidden) return; // pause while the tab is in the background
+    i = (i + 1) % list.length;
+    showBackground(list[i]);
+  }, BG_INTERVAL);
 }
 
 function updateCardDetail(item) {
@@ -194,6 +220,13 @@ function updateCardDetail(item) {
     cardDetailText.textContent = item.dataset.desc || "";
   }
 }
+
+widgetsPanel.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-scroll]");
+  if (!btn) return;
+  const el = widgetsPanel.querySelector(btn.dataset.scroll);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+});
 
 const selectors = {
   projects: createSelector(
@@ -521,7 +554,7 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
   }
 
   document.addEventListener("click", (e) => {
-    const tile = e.target.closest(".widget-tile[data-popup]");
+    const tile = e.target.closest("[data-popup]");
     if (tile) openWidgetPopup(tile.dataset.popup, tile);
   });
 
@@ -539,7 +572,7 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
     if (e.target === widgetPopupOverlay) closeWidgetPopup();
   });
 
-  onActivate(".widget-tile[data-popup]", (tile) =>
+  onActivate("[data-popup]", (tile) =>
     openWidgetPopup(tile.dataset.popup, tile),
   );
   registerEscape(
@@ -1791,4 +1824,62 @@ if (
   window.addEventListener("resize", updateHint);
 
   registerEscape(12, isOpen, closeGame);
+})();
+
+// ==========================================================
+// BACKGROUND DARKENS ON SCROLL
+// Self-contained: keep this at the end of the file.
+// AI made
+// ==========================================================
+(function () {
+  // Cards that should NOT darken. Match the card's data-title or data-project.
+  const DARKEN_IGNORE = ["Discover", "Welcome"];
+
+  const DISTANCE = 0.8; // screens of scrolling until fully dark (smaller = faster)
+  const MAX_DARK = 0.9; // 1 = fully black
+
+  const root = document.documentElement;
+
+  // the selected card in the currently visible tab
+  function activeItem() {
+    const card = document.querySelector(
+      ".profile-selector.active-view .profile-card.active",
+    );
+    return card ? card.closest(".profile-item") : null;
+  }
+
+  function isIgnored(item) {
+    if (!item) return true;
+    return (
+      DARKEN_IGNORE.includes(item.dataset.title) ||
+      DARKEN_IGNORE.includes(item.dataset.project)
+    );
+  }
+
+  function update() {
+    if (isIgnored(activeItem())) {
+      root.style.setProperty("--scroll-dark", "0");
+      return;
+    }
+    const progress = Math.min(
+      1,
+      Math.max(0, window.scrollY / (window.innerHeight * DISTANCE)),
+    );
+    root.style.setProperty("--scroll-dark", (progress * MAX_DARK).toFixed(3));
+  }
+
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+
+  // re-check whenever the selected card or the Projects/Media tab changes
+  const hero = document.querySelector(".hero");
+  if (hero) {
+    new MutationObserver(update).observe(hero, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+
+  update();
 })();

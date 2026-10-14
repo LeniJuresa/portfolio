@@ -266,7 +266,7 @@
               class="profile-item ease-in"
               data-project="EDMS"
               data-title="Emergency Dispatch Management System"
-              data-bg="../assets/images/aboutme-temp-ai.jpg"
+              data-bg="../assets/images/aboutme-temp-ai.jpg, ../assets/images/temp-bg-ai.jpg"
             >
               <div
                 class="profile-card profile-card--photo"
@@ -276,35 +276,195 @@
               ></div>
               <span class="profile-name"
                 >EDMS</span>
-              <template class="profile-desc">
-                <p class="text">
-                  
-                Nibh sem sapien orci lacinia quis nibh porta leo velit felis consectetur nulla. In iaculis rhoncus ut mollis enim curabitur. Pretium nisi sed imperdiet quam at aliquam at condimentum lacinia. Aliquam duis et donec egestas cursus posuere viverra a scelerisque erat eu. Mi gravida arcu ornare eget sed nec in maximus tellus. Id duis sed nisl fusce.
+            <template class="card-widgets">
+              <div class="project">
 
-                Velit tellus magna lacinia porttitor metus nisl volutpat turpis sit. Imperdiet arcu nunc sollicitudin urna. Blandit sed et nec eget aenean pellentesque augue aliquam sed eget duis feugiat. Maecenas lacus justo vitae cursus varius eget. Eget enim ipsum venenatis sit suscipit aenean fusce. Aliquam vestibulum eu sed sem dictum vestibulum.
-                </p>
+                <!-- HERO -->
+                <header class="project-hero">
+                  <p class="project-meta">IPBeja project · PHP / Laravel · Web · 2025</p>
+                  <h2 class="project-title">Emergency Dispatch &amp; Incident Management System (EDMS)</h2>
 
-                <p class="text">
-                  Sit posuere convallis ante et vestibulum aliquam venenatis sed. Risus proin aenean non ante ac quis ipsum etiam nulla in pharetra. Gravida aliquam a nibh ipsum congue ex quam arcu turpis quis. Placerat accumsan ut non arcu lacus nunc mauris quis rutrum. Augue neque pretium lectus suspendisse ac fusce vestibulum semper posuere. Aliquam sem non sapien ac eleifend diam viverra. A egestas etiam pellentesque elementum facilisis ut consectetur quis quisque ultrices ipsum laoreet. Quisque aenean ex ornare mi consectetur rutrum est non ultrices nec quis nunc.
-                </p>
+                  <div class="project-actions">
+                    <button type="button" class="project-play" data-popup="project-status">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                      Play
+                    </button>
+                    <a class="project-round" href="https://github.com/LeniJuresa/EDMS" target="_blank" rel="noopener noreferrer" aria-label="Source code on GitHub" title="GitHub">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    </a>
+                    <button type="button" class="project-round" data-scroll="#info" aria-label="Info" title="Info">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </button>
 
+                    <!-- To add new buttons:  <section id="name">   and in a button   data-scroll="#name"  -->
+                  </div>
+                </header>
 
-                <!-- popup button-->
-                <div
-                  class="widget-tile widget-tile--1"
-                  data-popup="fact"
-                  tabindex="0"
-                  role="button"
-                  aria-haspopup="dialog"
-                  style="max-width: 320px; margin: 20px 0"
-                  
-                >
-                  <h3 class="widget-title">Lorem ipsum</h3>
-                  <p class="widget-text">
-                    Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+                <!-- 1. GALLERY -->
+                <section id="projectShots">
+                  <h3 class="project-h">Gallery</h3>
+                  <div class="gallery-grid project-shots">
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="EDMS screenshot 1" loading="lazy" /></div>
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="EDMS screenshot 2" loading="lazy" /></div>
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="EDMS screenshot 3" loading="lazy" /></div>
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="EDMS screenshot 4" loading="lazy" /></div>
+                    
+                  </div>
+                </section id="projectShots">
+
+                <!-- 2. TECH STACK -->
+                <section>
+                  <h3 class="project-h">Tech stack and tools</h3>
+                  <dl class="project-kv">
+                    <div><dt>Backend</dt><dd>PHP and Laravel (routing, database models, middleware authentication, and CSRF protection)</dd></div>
+                    <div><dt>Database</dt><dd>MySQL / MariaDB (via XAMPP)</dd></div>
+                    <div><dt>Frontend</dt><dd>Laravel Blade templates, plain JavaScript (Fetch API), and custom CSS</dd></div>
+                    <div><dt>Environment</dt><dd>Composer, Git, XAMPP local server</dd></div>
+                  </dl>
+                </section>
+
+                <!-- 3. CORE FEATURES -->
+                <section id="features">
+                  <h3 class="project-h">Project overview</h3>
+                  <p class="project-prose">
+                    EDMS is a web platform designed to handle emergency reports quickly and connect the public
+                    with emergency dispatchers in real time. It allows anyone to send an urgent report without
+                    needing an account, while providing dispatchers and system administrators with dedicated
+                    dashboards to review reports, communicate, and take action.
                   </p>
-                </div>
-              </template>
+
+                  <h3 class="project-h project-h--gap">Core features</h3>
+                  <div class="project-text-grid">
+                    <article>
+                      <h4>Anonymous incident submission</h4>
+                      <p>Anyone can report an incident without creating an account or logging in. The form captures the location, incident details, and optional photo evidence.</p>
+                    </article>
+                    <article>
+                      <h4>Live two-way chat</h4>
+                      <p>After submitting a report, the user is given a private access link that opens a direct chat window with the dispatcher handling their case.</p>
+                    </article>
+                    <article>
+                      <h4>Dispatcher control panel</h4>
+                      <p>Dispatchers can view all incoming unassigned reports. To prevent two people from working on the same issue, a dispatcher must claim a report before reviewing the photo evidence, chatting with the user, and officially marking it as Accepted or Denied.</p>
+                    </article>
+                    <article>
+                      <h4>Admin overview and staff control</h4>
+                      <p>Administrators can see overall system stats, such as total, pending, and resolved cases, as well as how long each issue took to resolve. They can also create and manage new staff accounts.</p>
+                    </article>
+                    <article>
+                      <h4>Automatic live updates</h4>
+                      <p>Both the chat rooms and the dispatcher overview check the server every two seconds using background requests. This keeps messages and report statuses updated on screen without needing to refresh the page.</p>
+                    </article>
+                    <article>
+                      <h4>Near real-time without WebSockets</h4>
+                      <p>Instead of setting up external socket servers or paid third-party services, the application uses periodic asynchronous polling. The browser automatically requests new data in the background, updates only the changed parts of the page, and locks the chat and action buttons as soon as a report is closed.</p>
+                    </article>
+                  </div>
+                </section>
+
+                <!-- 4. ROLES -->
+                <section>
+                  <h3 class="project-h">Roles</h3>
+
+                  <article class="project-role">
+                    <div class="project-role-text">
+                      <h4>Public visitor</h4>
+                      <p>Unauthenticated visitors can only access the public reporting form and the private chat link they receive after submitting a report.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    <div class="gallery-grid project-shots project-shots--2">
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="Public report form" loading="lazy" /></div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="Public chat window" loading="lazy" /></div>
+                    </div>
+                  </article>
+
+                  <article class="project-role">
+                    <div class="project-role-text">
+                      <h4>Dispatcher</h4>
+                      <p>Dispatchers claim an unassigned report, review the photo evidence, chat with the user, and mark the report as Accepted or Denied.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    <div class="gallery-grid project-shots project-shots--2">
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="Dispatcher report list" loading="lazy" /></div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="Dispatcher case view" loading="lazy" /></div>
+                    </div>
+                  </article>
+
+                  <article class="project-role">
+                    <div class="project-role-text">
+                      <h4>Administrator</h4>
+                      <p>Administrators see system stats and resolution times, and they create and manage staff accounts.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    <div class="gallery-grid project-shots project-shots--2">
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="Admin overview" loading="lazy" /></div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="Staff management" loading="lazy" /></div>
+                    </div>
+                  </article>
+                </section>
+
+                <!-- 5. DATABASE AND SECURITY -->
+                <section id="info">
+                  <h3 class="project-h">Database and security</h3>
+                  <div class="project-text-grid">
+                    <article>
+                      <h4>How reports are stored</h4>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                    </article>
+                    <article>
+                      <h4>How passwords are stored</h4>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </article>
+                    <article>
+                      <h4>How login works</h4>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </article>
+                    <article>
+                      <h4>How chats are stored</h4>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                    </article>
+                    <article>
+                      <h4>How permissions work</h4>
+                      <p>Custom Laravel middleware ensures strict permission levels. Unauthenticated visitors can only access public reporting forms, while dispatcher consoles and administrative management tools are locked down to accounts with verified staff roles.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                    </article>
+                  </div>
+                </section>
+
+                <!-- 6. STATUS, UPDATES, FUTURE -->
+                <section>
+                  <h3 class="project-h">Status, updates and future</h3>
+                  <div class="project-three">
+                    <article>
+                      <h4>Status</h4>
+                      <p>Local build working. Live demo deployment coming soon.</p>
+                    </article>
+                    <article>
+                      <h4>Updates</h4>
+                      <ul class="project-plain">
+                        <li><b>[Date]</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                        <li><b>[Date]</b> Sed do eiusmod tempor incididunt ut labore et dolore.</li>
+                        <li><b>[Date]</b> Ut enim ad minim veniam, quis nostrud exercitation.</li>
+                      </ul>
+                    </article>
+                    <article>
+                      <h4>Future plans</h4>
+                      <ul class="project-plain">
+                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                        <li>Sed do eiusmod tempor incididunt ut labore et dolore.</li>
+                        <li>Ut enim ad minim veniam, quis nostrud exercitation.</li>
+                      </ul>
+                    </article>
+                  </div>
+
+                  <a class="project-gh" href="https://github.com/LeniJuresa/EDMS" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    View source code on GitHub
+                  </a>
+                </section>
+
+              </div>
+            </template>
             </div>
 
             <!-- Placeholder project Church -->
@@ -1121,6 +1281,16 @@
     </div>
   </div>
 </template>
+
+
+<template data-popup-key="project-status" data-title="EDMS status" data-size="sm">
+  <p>The local build is working. A live demo deployment is coming soon.</p>
+  <p class="pb-sub">Until then, the full source code is on GitHub.</p>
+  <div class="pb-btns">
+    <a class="pb-btn" href="https://github.com/LeniJuresa/EDMS" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+  </div>
+</template>
+
 
 <!-- Small popup, no title, cards + buttons + quote -->
 <template data-popup-key="contact" data-title="Contact" data-size="sm">
