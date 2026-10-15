@@ -246,7 +246,6 @@ const TROPHY_SVG = `
 </svg>`;
 
 // tier colors: bronze #cd7f32, silver #c0c4cc, gold #f2b632, platinum #7fd3ff
-
 const ACHIEVEMENTS = {
   "add-user": {
     title: "Whoops... Forgot to add this ¯\\_(ツ)_/¯",
@@ -254,11 +253,13 @@ const ACHIEVEMENTS = {
   },
 };
 
+const earnedAchievements = new Set(); // in memory only, so a page reload resets it
 let toastActive = false;
 
 function showAchievement(id) {
   const data = ACHIEVEMENTS[id];
-  if (!data || toastActive) return;
+  if (!data || toastActive || earnedAchievements.has(id)) return;
+  earnedAchievements.add(id);
   toastActive = true;
 
   const toast = document.createElement("div");
