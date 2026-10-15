@@ -96,13 +96,13 @@ const ACHIEVEMENTS = {
   },
 };
 
-const earnedAchievements = new Set(); 
+const earnedAchievements = new Set();
 const achievementQueue = [];
 let toastActive = false;
 
 function showAchievement(id) {
   const data = ACHIEVEMENTS[id];
-  if (!data || earnedAchievements.has(id)) return; earned
+  if (!data || earnedAchievements.has(id)) return;
   earnedAchievements.add(id);
   achievementQueue.push(data);
   if (!toastActive) showNextToast();
