@@ -28,7 +28,7 @@
           <button class="nav-tab active" type="button" data-view="projects">
             Projects
           </button>
-          <button class="nav-tab" type="button" data-view="media">Media</button>
+          <button class="nav-tab" type="button" data-view="media" >Media</button>
 
           <!-- profile switcher (avatar button + dropdown) -->
           <div class="profile-nav-wrapper">
@@ -189,11 +189,11 @@
                 </div>
 
                 <!-- 3. GORE DESNO: Trophies -->
-                <div class="widget-tile" data-popup="trophies" tabindex="0" role="button" aria-haspopup="dialog">
+                <div class="widget-tile" data-popup="trophies" tabindex="0" role="button" aria-haspopup="dialog" >
                   <div class="widget-card__head">
                     <div class="widget-title-wrap">
                       <span class="widget-icon">🏆</span>
-                      <h3 class="widget-title">Trophies &amp; Milestones</h3>
+                      <h3 class="widget-title">Trophies & Milestones</h3>
                     </div>
                     <span class="widget-dim">4 Unlocked</span>
                   </div>
@@ -206,10 +206,10 @@
                 </div>
 
                 <!-- 4. DESNO SREDINA: Contact -->
-                <div class="widget-tile" data-popup="contact" tabindex="0" role="button" aria-haspopup="dialog">
+                <div class="widget-tile" data-popup="contact" tabindex="0" role="button" aria-haspopup="dialog" data-achievement="contact">
                   <div class="widget-card__head widget-card__head--start">
                     <span class="widget-icon">✉️</span>
-                    <h3 class="widget-title">Contact &amp; Socials</h3>
+                    <h3 class="widget-title">Contact & Socials</h3>
                   </div>
                   <p class="widget-text">Have a project or opportunity? Reach out via LinkedIn, GitHub, or Email.</p>
                 </div>
@@ -285,15 +285,15 @@
                   <h2 class="project-title">Emergency Dispatch &amp; Incident Management System (EDMS)</h2>
 
                   <div class="project-actions">
-                    <button type="button" class="project-play" data-popup="project-status">
+                    <button type="button" class="project-play" data-popup="project-status" data-achievement="play">
                       <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
                       Play
                     </button>
                     <a class="project-round" href="https://github.com/LeniJuresa/EDMS" target="_blank" rel="noopener noreferrer" aria-label="Source code on GitHub" title="GitHub">
                       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
                     </a>
-                    <button type="button" class="project-round" data-scroll="#info" aria-label="Info" title="Info">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    <button type="button" class="project-round" data-scroll="#roles" aria-label="Roles" title="Roles">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-shield preview-icon"><path d="M10 15H6a4 4 0 0 0-4 4v2"/><path d="M22 17.5c0 2.499-1.75 3.749-3.83 4.474a.5.5 0 0 1-.335-.005c-2.085-.72-3.835-1.97-3.835-4.47V14a.5.5 0 0 1 .5-.499c1 0 2.25-.6 3.12-1.36a.6.6 0 0 1 .76-.001c.875.765 2.12 1.36 3.12 1.36a.5.5 0 0 1 .5.5z"/><circle cx="9" cy="7" r="4"/></svg>
                     </button>
 
                     <!-- To add new buttons:  <section id="name">   and in a button   data-scroll="#name"  -->
@@ -301,7 +301,7 @@
                 </header>
 
                 <!-- 1. GALLERY -->
-                <section id="projectShots">
+                <section>
                   <h3 class="project-h">Gallery</h3>
                   <div class="gallery-grid project-shots">
                     <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="EDMS screenshot 1" loading="lazy" /></div>
@@ -310,7 +310,7 @@
                     <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"><img src="../assets/galery/placeholder.svg" alt="EDMS screenshot 4" loading="lazy" /></div>
                     
                   </div>
-                </section id="projectShots">
+                </section >
 
                 <!-- 2. TECH STACK -->
                 <section>
@@ -363,7 +363,7 @@
                 </section>
 
                 <!-- 4. ROLES -->
-                <section>
+                <section id="roles">
                   <h3 class="project-h">Roles</h3>
 
                   <article class="project-role">
@@ -404,7 +404,7 @@
                 </section>
 
                 <!-- 5. DATABASE AND SECURITY -->
-                <section id="info">
+                <section>
                   <h3 class="project-h">Database and security</h3>
                   <div class="project-text-grid">
                     <article>
@@ -518,8 +518,8 @@
         </div>
 
         <!-- ! ---- Card selector: MEDIA tab ---- -->
-        <div class="profile-selector view" data-view="media">
-          <div class="profile-track ease-in" id="profileTrack-media">
+        <div class="profile-selector view" data-view="media" >
+          <div class="profile-track ease-in" id="profileTrack-media" >
             <!-- Dog -->
             <div
               class="profile-item"
@@ -527,7 +527,7 @@
               data-desc="Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
               data-bg="../assets/images/placeholder.svg"
             >
-              <div class="profile-card">Dog</div>
+              <div class="profile-card" >Dog</div>
               <span class="profile-name">Placeholder dog</span>
               <template class="profile-desc">
                 <p class="text">
@@ -538,17 +538,20 @@
                 <h3 class="widget-title" style="margin: 40px 0 16px">
                   Gallery
                 </h3>
-                <div class="gallery-grid">
+                <div class="gallery-grid" >
                   <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
+                      class="gallery-item"
+                      tabindex="0"
+                      role="button"
+                      aria-haspopup="dialog"
+                      data-achievement="dog"
+                    
                   >
                     <img
                       src="../assets/galery/placeholder.svg"
                       alt="Gallery photo 1"
                       loading="lazy"
+                      
                     />
                   </div>
                   <div
@@ -556,6 +559,7 @@
                     tabindex="0"
                     role="button"
                     aria-haspopup="dialog"
+                    data-achievement="dog"
                   >
                     <img
                       src="../assets/galery/placeholder.svg"
@@ -569,6 +573,7 @@
                     tabindex="0"
                     role="button"
                     aria-haspopup="dialog"
+                    data-achievement="gallery"
                   >
                     <img
                       src="../assets/galery/placeholder.svg"
@@ -581,6 +586,7 @@
                     tabindex="0"
                     role="button"
                     aria-haspopup="dialog"
+                    data-achievement="gallery"
                   >
                     <img
                       src="../assets/galery/placeholder.svg"

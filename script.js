@@ -226,6 +226,9 @@ document.addEventListener("keydown", (e) => {
     const activeItem = activeCard.closest(".profile-item");
     const destination = activeItem.dataset.href;
 
+    if (activeItem.dataset.achievement) {
+      showAchievement(activeItem.dataset.achievement);
+    }
     if (destination) {
       window.location.href = destination;
     }
@@ -233,6 +236,56 @@ document.addEventListener("keydown", (e) => {
 });
 
 updateSelector();
+const TROPHY_SVG = `
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+  <path d="M7 3h10v5a5 5 0 0 1-10 0V3z"/>
+  <path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3"
+        fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M11 13h2v4h-2z"/>
+  <path d="M8 21v-2.5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1V21z"/>
+</svg>`;
+
+// tier colors: bronze #cd7f32, silver #c0c4cc, gold #f2b632, platinum #7fd3ff
+
+const ACHIEVEMENTS = {
+  "add-user": {
+    title: "Whoops... Forgot to add this ¯\\_(ツ)_/¯",
+    color: "#cd7f32",
+  },
+};
+
+let toastActive = false;
+
+function showAchievement(id) {
+  const data = ACHIEVEMENTS[id];
+  if (!data || toastActive) return;
+  toastActive = true;
+
+  const toast = document.createElement("div");
+  toast.className = "trophy-toast";
+  toast.setAttribute("role", "status");
+  toast.style.setProperty("--tier", data.color);
+  toast.innerHTML = `
+    <div class="trophy-art">${TROPHY_SVG}</div>
+    <div class="trophy-text">
+      <div class="trophy-title">${TROPHY_SVG}<span>${data.title}</span></div>
+      <div class="trophy-sub">Trophy earned!</div>
+    </div>`;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => toast.classList.add("show")),
+  );
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => {
+      toast.remove();
+      toastActive = false;
+    }, 700);
+  }, 4500);
+}
+
 function fitScene() {
   const wrapper = document.querySelector(".scene-wrapper");
   const scaleX = window.innerWidth / 1920;
@@ -259,15 +312,16 @@ window.addEventListener("load", () => {
 
 cards.forEach((card, i) => {
   card.addEventListener("click", () => {
+    const item = card.closest(".profile-item");
+
     if (i === currentIndex) {
-      // already selected — this click means "open it"
-      const item = card.closest(".profile-item");
-      const destination = item.dataset.href;
-      if (destination) {
-        window.location.href = destination;
+      if (item.dataset.achievement) {
+        showAchievement(item.dataset.achievement);
       }
+
+      const destination = item.dataset.href;
+      if (destination) window.location.href = destination;
     } else {
-      // not selected yet — this click just moves it to center
       currentIndex = i;
       updateSelector();
     }

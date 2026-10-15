@@ -78,7 +78,7 @@ body::-webkit-scrollbar {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(5, 6, 10, 0.228), rgba(0, 5, 23, 0.738)),
+    linear-gradient(rgba(5, 6, 10, 0.228), rgba(0, 5, 23, 0.322)),
     var(--card-bg-image, none);
   background-size: cover;
   background-position: center;
@@ -3651,5 +3651,152 @@ html:has(.ps-overlay.open) body {
   }
   .project-shots--2 {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Trophies!! */
+.trophy-toast {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 420px;
+  max-width: 620px;
+  padding: 24px 44px 24px 28px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #4a4a4c 0%, #262627 28%, #1d1d1e 100%);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+  color: #f5f5f5;
+  font-family:
+    "SF Pro Display",
+    "Segoe UI",
+    Roboto,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  pointer-events: none;
+  opacity: 0;
+  /* starts fully off-screen to the right */
+  transform: translateX(calc(100% + 48px));
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.4s ease;
+}
+
+.trophy-toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.trophy-art {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.trophy-art svg {
+  width: 100%;
+  height: 100%;
+}
+
+.trophy-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.trophy-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.trophy-title svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: var(--tier, #cd7f32);
+}
+
+.trophy-sub {
+  font-size: 24px;
+  font-weight: 300;
+  color: #9a9a9c;
+}
+
+/* ---------- fancy variant (data.fancy = true) ---------- */
+.trophy-toast--fancy {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 420px;
+  max-width: 620px;
+  padding: 24px 44px 24px 28px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #46515f 0%, #242b35 28%, #1a2028 100%);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+  color: #f5f5f5;
+  font-family:
+    "SF Pro Display",
+    "Segoe UI",
+    Roboto,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  pointer-events: none;
+  opacity: 0;
+  /* starts fully off-screen to the right */
+  transform: translateX(calc(100% + 48px));
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.4s ease;
+}
+
+.trophy-toast--fancy .trophy-art svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.trophy-toast--fancy.show .trophy-art svg {
+  animation: fancy-pop 0.7s cubic-bezier(0.2, 1.4, 0.4, 1) 0.45s both;
+}
+
+.trophy-toast--fancy.show {
+  animation: fancy-glow 2.4s ease-in-out 0.6s infinite;
+}
+
+@keyframes fancy-pop {
+  from {
+    transform: scale(0.4) rotate(-12deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+.trophy-toast--fancy .trophy-sub {
+  color: color-mix(in srgb, var(--tier) 70%, #fff);
+}
+
+.trophy-toast--fancy.show::after {
+  animation: fancy-sweep 1.2s ease 0.55s;
+}
+
+@keyframes fancy-sweep {
+  to {
+    left: 130%;
   }
 }
