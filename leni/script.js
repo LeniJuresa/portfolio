@@ -437,6 +437,7 @@ function fitScene() {
   const scale = Math.min(scaleX, scaleY);
 
   wrapper.style.transform = `translate(-50%, 0) scale(${scale})`;
+  widgetsPanel.style.zoom = Math.max(1, scale);
 }
 
 fitScene();
