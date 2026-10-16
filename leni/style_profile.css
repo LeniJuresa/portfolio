@@ -3801,3 +3801,184 @@ html:has(.ps-overlay.open) body {
     left: 130%;
   }
 }
+
+/* ---------- Trophies popup ---------- */
+.tr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.tr-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 20px 10px 10px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f5f5f5;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.tr-date {
+  font-size: 15px;
+  font-weight: 300;
+  opacity: 0.6;
+  white-space: nowrap;
+  margin-right: 12px;
+}
+
+.tr-pop-date {
+  margin-top: -8px;
+  font-size: 14px;
+  opacity: 0.55;
+}
+.tr-pop-date:empty {
+  display: none;
+}
+
+.tr-row:hover,
+.tr-row:focus-visible {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.13);
+  box-shadow: 0 0 16px 4px rgba(179, 179, 179, 0.096);
+  outline: none;
+}
+
+.tr-row img,
+.tr-noimg {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #2b3358;
+  display: block;
+}
+.tr-title {
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+}
+
+/* tier colors */
+[data-tier="bronze"] {
+  --tc: #cd7f32;
+}
+[data-tier="silver"] {
+  --tc: #c0c4cc;
+  filter: drop-shadow(0 0 4px var(--tc)) drop-shadow(0 0 80px var(--tc));
+}
+[data-tier="gold"] {
+  --tc: #f2b632;
+  filter: drop-shadow(0 0 8px var(--tc)) drop-shadow(0 0 40px var(--tc));
+}
+[data-tier="platinum"] {
+  --tc: #7fd3ff;
+  filter: drop-shadow(0 0 10px var(--tc)) drop-shadow(0 0 20px var(--tc));
+}
+
+.tr-tier,
+.tr-pop-tier {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tc);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.tr-tier svg,
+.tr-pop-tier svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+/* small popup that slides up */
+.tr-pop-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background: rgba(8, 8, 8, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.tr-pop-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.tr-pop {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  padding: 28px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  background: #25282f;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transform: translateY(60px);
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+.tr-pop-overlay.open .tr-pop {
+  transform: translateY(0);
+}
+.tr-pop-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #f5f5f5;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.tr-pop-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.tr-pop-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #2b3358;
+}
+.tr-pop-img[hidden] {
+  display: none;
+}
+.tr-pop-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 400;
+}
+.tr-pop-desc {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #f5f5f5cc;
+}

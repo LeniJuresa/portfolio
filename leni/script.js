@@ -451,52 +451,134 @@ window.addEventListener("load", () => {
 
 // ==========================================================
 
-const widgetPopupContent = {
-  welcome: {
-    title: "Welcome to my portfolio! ",
-    body: `
-      <p>You've probably noticed by now, making this site i used inspiration from the PlayStation 5 UI. Browse it the same way: arrow keys work for switching between profiles just as well as your mouse, and everything clickable actually does something.</p>
-
-      <p>There are a few different profiles built for different people. They all cover my projects, but some go further into my personal or professional side, like hobbies and other things outside of work. Worth switching between them to see what's different.</p>
-
-      <p>A few things on this page do more than they let on. I won't say what... finding them is half the fun. ;)</p>
-
-      <p>I built this over a summer as a way to show off my projects without falling back on another plain list of links and screenshots. Hope you enjoy poking around.  </p>
-
-
-    `,
-  },
-
-  trophies: {
-    title: "Trophies",
-    body: `
-      <ul>
-        <li><strong>Platinum</strong> — built a Java app in real, everyday use by my church community.</li>
-        <li><strong>Gold</strong> — 2nd place, [hackathon name].</li>
-        <li><strong>Silver</strong> — [certification / course].</li>
-        <li><strong>Bronze</strong> — first finished solo project.</li>
-      </ul>
-    `,
-  },
-  storage: {
-    title: "Storage",
-    body: `
-      <p>What's actually taking up space — the languages and tools I use most, roughly ordered by how much I reach for them.</p>
-      <ul>
-        <li>Java — most real-world project experience</li>
-        <li>Python</li>
-        <li>HTML / CSS / JavaScript</li>
-        <li>[other tools]</li>
-      </ul>
-    `,
-  },
-};
-
 const widgetPopupOverlay = document.getElementById("widgetPopupOverlay");
 const widgetPopupTitle = document.getElementById("widgetPopupTitle");
 const widgetPopupBody = document.getElementById("widgetPopupBody");
 const widgetPopupClose = document.getElementById("widgetPopupClose");
 const widgetPopupCover = document.getElementById("widgetPopupCover");
+
+// ==========================================================
+// TROPHIES POPUP
+// To add a trophy, add one line to a section.
+// tier: "bronze" | "silver" | "gold" | "platinum"
+// img can be "" if you don't have a picture yet.
+// ==========================================================
+const TROPHIES = {
+  IT: [
+    {
+      img: "../assets/images/placeholder.svg",
+      title: "Pletinum example ",
+      tier: "platinum",
+      date: "Future",
+      desc: "This will be the description of the trophie, here i will explain how i got thie achivement and why it is mentioned here",
+    },
+    {
+      img: "../assets/images/placeholder.svg",
+      title: "Gold example ",
+      tier: "gold",
+      date: "Future",
+      desc: "This will be the description of the trophie, here i will explain how i got thie achivement and why it is mentioned here",
+    },
+    {
+      img: "../assets/images/placeholder.svg",
+      title: "Silver example ",
+      tier: "silver",
+      date: "Future",
+      desc: "This will be the description of the trophie, here i will explain how i got thie achivement and why it is mentioned here",
+    },
+    {
+      img: "../assets/images/placeholder.svg",
+      title: "Bronze example ",
+      tier: "bronze",
+      date: "Future",
+      desc: "This will be the description of the trophie, here i will explain how i got thie achivement and why it is mentioned here",
+    },
+  ],
+  "My life": [
+    {
+      img: "../assets/images/placeholder.svg",
+      title: "First 40+ meter dive",
+      tier: "gold",
+      date: "2024",
+      desc: "This will be the description of the trophie, here i will explain how i got thie achivement and why it is mentioned here",
+    },
+  ],
+};
+
+function renderTrophies(root) {
+  const box = root.querySelector("[data-trophies]");
+  if (!box) return;
+  box.innerHTML = Object.entries(TROPHIES)
+    .map(
+      ([section, list]) => `
+      <h4 class="pb-h">${ghEsc(section)}</h4>
+      <div class="tr-list">
+        ${list
+          .map(
+            (t, i) => `
+          <button type="button" class="tr-row" data-section="${ghEsc(section)}" data-i="${i}">
+            ${t.img ? `<img src="${ghEsc(t.img)}" alt="" loading="lazy">` : `<span class="tr-noimg"></span>`}
+            <span class="tr-title">${ghEsc(t.title)}</span>
+            <span class="tr-date">${ghEsc(t.date || "")}</span>
+            <span class="tr-tier" data-tier="${t.tier}">${TROPHY_SVG}<span></span></span>
+          </button>`,
+          )
+          .join("")}
+      </div>`,
+    )
+    .join("");
+}
+
+// small popup that slides up when a trophy is clicked
+const trPop = document.createElement("div");
+trPop.className = "tr-pop-overlay";
+trPop.innerHTML = `
+  <div class="tr-pop" role="dialog" aria-modal="true" aria-labelledby="trPopTitle">
+    <button class="tr-pop-close" type="button" aria-label="Close">&times;</button>
+    <img class="tr-pop-img" alt="">
+    <div class="tr-pop-tier"></div>
+    <h3 class="tr-pop-title" id="trPopTitle"></h3>
+      <div class="tr-pop-date"></div>
+    <p class="tr-pop-desc"></p>
+  </div>`;
+document.body.appendChild(trPop);
+
+let trLastTrigger = null;
+
+function openTrophy(t, trigger) {
+  const img = trPop.querySelector(".tr-pop-img");
+  img.hidden = !t.img;
+  img.src = t.img || "";
+  const tier = trPop.querySelector(".tr-pop-tier");
+  tier.dataset.tier = t.tier;
+  tier.innerHTML = `${TROPHY_SVG}<span>${t.tier}</span>`;
+  trPop.querySelector(".tr-pop-title").textContent = t.title;
+  trPop.querySelector(".tr-pop-date").textContent = t.date || "";
+  trPop.querySelector(".tr-pop-desc").textContent = t.desc || "";
+  trLastTrigger = trigger || null;
+  trPop.classList.add("open");
+  trPop.querySelector(".tr-pop-close").focus();
+}
+
+function closeTrophy() {
+  trPop.classList.remove("open");
+  if (trLastTrigger) trLastTrigger.focus();
+}
+
+widgetPopupBody.addEventListener("click", (e) => {
+  const row = e.target.closest(".tr-row");
+  if (!row) return;
+  const t = TROPHIES[row.dataset.section]?.[row.dataset.i];
+  if (t) openTrophy(t, row);
+});
+
+trPop.querySelector(".tr-pop-close").addEventListener("click", closeTrophy);
+trPop.addEventListener("click", (e) => {
+  if (e.target === trPop) closeTrophy();
+});
+// keep arrow keys / Enter from moving the profile selector behind the popups
+trPop.addEventListener("keydown", (e) => e.stopPropagation());
+registerEscape(14, () => trPop.classList.contains("open"), closeTrophy);
 
 // ---------- GitHub activity ----------
 const ghCache = {};
@@ -610,20 +692,20 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
 
   function openWidgetPopup(key, triggerEl) {
     const tpl = document.querySelector(`template[data-popup-key="${key}"]`);
-    const legacy = widgetPopupContent[key];
-    if (!tpl && !legacy) return;
+    if (!tpl) return;
 
-    widgetPopupTitle.textContent = tpl ? tpl.dataset.title || "" : legacy.title;
-    widgetPopupBody.innerHTML = tpl ? tpl.innerHTML : legacy.body;
-    widgetPopupOverlay.dataset.size = tpl ? tpl.dataset.size || "lg" : "lg";
+    widgetPopupTitle.textContent = tpl.dataset.title || "";
+    widgetPopupBody.innerHTML = tpl.innerHTML;
+    widgetPopupOverlay.dataset.size = tpl.dataset.size || "lg";
 
-    const cover = tpl ? tpl.dataset.cover || "" : "";
+    const cover = tpl.dataset.cover || "";
     if (widgetPopupCover) {
       widgetPopupCover.style.backgroundImage = cover ? `url("${cover}")` : "";
       widgetPopupCover.classList.toggle("has-cover", !!cover);
     }
 
     if (key === "activity") loadGithubActivity(widgetPopupBody);
+    if (key === "trophies") renderTrophies(widgetPopupBody);
 
     if (popupBox) popupBox.scrollTop = 0;
     widgetPopupOverlay.classList.add("open");
