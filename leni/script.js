@@ -821,8 +821,12 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
     }
   });
 
-  widgetPopupOverlay.addEventListener("click", (e) => {
-    if (e.target === widgetPopupOverlay) closeWidgetPopup();
+  widgetPopupBody.addEventListener("click", (e) => {
+    const t = e.target.closest("[data-nav-target]");
+    if (!t) return;
+    lastFocusedTile = null; // don't pull focus back to the About tile
+    closeWidgetPopup();
+    navigateToWidgetTarget(t.dataset.navTarget);
   });
 
   onActivate("[data-popup]", (tile) =>
