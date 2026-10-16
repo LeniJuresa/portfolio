@@ -206,7 +206,7 @@
                 </div>
 
                 <!-- 4. DESNO SREDINA: Contact -->
-                <div class="widget-tile" data-popup="contact" tabindex="0" role="button" aria-haspopup="dialog" data-achievement="contact">
+                <div class="widget-tile" data-popup="contact" tabindex="0" role="button" aria-haspopup="dialog" >
                   <div class="widget-card__head widget-card__head--start">
                     <span class="widget-icon">✉️</span>
                     <h3 class="widget-title">Contact & Socials</h3>
@@ -327,10 +327,9 @@
                 <section id="features">
                   <h3 class="project-h">Project overview</h3>
                   <p class="project-prose">
-                    EDMS is a web platform designed to handle emergency reports quickly and connect the public
-                    with emergency dispatchers in real time. It allows anyone to send an urgent report without
-                    needing an account, while providing dispatchers and system administrators with dedicated
-                    dashboards to review reports, communicate, and take action.
+                    EDMS is a web platform designed to handle emergency reports quickly and connect the public with emergency dispatchers in real time. It allows anyone to send an urgent report without needing an account, while providing dispatchers and system administrators with dedicated dashboards to review reports, communicate, and take action.
+
+                    Note: Built as a college project with a classmate, this is currently an unfinished proof of concept, but it's something I’d like to revisit and expand in the future.
                   </p>
 
                   <h3 class="project-h project-h--gap">Core features</h3>
@@ -1298,16 +1297,94 @@
 </template>
 
 
-<!-- Small popup, no title, cards + buttons + quote -->
-<template data-popup-key="contact" data-title="Contact" data-size="sm">
-  <p>Want to work together or just say hi?</p>
-  <div class="pb-btns">
-    <a class="pb-btn" href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    <a class="pb-btn" href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">GitHub</a>
-    <a class="pb-btn" href="mailto:you@example.com">Email</a>
+<!-- contact popup.  -->
+<template data-popup-key="contact" data-title="Contact &amp; Support" data-size="md">
+  <p class="cn-text">Placeholder</p>
+
+  <div class="cn-clock" data-cn-clock data-hint="This clock represents what time it is for me" tabindex="0">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+    <span class="cn-time" data-cn-time>--:--</span>
+    <span class="cn-state" data-cn-state></span>
   </div>
-  <hr class="pb-divider">
-  <blockquote class="pb-quote">"[Placeholder feedback quote.]"<cite>[Name, role]</cite></blockquote>
+
+  <h4 class="pb-h">What do you need help with?</h4>
+  <div class="sp-grid">
+    <a class="sp-card" href="https://www.linkedin.com/in/YOUR-USERNAME" target="_blank" rel="noopener noreferrer">
+      <span class="sp-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      </span>
+      <b>Job support</b>
+      <small>Need a hard-working and handsome individual to work for you? Fear no more as I am here! </small>
+      <span class="sp-go">Open LinkedIn &#8599;</span>
+    </a>
+
+    <a class="sp-card" href="https://github.com/lenijuresa" target="_blank" rel="noopener noreferrer">
+      <span class="sp-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </span>
+      <b>Feature support</b>
+      <small>Want to see what projects I've worked on or just look at my weird code? Click here!</small>
+      <span class="sp-go">Open GitHub &#8599;</span>
+    </a>
+
+    <button type="button" class="sp-card" data-copy="leni.juresa@gmail.com" data-achievement="email">
+      <span class="sp-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </span>
+      <b>General contact</b>
+      <small>Want to contact me about anything? Click here to copy my email!</small>
+      <span class="sp-go" data-copy-label>Copy email address</span>
+    </button>
+  </div>
+
+  <h4 class="pb-h">Frequently asked questions</h4>
+  <div class="sp-faq">
+    <details class="sp-q">
+      <summary>Q: Do you know how to code?</summary>
+      <p>Yes.</p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: Do you have a job?</summary>
+      <p>No.</p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: Do you need a job?</summary>
+      <p>Yes.</p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: What is your dog's name?</summary>
+      <p>Rorry!</p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: Are you a robot?</summary>
+      <p>I passed a reCAPTCHA once, but it took three attempts.</p>
+    </details>
+    <details class="sp-q" data-achievement="faq">
+      <summary >Q: What happens if I click this?</summary>
+      <p>You just found out.</p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: Is water wet?</summary>
+      <p>Let's not start a GitHub issue over this.</p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: Have you tried turning it off and on again?</summary>
+      <p>Yes. The problem persisted, but with added disappointment.</p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: What time is it?</summary>
+      <p>Like? Cant you just look up? I didn't write all that JavaScript for nothing. </p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: Can you fix my printer?</summary>
+      <p>No. Nobody can. That is between you and the printer.</p>
+    </details>
+    <details class="sp-q">
+      <summary>Q: Did you read the Terms & Conditions?</summary>
+      <p>I scrolled really fast and hit "Accept" like a responsible adult.</p>
+    </details>
+
+  </div>
 </template>
 
 <template data-popup-key="trophies" data-title="Trophies & Milestones" data-size="md">

@@ -73,9 +73,10 @@ const TROPHY_SVG = `
 // tier colors: bronze #cd7f32, silver #c0c4cc, gold #f2b632, platinum #7fd3ff
 // the key must match data-achievement="..."
 const ACHIEVEMENTS = {
-  contact: {
-    title: "Why not give me a call :)        ",
+  email: {
+    title: "Social Interaction Initiated      ",
     color: "#f2b632",
+    fancy: true,
   },
   purchase: {
     title: 'Purchase something in the "store" ',
@@ -93,6 +94,10 @@ const ACHIEVEMENTS = {
   play: {
     title: "So close... but yet so far...        ",
     color: "#f2b632",
+  },
+  faq: {
+    title: "Something happened! ",
+    color: "#cd7f32",
   },
 };
 
@@ -692,6 +697,61 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
 
   function openWidgetPopup(key, triggerEl) {
     const tpl = document.querySelector(`template[data-popup-key="${key}"]`);
+    const MY_TIMEZONE = "Europe/Zagreb";
+    const AVAILABLE_FROM = 10;
+    const AVAILABLE_TO = 21;
+    const SLEEP_FROM = 1;
+    let contactClockTimer = null;
+
+    function startContactClock(root) {
+      clearInterval(contactClockTimer);
+      const box = root.querySelector("[data-cn-clock]");
+      if (!box) return;
+      const timeEl = box.querySelector("[data-cn-time]");
+      const stateEl = box.querySelector("[data-cn-state]");
+
+      const timeFmt = new Intl.DateTimeFormat("en-US", {
+        timeZone: MY_TIMEZONE,
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      const hourFmt = new Intl.DateTimeFormat("en-GB", {
+        timeZone: MY_TIMEZONE,
+        hour: "2-digit",
+        hour12: false,
+      });
+
+      function tick() {
+        if (!box.isConnected) return clearInterval(contactClockTimer);
+        const now = new Date();
+        const hour = parseInt(hourFmt.format(now), 10) % 24;
+
+        const isAvailable = hour >= AVAILABLE_FROM && hour < AVAILABLE_TO;
+        const isSleeping =
+          SLEEP_FROM < AVAILABLE_FROM
+            ? hour >= SLEEP_FROM && hour < AVAILABLE_FROM
+            : hour >= SLEEP_FROM || hour < AVAILABLE_FROM;
+
+        timeEl.textContent = timeFmt.format(now);
+        box.dataset.on = String(isAvailable);
+
+        if (isAvailable) {
+          stateEl.textContent =
+            "Usually online around this time. I'll get back to you ASAP.";
+        } else if (isSleeping) {
+          stateEl.textContent =
+            "Currently asleep (or should be). I'll reply in the morning!";
+        } else {
+          stateEl.textContent =
+            "It is quite late. Feel free to drop a message, I'll reply ASAP.";
+        }
+      }
+
+      tick();
+      contactClockTimer = setInterval(tick, 1000);
+    }
+
     if (!tpl) return;
 
     widgetPopupTitle.textContent = tpl.dataset.title || "";
@@ -706,6 +766,7 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
 
     if (key === "activity") loadGithubActivity(widgetPopupBody);
     if (key === "trophies") renderTrophies(widgetPopupBody);
+    if (key === "contact") startContactClock(widgetPopupBody);
 
     if (popupBox) popupBox.scrollTop = 0;
     widgetPopupOverlay.classList.add("open");
@@ -726,11 +787,37 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
   widgetPopupClose.addEventListener("click", closeWidgetPopup);
 
   widgetPopupBody.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-nav-target]");
-    if (!t) return;
-    lastFocusedTile = null; // don't pull focus back to the About tile
-    closeWidgetPopup();
-    navigateToWidgetTarget(t.dataset.navTarget);
+    const btn = e.target.closest("[data-copy]");
+    if (!btn) return;
+    const text = btn.dataset.copy;
+    const label = btn.querySelector("[data-copy-label]");
+
+    const done = () => {
+      if (!label) return;
+      const old = label.textContent;
+      label.textContent = "Copied!";
+      setTimeout(() => (label.textContent = old), 1600);
+    };
+
+    const fallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        done();
+      } catch (_) {}
+      ta.remove();
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else {
+      fallback();
+    }
   });
 
   widgetPopupOverlay.addEventListener("click", (e) => {
@@ -898,7 +985,7 @@ if (
       badges: ["featured"],
       rating: 5,
       count: 1,
-      price: 49.99, // the old / full price in euros
+      price: 499.99, // the old / full price in euros
       discount: 100, // percent off. Leave it out and it defaults to 100
       per: "",
       year: "2025",

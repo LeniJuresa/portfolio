@@ -3405,6 +3405,11 @@ html:has(.ps-overlay.open) body {
   letter-spacing: -0.01em;
 }
 
+/* place this in project title location to replace it with a*/
+.project-title--picture {
+  zoom: 50%;
+}
+
 /* buttons: one white pill (Play) plus round icon buttons */
 .project-actions {
   display: flex;
@@ -3981,4 +3986,200 @@ html:has(.ps-overlay.open) body {
   font-weight: 300;
   line-height: 1.6;
   color: #f5f5f5cc;
+}
+
+/* ---------- Contact & Support popup ---------- */
+.cn-text {
+  margin: 0 0 20px;
+  font-size: 18px;
+  font-weight: 300;
+  color: #f5f5f5cc;
+}
+
+/* clock */
+.cn-clock {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #9a9a9c; /* gray = usually not available */
+  cursor: default;
+  outline: none;
+}
+.cn-clock[data-on="true"] {
+  color: #7fd6a0; /* green = usually available */
+}
+.cn-clock svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cn-time {
+  font-size: 22px;
+  font-weight: 450;
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+}
+.cn-state {
+  font-size: 15px;
+  font-weight: 300;
+}
+.cn-clock::after {
+  content: attr(data-hint);
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  z-index: 2;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #14161d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f5f5f5;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.cn-clock:hover::after,
+.cn-clock:focus-visible::after {
+  opacity: 1;
+}
+
+/* support cards */
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.sp-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f5f5f5;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+.sp-card:hover,
+.sp-card:focus-visible {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+.sp-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.sp-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #f5f5f5;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sp-card b {
+  font-size: 19px;
+  font-weight: 450;
+  color: #fff;
+}
+.sp-card small {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #f5f5f5b3;
+}
+.sp-go {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #7fc4ff;
+}
+
+/* FAQ */
+.sp-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sp-q {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease;
+}
+.sp-q[open] {
+  background: rgba(255, 255, 255, 0.1);
+}
+.sp-q summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 12px;
+}
+.sp-q summary::-webkit-details-marker {
+  display: none;
+}
+.sp-q summary::after {
+  content: "+";
+  font-size: 24px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: transform 0.2s ease;
+}
+.sp-q[open] summary::after {
+  transform: rotate(45deg);
+}
+.sp-q summary:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: -2px;
+}
+.widget-popup-body .sp-q p {
+  margin: 0;
+  padding: 0 20px 18px;
+  font-size: 17px;
+  color: #f5f5f5cc;
+}
+
+@media (max-width: 700px) {
+  .sp-grid {
+    grid-template-columns: 1fr;
+  }
 }
