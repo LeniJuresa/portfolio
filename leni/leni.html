@@ -755,7 +755,7 @@
               class="profile-item"
               data-title="My life"
               data-desc="Convallis convallis tellus id interdum velit laoreet id donec ultrices. Nulla facilisi etiam dignissim diam quis enim lobortis."
-              data-bg="../assets/images/leni_funny.jpg"
+              data-bg="../assets/images/placeholder.svg"
             >
 
               <div class="profile-card">☘️</div>
@@ -767,56 +767,45 @@
                   class="name-icon"
               /></span>
               <template class="profile-desc">
-                <p class="text">
-                  info about this class
-                </p>
-
+                <!-- 1. VIDEO (mjesto za trailer) -->
+                <div class="ml-video">
+                  <!-- Kad bude spreman, zamijeni ovaj .ml-video-empty s:
+                      <video controls poster="..." src="..."></video> -->
+                  <div class="ml-video-empty">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="8 5 19 12 8 19 8 5"/></svg>
+                    <b>Trailer uskoro</b>
+                    <small>Kratki video o mom životu</small>
+                  </div>
                 </div>
-                <h3 class="widget-title" style="margin: 40px 0 16px">
-                  Gallery
-                </h3>
-                <div class="gallery-grid">
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 1"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 2"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 2"
-                      loading="lazy"
-                    />
-                  </div>
 
-                  
+                <!-- 2. INFO ISPOD VIDEA -->
+                <div class="ml-info">
+                  <p class="ml-lead">Placeholder: dvije do tri rečenice o tome tko si i što ćeš pokazati u ovom dnevniku.</p>
                   
                 </div>
 
+                <!-- 3. DNEVNIK (vremenska crta) -->
+            <div>
+
+              <section class="ml-group">
+                  <h3 class="widget-title" style="margin: 40px 0 16px">Gallery</h3>
+                    <div class="gallery-grid">
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-date="17. listopada 2026."
+                          data-caption="Ovdje ide opis prve slike.">
+                        <img src="../assets/galery/placeholder.svg" alt="Opis slike" loading="lazy" />
+                      </div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-date="3. listopada 2026."
+                          data-caption="Ovdje ide opis druge slike.">
+                        <img src="../assets/galery/placeholder.svg" alt="Opis slike" loading="lazy" />
+                      </div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-date="Kolovoz 2025."
+                          data-caption="Ovdje ide opis treće slike.">
+                        <img src="../assets/galery/placeholder.svg" alt="Opis slike" loading="lazy" />
+                      </div>
+                   </div>
               </template>
             </div>
             
@@ -1575,6 +1564,10 @@
           &times;
         </button>
         <img id="imagePopupImg" src="" alt="" />
+        <div class="image-popup-caption" id="imagePopupCaption" hidden>
+        <time id="imagePopupDate"></time>
+        <p id="imagePopupText"></p>
+      </div>
       </div>
       <button
         class="image-popup-nav image-popup-next"

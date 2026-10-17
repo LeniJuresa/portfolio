@@ -856,12 +856,26 @@ if (
   let galleryItems = [];
   let currentGalleryIndex = -1;
 
+  const imagePopupCaption = document.getElementById("imagePopupCaption");
+  const imagePopupDate = document.getElementById("imagePopupDate");
+  const imagePopupText = document.getElementById("imagePopupText");
+
+  function setGalleryCaption(item) {
+    if (!imagePopupCaption) return;
+    const date = (item && item.dataset.date) || "";
+    const text = (item && item.dataset.caption) || "";
+    imagePopupDate.textContent = date;
+    imagePopupText.textContent = text;
+    imagePopupCaption.hidden = !date && !text;
+  }
+
   function showGalleryImage(index) {
     const item = galleryItems[index];
     const img = item && item.querySelector("img");
     if (!img) return;
 
     currentGalleryIndex = index;
+    setGalleryCaption(item); // opis i datum prate trenutnu sliku
     imagePopupImg.src = img.src;
     imagePopupImg.alt = img.alt || "";
     imagePopupImg.classList.remove("slide-from-left", "slide-from-right");
@@ -879,6 +893,7 @@ if (
         )
       : [];
     currentGalleryIndex = galleryItems.indexOf(triggerEl);
+    setGalleryCaption(triggerEl);
     const canNavigate = galleryItems.length > 1;
     imagePopupPrev.disabled = !canNavigate;
     imagePopupNext.disabled = !canNavigate;
@@ -929,6 +944,7 @@ if (
     const img = item.querySelector("img");
     if (img) openImagePopup(img.src, img.alt, item);
   });
+
   registerEscape(
     13,
     () => imagePopupOverlay.classList.contains("open"),
@@ -939,25 +955,9 @@ if (
   imagePopupPrev.addEventListener("click", () => moveGalleryImage(-1));
   imagePopupNext.addEventListener("click", () => moveGalleryImage(1));
 
-  // click on the dark backdrop (not the photo itself) closes it
+  // klik na tamnu pozadinu (ne na sliku) zatvara
   imagePopupOverlay.addEventListener("click", (e) => {
     if (e.target === imagePopupOverlay) closeImagePopup();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (imagePopupOverlay.classList.contains("open")) {
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        moveGalleryImage(-1);
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        moveGalleryImage(1);
-      }
-    }
-
-    if (e.key === "Escape" && imagePopupOverlay.classList.contains("open")) {
-      closeImagePopup();
-    }
   });
 }
 
