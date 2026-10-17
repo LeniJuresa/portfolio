@@ -473,7 +473,7 @@ const TROPHIES = {
   IT: [
     {
       img: "../assets/images/placeholder.svg",
-      title: "Pletinum example ",
+      title: "Platinum example ",
       tier: "platinum",
       date: "Future",
       desc: "This will be the description of the trophie, here i will explain how i got thie achivement and why it is mentioned here",
@@ -2140,3 +2140,23 @@ if (
 
   update();
 })();
+
+//temp fix
+document.addEventListener(
+  "click",
+  (e) => {
+    if (
+      !e.target.matches(
+        ".widget-popup-overlay, .ps-overlay, .image-popup-overlay, .tr-pop-overlay",
+      )
+    )
+      return;
+    const top = escapeLayers
+      .filter((layer) => layer.isOpen())
+      .sort((a, b) => b.z - a.z)[0];
+    if (!top) return;
+    e.stopPropagation(); // stops the old per-popup listeners from also firing
+    top.close();
+  },
+  true,
+);

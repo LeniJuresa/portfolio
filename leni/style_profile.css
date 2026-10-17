@@ -934,6 +934,7 @@ Profile page
   line-height: 1;
   cursor: pointer;
   transition: background 0.2s ease;
+  z-index: 20 !important;
 }
 
 .widget-popup-close:hover {
@@ -1234,6 +1235,18 @@ Profile page
   outline: none;
 }
 
+.pb-btn--blank {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: #2d2d2d;
+  color: #727171;
+  font-size: 16px;
+  text-decoration: none;
+}
+
 .pb-divider {
   margin: 28px 0;
   border: 0;
@@ -1420,6 +1433,21 @@ Profile page
     background 0.2s ease,
     transform 0.2s ease;
 }
+
+/* GitHub button */
+.stack-gh--blank {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #5a5757;
+  font-size: 15px;
+  text-decoration: none;
+}
+
 .stack-gh svg {
   width: 18px;
   height: 18px;
@@ -1429,6 +1457,17 @@ Profile page
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+.stack-gh--blank svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .stack-gh:hover,
 .stack-gh:focus-visible {
   background: rgba(255, 255, 255, 0.22);
@@ -4183,7 +4222,6 @@ html:has(.ps-overlay.open) body {
     grid-template-columns: 1fr;
   }
 }
-
 
 /* ---------- Footer ---------- */
 .site-footer {
