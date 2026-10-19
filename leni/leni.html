@@ -94,6 +94,7 @@
             <div
               class="profile-item ease-in"
               data-title="Discover"
+              data-music="off"
               data-desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
               data-bg="../assets/images/placeholder.svg"
             >
@@ -809,6 +810,126 @@
               </template>
             </div>
 
+          
+            <!-- Sound studio -->
+            <div
+              class="profile-item"
+              data-title="Sound studio"
+              data-desc="Songs, website sounds and sketches."
+              data-bg="../assets/images/placeholder.svg"
+            >
+              <div
+                class="profile-card profile-card--photo"
+                style="background-image: url(&quot;../assets/images/spotify_temp.png&quot;);"
+              ></div>
+              <span class="profile-name">Sound studio</span>
+
+              <template class="profile-desc">
+                <div class="sound-studio" data-sound-studio>
+                  <div class="sound-studio-grid">
+
+                    <!-- ============ LEFT: playlist ============ -->
+                    <div class="ss-left">
+                      <header class="ss-head">
+                        <img class="ss-head-cover" src="../assets/images/placeholder.svg" alt="" />
+                        <div class="ss-head-text">
+                          <span class="ss-eyebrow">Playlist</span>
+                          <h2 class="ss-title">Sound Studio</h2>
+                          <p class="ss-sub" data-ss-count></p>
+                        </div>
+                        <button type="button" class="ss-bigplay ss-pp" data-ss-play aria-label="Play">
+                          <svg class="ss-i-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+                          <svg class="ss-i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+                        </button>
+                      </header>
+
+                      <div class="ss-chips" data-ss-chips role="group" aria-label="Filter tracks"></div>
+                      <div class="studio-playlist" data-ss-list aria-label="Tracklist"></div>
+                    </div>
+
+                    <!-- ============ RIGHT: soundboard + gallery ============ -->
+                    <div class="ss-right">
+                      <section class="ss-card studio-soundboard">
+                        <h3 class="ss-card-h">Soundboard</h3>
+                        <p class="ss-card-p">The little sounds this site makes. Press one, it won't stop the music.</p>
+                        <div class="ss-pads">
+                          <button type="button" class="ss-pad" data-sfx="move">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+                            <b>Navigation Move</b><small>Arrow keys &amp; card switching</small>
+                          </button>
+                          <button type="button" class="ss-pad" data-sfx="click">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+                            <b>Select Click</b><small>Opening profiles &amp; popups</small>
+                          </button>
+                          <button type="button" class="ss-pad" data-sfx="trophy">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+                            <b>Trophy Chime</b><small>Every achievement</small>
+                          </button>
+                          <button type="button" class="ss-pad" data-sfx="nav">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+                            <b>Back Whoosh</b><small>Switching Projects / Media</small>
+                          </button>
+                        </div>
+                      </section>
+
+                      <section class="ss-card studio-gallery">
+                        <h3 class="ss-card-h">The studio</h3>
+                        <p class="ss-card-p">Where it all gets made.</p>
+                        <div class="gallery-grid">
+                          <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                               data-date="2026" data-caption="Placeholder: the desk setup.">
+                            <img src="../assets/galery/placeholder.svg" alt="Studio setup" loading="lazy" />
+                          </div>
+                          <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                               data-date="2026" data-caption="Placeholder: the piano.">
+                            <img src="../assets/galery/placeholder.svg" alt="Piano" loading="lazy" />
+                          </div>
+                          <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                               data-date="2026" data-caption="Placeholder: headphones and gear.">
+                            <img src="../assets/galery/placeholder.svg" alt="Equipment" loading="lazy" />
+                          </div>
+                          <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                               data-date="2026" data-caption="Placeholder: a work-in-progress session.">
+                            <img src="../assets/galery/placeholder.svg" alt="Work in progress" loading="lazy" />
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+
+                  <!-- ============ FLOATING NOW PLAYING (shown once a track is picked) ============ -->
+                  <div class="studio-now-playing" data-ss-np hidden>
+                    <img class="ss-np-cover" data-ss-cover src="../assets/images/placeholder.svg" alt="" />
+                    <div class="ss-np-top">
+                      <div class="ss-np-info">
+                        <b data-ss-title></b>
+                        <small data-ss-sub></small>
+                      </div>
+                      <div class="ss-ctrls">
+                        <button type="button" class="ss-ctl" data-ss-prev aria-label="Previous track">
+                          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="3" height="14" rx="1"/><polygon points="19 5 9 12 19 19 19 5"/></svg>
+                        </button>
+                        <button type="button" class="ss-ctl ss-pp" data-ss-toggle aria-label="Play">
+                          <svg class="ss-i-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+                          <svg class="ss-i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+                        </button>
+                        <button type="button" class="ss-ctl" data-ss-next aria-label="Next track">
+                          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="16" y="5" width="3" height="14" rx="1"/><polygon points="5 5 15 12 5 19 5 5"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="ss-scrub-row">
+                      <span data-ss-cur>0:00</span>
+                      <input class="scrub-bar" data-ss-scrub type="range" min="0" max="1000" step="1" value="0" aria-label="Seek" />
+                      <span data-ss-total>–:––</span>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
+
+        
+
             <!--  Life & Hobbies  -->
             <div
               class="profile-item"
@@ -855,117 +976,6 @@
                    </div>
               </template>
             </div>
-            
-
-            
-
-           
-
-            <!-- Spotify -->
-            <div
-              class="profile-item"
-              data-title="Sound studio"
-              data-desc="Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
-              data-bg="../assets/images/placeholder.svg"
-            >
-              <div
-                class="profile-card profile-card--photo"
-                style="
-                  background-image: url(&quot;../assets/images/spotify_temp.png&quot;);
-                "
-              ></div>
-              <span class="profile-name">Sound studio</span>
-              <template class="profile-desc">
-                <p class="text">
-                  Spotify *clone*. audioplayer where i will place all the sounds i made for this website with all of my songs.
-                </p>
-
-                </div>
-                <h3 class="widget-title" style="margin: 40px 0 16px">
-                  Gallery
-                </h3>
-                <div class="gallery-grid">
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 1"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 2"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 4"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 5"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 2"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 2"
-                      loading="lazy"
-                    />
-                  </div>
-                  
-                </div>
-
-              </template>
-            </div>
-
-          
-            <!-- 3D -->
             
           </div>
         </div>
