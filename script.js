@@ -192,7 +192,7 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// ---------- sounds ----------
+// ---------- zvukovi ----------
 const SOUNDS = {
   move: new Audio("../assets/sounds/move.mp3"),
   click: new Audio("../assets/sounds/click.mp3"),
@@ -212,7 +212,7 @@ function playSound(name) {
   if (!base) return;
   const s = base.cloneNode();
   s.volume = base.volume;
-  s.play().catch(() => {}); 
+  s.play().catch(() => {});
 }
 
 const track = document.getElementById("profileTrack");
@@ -338,7 +338,7 @@ const TROPHY_SVG = `
 // tier colors: bronze #cd7f32, silver #c0c4cc, gold #f2b632, platinum #7fd3ff
 const ACHIEVEMENTS = {
   "add-user": {
-    title: "Whoops... Forgot to add this ¯\\_(ツ)_/¯",
+    title: '"i will add this later" - Leni',
     color: "#cd7f32",
   },
 };
