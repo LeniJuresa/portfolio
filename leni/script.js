@@ -61,6 +61,31 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
+// ---------- zvukovi ----------
+const SOUNDS = {
+  move: new Audio("../assets/sounds/move.mp3"),
+  click: new Audio("../assets/sounds/click.mp3"),
+  trophy: new Audio("../assets/sounds/Trophy.mp3"),
+  nav: new Audio("../assets/sounds/Navigation_Back.mp3"),
+};
+SOUNDS.move.volume = 0.4;
+SOUNDS.click.volume = 0.4;
+SOUNDS.trophy.volume = 0.4;
+SOUNDS.nav.volume = 0.4;
+
+Object.values(SOUNDS).forEach((a) => (a.preload = "auto"));
+
+let soundOn = true;
+
+function playSound(name) {
+  if (!soundOn) return;
+  const base = SOUNDS[name];
+  if (!base) return;
+  const s = base.cloneNode(); // klon da se brzi pritisci mogu preklapati
+  s.volume = base.volume;
+  s.play().catch(() => {}); // preglednik blokira dok nema prve interakcije
+}
+
 const TROPHY_SVG = `
 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
   <path d="M7 3h10v5a5 5 0 0 1-10 0V3z"/>
@@ -117,6 +142,8 @@ function showNextToast() {
   const data = achievementQueue.shift();
   if (!data) return;
   toastActive = true;
+
+  playSound("trophy");
 
   const toast = document.createElement("div");
   toast.className = "trophy-toast" + (data.fancy ? " trophy-toast--fancy" : "");
@@ -179,6 +206,7 @@ function createSelector(track, onSelect) {
     if (newIndex >= 0 && newIndex < cards.length) {
       currentIndex = newIndex;
       updateSelector();
+      playSound("move");
     }
   }
 
@@ -206,9 +234,11 @@ function createSelector(track, onSelect) {
     card.addEventListener("click", () => {
       if (i === currentIndex) {
         activateCurrent();
+        playSound("click");
       } else {
         currentIndex = i;
         updateSelector();
+        playSound("move");
       }
     });
   });
@@ -323,6 +353,7 @@ const selectors = {
   ),
   media: createSelector(
     document.getElementById("profileTrack-media"),
+
     updateCardDetail,
   ),
 };
@@ -347,6 +378,7 @@ if (widgetsPanel) {
   widgetsPanel.addEventListener("click", (e) => {
     const target = e.target.closest("[data-nav-target]");
     if (!target || !widgetsPanel.contains(target)) return;
+    playSound("move");
     navigateToWidgetTarget(target.dataset.navTarget);
   });
 
@@ -394,7 +426,7 @@ navTabs.forEach((tab) => {
     );
 
     activeView = target;
-
+    playSound("nav");
     selectors[activeView].reset();
   });
 });
@@ -446,6 +478,11 @@ window.addEventListener("resize", fitScene);
 // AI ^^
 
 window.addEventListener("load", () => {
+  const overlay = document.getElementById("pageTransitionOverlay");
+  if (overlay) {
+    overlay.classList.add("fade-in");
+  }
+
   const elements = document.querySelectorAll(".ease-in");
 
   elements.forEach((el, i) => {
@@ -782,7 +819,8 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
 
   document.addEventListener("click", (e) => {
     const tile = e.target.closest("[data-popup]");
-    if (tile) openWidgetPopup(tile.dataset.popup, tile);
+    if (tile) playSound("click");
+    openWidgetPopup(tile.dataset.popup, tile);
   });
 
   widgetPopupClose.addEventListener("click", closeWidgetPopup);

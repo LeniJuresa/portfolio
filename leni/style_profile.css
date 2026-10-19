@@ -4349,3 +4349,21 @@ html:has(.ps-overlay.open) body {
   font-weight: 300;
   line-height: 1.5;
 }
+
+/* ==========================================================*/
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 1;
+  pointer-events: all;
+  z-index: 999999;
+  transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-transition-overlay.fade-in {
+  opacity: 0;
+  pointer-events: none;
+}

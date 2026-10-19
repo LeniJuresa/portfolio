@@ -12,11 +12,13 @@ function rand(min, max) {
 }
 
 const SPARKLE_COLORS = [
-  "255, 223, 130", // classic gold
-  "255, 214, 110", // slightly deeper gold
-  "255, 235, 170", // pale champagne gold
-  "230, 180, 80", // richer, muted amber-gold
-  "255, 200, 60", // warm, saturated gold
+  "255, 223, 130", // classic gold[cite: 2]
+  "255, 214, 110", // slightly deeper gold[cite: 2]
+  "255, 235, 170", // pale champagne gold[cite: 2]
+  "230, 180, 80", // richer, muted amber-gold[cite: 2]
+  "255, 200, 60", // warm, saturated gold[cite: 2]
+  "140, 85, 45", // warm brown
+  "255, 250, 230", // soft cream
 ];
 
 const SPARKLE_PRESETS = [
@@ -33,20 +35,20 @@ const SPARKLE_PRESETS = [
     size: 6,
     blurPct: 0,
     colorStrength: 0.8,
+    peakOpacity: 1.0,
+    weight: 50,
+  },
+  {
+    name: "medium",
+    size: 12,
+    blurPct: 0,
+    colorStrength: 0.6,
     peakOpacity: 0.9,
     weight: 20,
   },
   {
-    name: "medium",
-    size: 10,
-    blurPct: 0,
-    colorStrength: 0.6,
-    peakOpacity: 0.6,
-    weight: 50,
-  },
-  {
     name: "large",
-    size: 16,
+    size: 24,
     blurPct: 0.2,
     colorStrength: 0.4,
     peakOpacity: 0.3,
@@ -54,7 +56,7 @@ const SPARKLE_PRESETS = [
   },
   {
     name: "huge",
-    size: 24,
+    size: 28,
     blurPct: 0.8,
     colorStrength: 0.1,
     peakOpacity: 0.2,
@@ -190,6 +192,29 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
+// ---------- sounds ----------
+const SOUNDS = {
+  move: new Audio("../assets/sounds/move.mp3"),
+  click: new Audio("../assets/sounds/click.mp3"),
+  trophy: new Audio("../assets/sounds/Trophy.mp3"),
+};
+SOUNDS.move.volume = 0.4;
+SOUNDS.click.volume = 0.5;
+SOUNDS.trophy.volume = 0.5;
+
+Object.values(SOUNDS).forEach((a) => (a.preload = "auto"));
+
+let soundOn = true;
+
+function playSound(name) {
+  if (!soundOn) return;
+  const base = SOUNDS[name];
+  if (!base) return;
+  const s = base.cloneNode();
+  s.volume = base.volume;
+  s.play().catch(() => {}); 
+}
+
 const track = document.getElementById("profileTrack");
 cards = Array.from(track.querySelectorAll(".profile-card"));
 
@@ -213,10 +238,82 @@ function moveSelector(direction) {
   if (newIndex >= 0 && newIndex < cards.length) {
     currentIndex = newIndex;
     updateSelector();
+    playSound("move");
   }
 }
 
+let isNavigating = false;
+
+function selectProfile(item, card) {
+  if (isNavigating) return;
+
+  if (item.dataset.achievement) {
+    showAchievement(item.dataset.achievement);
+    return;
+  }
+
+  const destination = item.dataset.href;
+  if (!destination) return;
+
+  isNavigating = true;
+  playSound("click");
+
+  const scene = document.querySelector(".scene-wrapper");
+  const overlay = document.getElementById("transitionOverlay");
+  const name = item.querySelector(".profile-name");
+
+  // Mark this profile as the selected one
+  item.classList.add("selected");
+  scene.classList.add("selection-active");
+
+  // Phase 1: Card and Name grow in easeOutExpo; everything else shrinks in easeInExpo
+  card.classList.add("grow-expo");
+  if (name) name.classList.add("grow-expo");
+
+  // Phase 2: After growth (450ms), both shrink down in easeInExpo
+  setTimeout(() => {
+    card.classList.remove("grow-expo");
+    card.classList.add("shrink-expo");
+
+    if (name) {
+      name.classList.remove("grow-expo");
+      name.classList.add("shrink-expo");
+    }
+
+    // Black screen fades in over the entire display
+    setTimeout(() => {
+      if (overlay) overlay.classList.add("show");
+    }, 150);
+  }, 450);
+
+  // Navigate after transition completes
+  setTimeout(() => {
+    window.location.href = destination;
+  }, 1000);
+}
+
+// Reset when using browser Back/Forward navigation
+window.addEventListener("pageshow", () => {
+  isNavigating = false;
+
+  const overlay = document.getElementById("transitionOverlay");
+  if (overlay) overlay.classList.remove("show");
+
+  const scene = document.querySelector(".scene-wrapper");
+  if (scene) scene.classList.remove("selection-active");
+
+  document.querySelectorAll(".profile-item").forEach((item) => {
+    item.classList.remove("selected");
+    const card = item.querySelector(".profile-card");
+    const name = item.querySelector(".profile-name");
+    if (card) card.classList.remove("grow-expo", "shrink-expo");
+    if (name) name.classList.remove("grow-expo", "shrink-expo");
+  });
+});
+
 document.addEventListener("keydown", (e) => {
+  if (isNavigating) return;
+
   if (e.key === "ArrowRight") {
     moveSelector(1);
   } else if (e.key === "ArrowLeft") {
@@ -224,14 +321,7 @@ document.addEventListener("keydown", (e) => {
   } else if (e.key === "Enter") {
     const activeCard = cards[currentIndex];
     const activeItem = activeCard.closest(".profile-item");
-    const destination = activeItem.dataset.href;
-
-    if (activeItem.dataset.achievement) {
-      showAchievement(activeItem.dataset.achievement);
-    }
-    if (destination) {
-      window.location.href = destination;
-    }
+    selectProfile(activeItem, activeCard);
   }
 });
 
@@ -261,6 +351,8 @@ function showAchievement(id) {
   if (!data || toastActive || earnedAchievements.has(id)) return;
   earnedAchievements.add(id);
   toastActive = true;
+
+  playSound("trophy");
 
   const toast = document.createElement("div");
   toast.className = "trophy-toast";
@@ -313,18 +405,15 @@ window.addEventListener("load", () => {
 
 cards.forEach((card, i) => {
   card.addEventListener("click", () => {
+    if (isNavigating) return;
     const item = card.closest(".profile-item");
 
     if (i === currentIndex) {
-      if (item.dataset.achievement) {
-        showAchievement(item.dataset.achievement);
-      }
-
-      const destination = item.dataset.href;
-      if (destination) window.location.href = destination;
+      selectProfile(item, card);
     } else {
       currentIndex = i;
       updateSelector();
+      playSound("move");
     }
   });
 });
