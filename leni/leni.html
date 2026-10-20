@@ -218,9 +218,9 @@
                 <!-- 5. DOLJE LIJEVO: Latest Release (EDMS) -->
                 <div class="widget-tile widget-tile--split" data-nav-target="EDMS" tabindex="0" role="button">
                   <div class="widget-split-text">
-                    <span class="widget-badge widget-badge--blue">LATEST RELEASE</span>
+                    <span class="widget-badge widget-badge--blue">LATEST PROJECT</span>
                     <h4 class="widget-title">Emergency Dispatch (EDMS)</h4>
-                    <p class="widget-text">Police &amp; emergency dispatch system. Click to open project profile.</p>
+                    <p class="widget-text">Police &amp; emergency dispatch system. Click to view project information.</p>
                   </div>
                   <div class="widget-split-thumb">
                     <img src="../assets/images/placeholder.svg" alt="EDMS Thumbnail" />
@@ -733,79 +733,247 @@
         <!-- ! ---- Card selector: MEDIA tab ---- -->
         <div class="profile-selector view" data-view="media" >
           <div class="profile-track ease-in" id="profileTrack-media" >
-            <!-- Media gallery -->
+
+                        <!--  Life & Hobbies  -->
+            <div
+              class="profile-item"
+              data-title="Life & Hobbies"
+              data-desc="The person behind the projects."
+              data-bg="../assets/images/placeholder.svg"
+            >
+              <div class="profile-card">☘️</div>
+
+              <span class="profile-name"
+                >Life & Hobbies<img
+                  src="../assets/icons/badge.svg"
+                  alt="dev icon"
+                  class="name-icon"
+              /></span>
+
+              <template class="profile-desc">
+                <div class="bc">
+                  <!-- ============ 4 EXPANDING BOXES ============ -->
+                  <div class="bc-picker" role="tablist" aria-label="Beyond code">
+
+                    <button type="button" class="bc-box is-active" role="tab" 
+                            id="bcTab-media" aria-controls="bcPanel-media" aria-selected="true"
+                            data-bc="media" tabindex="0"
+                            style="--bc-img: url('../assets/galery/placeholder.svg')">
+                            
+                      <span class="bc-box-badge">🎞️ MEDIA</span>
+                      <span class="bc-box-tag">ARCHIVE</span>
+                      <b>Photography</b>
+                    </button>
+
+                    <button type="button" class="bc-box" role="tab"
+                            id="bcTab-hobbies" aria-controls="bcPanel-hobbies" aria-selected="false"
+                            data-bc="hobbies" tabindex="-1"
+                            style="--bc-img: url('../assets/galery/placeholder.svg')">
+                      <span class="bc-box-badge">🤿 HOBBIES</span>
+                      <span class="bc-box-tag">INFO</span>
+                      <b>Diving</b>
+                    </button>
+
+                    <button type="button" class="bc-box" role="tab"
+                            id="bcTab-dog" aria-controls="bcPanel-dog" aria-selected="false"
+                            data-bc="dog" tabindex="-1"
+                            style="--bc-img: url('../assets/galery/placeholder.svg')">
+                      <span class="bc-box-badge">🐕 ANIMALS</span>
+                      <span class="bc-box-tag">My little zoo!</span>
+                      <b>PETS</b>
+
+                    </button>
+                  </div>
+
+                  <!-- ============ PANEL 1: MEDIA ============ -->
+                  <div class="bc-panel" id="bcPanel-media" role="tabpanel"
+                      aria-labelledby="bcTab-media" data-bc-panel="media">
+                    <p class="bc-bio"></p>
+
+                    <h3 class="bc-h">Photos</h3>
+                    <div class="gallery-grid bc-grid bc-grid--wide">
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-achievement="gallery" data-date="2026" data-caption="Placeholder: campus life.">
+                        <img src="../assets/galery/placeholder.svg" alt="Campus" loading="lazy" />
+                      </div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-achievement="gallery" data-date="2026" data-caption="Placeholder: the desk setup.">
+                        <img src="../assets/galery/placeholder.svg" alt="Desk setup" loading="lazy" />
+                      </div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-achievement="gallery" data-date="2025" data-caption="Placeholder: a project milestone.">
+                        <img src="../assets/galery/placeholder.svg" alt="Project milestone" loading="lazy" />
+                      </div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-achievement="gallery" data-date="2025" data-caption="Placeholder: another milestone.">
+                        <img src="../assets/galery/placeholder.svg" alt="Milestone" loading="lazy" />
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!-- ============ PANEL 3: HOBBIES ============ -->
+                  <div class="bc-panel" id="bcPanel-hobbies" role="tabpanel"
+                      aria-labelledby="bcTab-hobbies" data-bc-panel="hobbies" hidden>
+                    <div class="bc-cols">
+                      <section class="bc-sec">
+                        <h2 class="bc-title">SCUBADIVING</h2>
+                        <h4 class="bc-h">My top SSI Certifications</h4>
+                        <div class="gallery-grid bc-certrow">
+                          <div class="gallery-item--cert" tabindex="1" role="button" aria-haspopup="dialog"
+                              data-achievement="intresting" data-date="2026" data-caption="Placeholder: underwater.">
+                            <img src="../assets/images/divemaster.jpg" alt="Diving 1" loading="lazy" />
+                          </div>
+                           <div class="gallery-item--cert" tabindex="0" role="button" aria-haspopup="dialog"
+                              data-achievement="intresting" data-date="2026" data-caption="Placeholder: underwater.">
+                            <img src="../assets/images/sar.jpg" alt="Diving 1" loading="lazy" />
+                          </div>
+                          <div class="gallery-item--cert" tabindex="0" role="button" aria-haspopup="dialog"
+                              data-achievement="intresting" data-date="2026" data-caption="Placeholder: underwater.">
+                            <img src="../assets/images/SOD.jpg" alt="Diving 1" loading="lazy" />
+                          </div>
+                        </div>
+
+                        <h4 class="bc-h">Numbers</h4>
+                        <div class="pb-stats">
+                          <div class="pb-stat"><b>233</b><span>Dives logged</span></div>
+                          <div class="pb-stat"><b>40.0 m</b><span>Max depth</span></div>
+                          <div class="pb-stat"><b>Dive Master</b><span>Diver certification</span></div>
+                        </div>
+
+                        <h4 class="bc-h">Photos</h4>
+                        <div class="gallery-grid bc-grid bc-grid--wide">
+                          <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                               data-date="2026" data-caption="Placeholder: underwater.">
+                            <img src="../assets/galery/placeholder.svg" alt="Diving 1" loading="lazy" />
+                          </div>
+                          <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                               data-date="2026" data-caption="Placeholder: dive site.">
+                            <img src="../assets/galery/placeholder.svg" alt="Diving 2" loading="lazy" />
+                          </div>
+                          <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                               data-date="2025" data-caption="Placeholder: equipment.">
+                            <img src="../assets/galery/placeholder.svg" alt="Diving 3" loading="lazy" />
+                          </div>
+                          <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                           data-date="2025" data-caption="Placeholder: the coast.">
+                            <img src="../assets/galery/placeholder.svg" alt="Diving 4" loading="lazy" />
+                          </div>
+                        </div>
+                      </section>
+
+
+                    </div>
+                      
+
+                  </div>
+
+                  <!-- ============ PANEL 4: DOG ============ -->
+                  <div class="bc-panel" id="bcPanel-dog" role="tabpanel"
+                      aria-labelledby="bcTab-dog" data-bc-panel="dog" hidden>
+
+
+                    <h3 class="bc-h">The greatest pictures ever</h3>
+                    <div class="gallery-grid bc-grid">
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-achievement="dog" data-date="2026" data-caption="Placeholder: Rorry at home.">
+                        <img src="../assets/galery/placeholder.svg" alt="Rorry at home" loading="lazy" />
+                      </div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-achievement="dog" data-date="2026" data-caption="Placeholder: Rorry outdoors.">
+                        <img src="../assets/galery/placeholder.svg" alt="Rorry outdoors" loading="lazy" />
+                      </div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-achievement="dog" data-date="2025" data-caption="Placeholder: Rorry helping with code.">
+                        <img src="../assets/galery/placeholder.svg" alt="Rorry helping with code" loading="lazy" />
+                      </div>
+                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                          data-achievement="dog" data-date="2025" data-caption="Placeholder: nap supervision.">
+                        <img src="../assets/galery/placeholder.svg" alt="Rorry napping" loading="lazy" />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </template>
+            </div>
+
+
+
+          <!-- Media gallery -->
             <div
               class="profile-item"
               data-title="MEDIA GALLERY"
-              data-bg="../assets/images/placeholder.svg"
+              data-bg=""
+              data-bg-css="mg-bg"
             >
-              <div class="profile-card" >mg</div>
+              <div class="profile-card">mg</div>
               <span class="profile-name">Media Gallery</span>
-              <template class="profile-desc">
-                <p class="text">
-                  Design & process 
-                </p>
 
-                </div>
-                <h3 class="widget-title" style="margin: 40px 0 16px">
-                  Gallery
-                </h3>
-                <div class="gallery-grid" >
-                  <div
-                      class="gallery-item"
-                      tabindex="0"
-                      role="button"
-                      aria-haspopup="dialog"
-                      data-achievement="dog"
-                    
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 1"
-                      loading="lazy"
-                      
-                    />
-                  </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                    data-achievement="dog"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 2"
-                      loading="lazy"
-                    />
+              <template class="card-widgets">
+                <div class="mg" id="mgRoot">
+                  <div class="mg-head">
+                    <div class="mg-brand">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                      <div>
+                        <h2>Media Gallery</h2>
+                        <small data-mg-count>0 captures</small>
+                      </div>
+                    </div>
+                    <div class="mg-filters" role="group" aria-label="Filter captures" data-mg-filters></div>
                   </div>
 
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                    data-achievement="gallery"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 4"
-                      loading="lazy"
-                    />
+                  <div class="mg-storage">
+                    <div class="mg-storage-top">
+                      <b>Website Storage</b>
+                      <span><span data-mg-used>0</span> GB used of <span data-mg-cap>825</span> GB</span>
+                    </div>
+                    <div class="mg-bar" role="img" aria-label="Storage usage">
+                      <i class="mg-seg mg-seg--captures" data-mg-seg-captures></i>
+                      <i class="mg-seg mg-seg--other" data-mg-seg-other></i>
+                    </div>
+                    <div class="mg-legend">
+                      <span><i class="mg-dot mg-dot--captures"></i>Captures <b data-mg-captures>0 MB</b></span>
+                      <span><i class="mg-dot mg-dot--other"></i>Games &amp; apps <b data-mg-other>0 GB</b></span>
+                      <span><i class="mg-dot mg-dot--free"></i>Free <b data-mg-free>0 GB</b></span>
+                    </div>
                   </div>
-                  <div
-                    class="gallery-item"
-                    tabindex="0"
-                    role="button"
-                    aria-haspopup="dialog"
-                    data-achievement="gallery"
-                  >
-                    <img
-                      src="../assets/galery/placeholder.svg"
-                      alt="Gallery photo 5"
-                      loading="lazy"
-                    />
+
+                  <!-- data-cat = filter chip, data-mb = fake size (feeds the storage bar) -->
+                  <div class="gallery-grid mg-grid">
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                        data-achievement="dog" data-cat="Photos" 
+                        data-date="17. listopada 2026." data-caption="Opis prve slike.">
+                      <img src="../assets/galery/placeholder.svg" alt="Capture 1" loading="lazy" />
+                    </div>
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                        data-achievement="dog" data-cat="Photos" data-mb="3.8"
+                        data-date="3. listopada 2026." data-caption="Opis druge slike.">
+                      <img src="../assets/galery/placeholder.svg" alt="Capture 2" loading="lazy" />
+                    </div>
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                        data-achievement="gallery" data-cat="Screenshots" data-mb="1.6"
+                        data-date="Kolovoz 2025." data-caption="Opis treće slike.">
+                      <img src="../assets/galery/placeholder.svg" alt="Capture 3" loading="lazy" />
+                    </div>
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                        data-achievement="gallery" data-cat="Screenshots" data-mb="2.1"
+                        data-date="Srpanj 2025." data-caption="Opis četvrte slike.">
+                      <img src="../assets/galery/placeholder.svg" alt="Capture 4" loading="lazy" />
+                    </div>
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                        data-cat="3D" data-mb="6.5"
+                        data-date="Lipanj 2025." data-caption="Opis pete slike.">
+                      <img src="../assets/galery/placeholder.svg" alt="Capture 5" loading="lazy" />
+                    </div>
+                    <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
+                        data-cat="3D" data-mb="5.9"
+                        data-date="Svibanj 2025." data-caption="Opis šeste slike.">
+                      <img src="../assets/galery/placeholder.svg" alt="Capture 6" loading="lazy" />
+                    </div>
                   </div>
+
+                  <p class="mg-empty" data-mg-empty hidden>No captures in this category.</p>
                 </div>
               </template>
             </div>
@@ -816,7 +984,8 @@
               class="profile-item"
               data-title="Sound studio"
               data-desc="Songs, website sounds and sketches."
-              data-bg="../assets/images/placeholder.svg"
+              data-bg=""
+              data-bg-css="ss-bg"
             >
               <div
                 class="profile-card profile-card--photo"
@@ -851,7 +1020,7 @@
                     <div class="ss-right">
                       <section class="ss-card studio-soundboard">
                         <h3 class="ss-card-h">Soundboard</h3>
-                        <p class="ss-card-p">The little sounds this site makes. Press one, it won't stop the music.</p>
+                        <p class="ss-card-p">The little sounds made for this website, press one!</p>
                         <div class="ss-pads">
                           <button type="button" class="ss-pad" data-sfx="move">
                             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
@@ -930,52 +1099,6 @@
 
         
 
-            <!--  Life & Hobbies  -->
-            <div
-              class="profile-item"
-              data-title="Beyond code"
-              data-desc="Convallis convallis tellus id interdum velit laoreet id donec ultrices. Nulla facilisi etiam dignissim diam quis enim lobortis."
-              data-bg="../assets/images/placeholder.svg"
-            >
-
-              <div class="profile-card">☘️</div>
-              
-              <span class="profile-name"
-                >Beyond code<img
-                  src="../assets/icons/badge.svg"
-                  alt="dev icon"
-                  class="name-icon"
-              /></span>
-              <template class="profile-desc">
-                <div class="ml-info">
-                  <p class="ml-lead">Placeholder info, idk what to put here</p>
-                  
-                </div>
-
-                <!-- 3. DNEVNIK (vremenska crta) -->
-            <div>
-
-              <section class="ml-group">
-                  <h3 class="widget-title" style="margin: 40px 0 16px">Gallery</h3>
-                    <div class="gallery-grid">
-                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
-                          data-date="17. listopada 2026."
-                          data-caption="Ovdje ide opis prve slike.">
-                        <img src="../assets/galery/placeholder.svg" alt="Opis slike" loading="lazy" />
-                      </div>
-                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
-                          data-date="3. listopada 2026."
-                          data-caption="Ovdje ide opis druge slike.">
-                        <img src="../assets/galery/placeholder.svg" alt="Opis slike" loading="lazy" />
-                      </div>
-                      <div class="gallery-item" tabindex="0" role="button" aria-haspopup="dialog"
-                          data-date="Kolovoz 2025."
-                          data-caption="Ovdje ide opis treće slike.">
-                        <img src="../assets/galery/placeholder.svg" alt="Opis slike" loading="lazy" />
-                      </div>
-                   </div>
-              </template>
-            </div>
             
           </div>
         </div>

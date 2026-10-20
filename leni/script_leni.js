@@ -61,17 +61,17 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// ---------- zvukovi ----------
+// ---------- sounds ----------
 const SOUNDS = {
   move: new Audio("../assets/sounds/move.mp3"),
   click: new Audio("../assets/sounds/click.mp3"),
   trophy: new Audio("../assets/sounds/Trophy.mp3"),
   nav: new Audio("../assets/sounds/Navigation_Back.mp3"),
 };
-SOUNDS.move.volume = 0.4;
-SOUNDS.click.volume = 0.4;
+SOUNDS.move.volume = 0.2;
+SOUNDS.click.volume = 0.2;
 SOUNDS.trophy.volume = 0.4;
-SOUNDS.nav.volume = 0.4;
+SOUNDS.nav.volume = 0.2;
 
 Object.values(SOUNDS).forEach((a) => (a.preload = "auto"));
 
@@ -81,9 +81,9 @@ function playSound(name) {
   if (!soundOn) return;
   const base = SOUNDS[name];
   if (!base) return;
-  const s = base.cloneNode(); // klon da se brzi pritisci mogu preklapati
+  const s = base.cloneNode();
   s.volume = base.volume;
-  s.play().catch(() => {}); // preglednik blokira dok nema prve interakcije
+  s.play().catch(() => {});
 }
 
 const TROPHY_SVG = `
@@ -123,6 +123,10 @@ const ACHIEVEMENTS = {
   faq: {
     title: "Something happened! ",
     color: "#cd7f32",
+  },
+  intresting: {
+    title: "Blub blub blub... ",
+    color: "#c0c4cc",
   },
 };
 
@@ -290,6 +294,14 @@ function showBackground(src) {
 
 function updateCardBackground(item) {
   clearInterval(bgTimer); // stop the previous card's rotation
+
+  const bgContainer = document.getElementById("cardBackground");
+  if (bgContainer) {
+    // Remove previous dynamic css classes, keep the base 'card-background' class
+    bgContainer.className =
+      "card-background" +
+      (item && item.dataset.bgCss ? ` ${item.dataset.bgCss}` : "");
+  }
 
   const list = ((item && item.dataset.bg) || "")
     .split(/[|,]/)
@@ -914,7 +926,7 @@ if (
     if (!img) return;
 
     currentGalleryIndex = index;
-    setGalleryCaption(item); // opis i datum prate trenutnu sliku
+    setGalleryCaption(item);
     imagePopupImg.src = img.src;
     imagePopupImg.alt = img.alt || "";
     imagePopupImg.classList.remove("slide-from-left", "slide-from-right");
@@ -929,7 +941,7 @@ if (
           triggerEl
             .closest(".gallery-grid")
             ?.querySelectorAll(".gallery-item") || [],
-        )
+        ).filter((item) => !item.hidden)
       : [];
     currentGalleryIndex = galleryItems.indexOf(triggerEl);
     setGalleryCaption(triggerEl);
@@ -1008,7 +1020,11 @@ if (
 // ==========================================================
 (function () {
   const COVER = "../assets/images/placeholder.svg"; // swap per game later
+  const FEATUREDCOVER = "../assets/images/placeholder.svg";
   const LINK = "https://github.com/lenijuresa"; // swap per game later
+
+  const coverOf = (x) => x.cover || COVER;
+  const featuredOf = (x) => x.featured_cover || FEATUREDCOVER;
 
   const FEAT = [
     "1 developer, fully solo project",
@@ -1032,6 +1048,8 @@ if (
       price: 499.99, // the old / full price in euros
       discount: 100, // percent off. Leave it out and it defaults to 100
       per: "",
+      // cover: "../assets/images/leni_funny.jpg",  // Appears on the store widget
+      // featured_cover: "../assets/images/blender.png",    // Appears on the featured tab
       year: "2025",
       href: LINK,
       tags: ["PHP", "Laravel", "Web", "SQL", "XAMPP"],
@@ -1142,7 +1160,7 @@ if (
       title: "Resume",
       tag: "In development",
       status: "soon",
-      badges: ["job"],
+      badges: ["job", "featured"],
       rating: 0,
       count: 0,
       price: 24.99, // the old / full price in euros
@@ -1291,7 +1309,7 @@ if (
       '<div class="ps-hero' +
       (multi ? " ps-hero--multi" : "") +
       '"><img class="ps-hero-bg" src="' +
-      COVER +
+      featuredOf(x) +
       '" alt="">' +
       '<div class="ps-hero-shade"></div>' +
       arrows +
@@ -1308,9 +1326,13 @@ if (
       "<b>" +
       p.now +
       "</b></div>" +
-      '<button type="button" class="ps-btn ps-btn--primary" data-act="open" data-id="' +
-      x.id +
-      '">View game</button>' +
+      (x.status === "soon"
+        ? '<button type="button" class="ps-btn ps-btn--primary" data-act="open" data-id="' +
+          x.id +
+          '">Pre-order</button>'
+        : '<button type="button" class="ps-btn ps-btn--primary" data-act="open" data-id="' +
+          x.id +
+          '">View game</button>') +
       dots +
       "</div></div>"
     );
@@ -1356,7 +1378,7 @@ if (
       x.status +
       '">' +
       '<span class="ps-art"><img src="' +
-      COVER +
+      coverOf(x) +
       '" alt="" loading="lazy">' +
       (x.status === "soon" ? '<span class="ps-soon">Pre-order</span>' : "") +
       '<span class="ps-flags">' +
@@ -1600,7 +1622,7 @@ if (
         : '<div class="ps-rate"><small>Not enough ratings yet</small></div>';
       return (
         '<div class="ps-detail"><div class="ps-cover"><img src="' +
-        COVER +
+        coverOf(x) +
         '" alt="">' +
         offHTML(p) +
         badgesHTML(x) +
@@ -1643,7 +1665,7 @@ if (
         steps(0) +
         '<h2 class="ps-h" id="psTitle">Order summary</h2>' +
         '<div class="ps-order"><img src="' +
-        COVER +
+        coverOf(x) +
         '" alt=""><div><b>' +
         x.title +
         "</b><small>" +
@@ -2129,7 +2151,12 @@ if (
 // ==========================================================
 (function () {
   // Cards that should NOT darken. Match the card's data-title or data-project.
-  const DARKEN_IGNORE = ["Discover", "Welcome", "Sound studio"];
+  const DARKEN_IGNORE = [
+    "Discover",
+    "Welcome",
+    "Sound studio",
+    "MEDIA GALLERY",
+  ];
 
   const DISTANCE = 0.8; // screens of scrolling until fully dark (smaller = faster)
   const MAX_DARK = 0.9; // 1 = fully black
@@ -2215,7 +2242,12 @@ AI ASSISTED
   const COVER = "../assets/images/placeholder.svg";
 
   // filter chips are built from this list
-  const TYPES = { song: "Songs", site: "Website sounds", other: "Other" };
+  const TYPES = {
+    ambient: "Ambient",
+    song: "Songs",
+    site: "Website sounds",
+    other: "Other",
+  };
 
   // ======= EDIT YOUR TRACKS HERE =======
   // type: "song" | "site" | "other"     duration (seconds) is optional,
@@ -2223,7 +2255,7 @@ AI ASSISTED
   const TRACKS = [
     {
       id: "s1",
-      type: "song",
+      type: "ambient",
       title: "Temp background song 1",
       tag: "Piano Solo",
       src: SND + "songs/drone1.mp3",
@@ -2231,7 +2263,7 @@ AI ASSISTED
     },
     {
       id: "s2",
-      type: "song",
+      type: "ambient",
       title: "Temp background song 2",
       tag: "Ambient Loop",
       src: SND + "songs/drone2.mp3",
@@ -2298,7 +2330,7 @@ AI ASSISTED
   const S = {
     id: null, // current track id
     queue: [], // (not used for stepping any more, kept so nothing else breaks)
-    filter: "song",
+    filter: "ambient",
     scrubbing: false,
     missing: new Set(),
     durations: {},
@@ -2699,4 +2731,167 @@ AI ASSISTED
     ".profile-selector.active-view .profile-card.active",
   );
   window.applyCardMusic(startCard ? startCard.closest(".profile-item") : null);
+})();
+
+// ==========================================================
+// MEDIA GALLERY (PS5 style)
+// ==========================================================
+(function () {
+  const STORAGE = {
+    capacityGB: 500,
+    usedGB: 438.6,
+    capturesGB: 254.4458,
+  };
+
+  const fmtGB = (gb) => +gb.toFixed(2) + " GB";
+
+  function initMediaGallery() {
+    const root = widgetsPanel.querySelector("#mgRoot");
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = "1";
+
+    const q = (s) => root.querySelector(s);
+    const items = [...root.querySelectorAll(".mg-grid .gallery-item")];
+
+    // hover info (date + size) and category tag on every tile
+    items.forEach((it) => {
+      const gb = parseFloat(it.dataset.gb) || 0;
+      const tag = document.createElement("span");
+      tag.className = "mg-tag";
+      tag.textContent = (it.dataset.cat || "").toUpperCase();
+      const info = document.createElement("span");
+      info.className = "mg-info";
+      info.innerHTML = `<span>${it.dataset.date || ""}</span>`;
+      it.append(tag, info);
+    });
+
+    // storage numbers (typed in above, nothing is calculated from the tiles)
+    const otherGb = Math.max(0, STORAGE.usedGB - STORAGE.capturesGB);
+    const freeGb = Math.max(0, STORAGE.capacityGB - STORAGE.usedGB);
+
+    q("[data-mg-used]").textContent = STORAGE.usedGB;
+    q("[data-mg-cap]").textContent = STORAGE.capacityGB;
+    q("[data-mg-captures]").textContent = fmtGB(STORAGE.capturesGB);
+    q("[data-mg-other]").textContent = fmtGB(otherGb);
+    q("[data-mg-free]").textContent = fmtGB(freeGb);
+    q("[data-mg-count]").textContent =
+      items.length + (items.length === 1 ? " capture" : " captures");
+
+    // animate the bar in after first paint
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        q("[data-mg-seg-other]").style.width =
+          (otherGb / STORAGE.capacityGB) * 100 + "%";
+        q("[data-mg-seg-captures]").style.width =
+          (STORAGE.capturesGB / STORAGE.capacityGB) * 100 + "%";
+      }),
+    );
+
+    // filter chips built from data-cat
+    const cats = [...new Set(items.map((i) => i.dataset.cat).filter(Boolean))];
+    q("[data-mg-filters]").innerHTML = ["all", ...cats]
+      .map(
+        (c) =>
+          `<button type="button" class="mg-chip${c === "all" ? " active" : ""}" data-mg-f="${c}">${c === "all" ? "All" : c}</button>`,
+      )
+      .join("");
+  }
+
+  // the panel's innerHTML is replaced on every card change, so watch for it
+  new MutationObserver(initMediaGallery).observe(widgetsPanel, {
+    childList: true,
+  });
+  initMediaGallery();
+
+  // filtering (delegated, because the panel itself is never replaced)
+  widgetsPanel.addEventListener("click", (e) => {
+    const chip = e.target.closest("[data-mg-f]");
+    if (!chip) return;
+    const root = chip.closest("#mgRoot");
+    const f = chip.dataset.mgF;
+    root
+      .querySelectorAll(".mg-chip")
+      .forEach((c) => c.classList.toggle("active", c === chip));
+    let shown = 0;
+    root.querySelectorAll(".mg-grid .gallery-item").forEach((it) => {
+      const vis = f === "all" || it.dataset.cat === f;
+      it.hidden = !vis;
+      if (vis) shown++;
+    });
+    root.querySelector("[data-mg-empty]").hidden = shown > 0;
+    playSound("move");
+  });
+})();
+
+// ==========================================================
+// BEYOND CODE: expanding boxes + Rorry
+// ==========================================================
+(function () {
+  const $text = document.getElementById("cardDetailText");
+  if (!$text) return;
+
+  // show one box + its panel
+  function select(box, focus) {
+    const root = box.closest(".bc");
+    root.querySelectorAll(".bc-box").forEach((b) => {
+      const on = b === box;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-selected", on);
+      b.tabIndex = on ? 0 : -1; // only the active box is a tab stop
+    });
+    root.querySelectorAll(".bc-panel").forEach((p) => {
+      p.hidden = p.dataset.bcPanel !== box.dataset.bc;
+    });
+    if (focus) box.focus();
+  }
+
+  $text.addEventListener("click", (e) => {
+    // switch box
+    const box = e.target.closest(".bc-box");
+    if (box) {
+      if (!box.classList.contains("is-active")) {
+        playSound("move");
+        select(box);
+      }
+      return;
+    }
+
+    // pet Rorry (the dog trophy comes from data-achievement="dog" on the button)
+    const pet = e.target.closest("[data-bc-pet]");
+    if (pet) {
+      playSound("click");
+      const n = (+pet.dataset.n || 0) + 1;
+      pet.dataset.n = n;
+      pet.querySelector("[data-bc-count]").textContent = n;
+
+      const heart = document.createElement("span");
+      heart.className = "bc-heart";
+      heart.textContent = "♥";
+      pet.parentElement.appendChild(heart);
+      setTimeout(() => heart.remove(), 900);
+    }
+  });
+
+  // arrows move between the boxes (the card selector behind must not move)
+  $text.addEventListener("keydown", (e) => {
+    const box = e.target.closest(".bc-box");
+    if (box) {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        const boxes = [
+          ...box.closest(".bc-picker").querySelectorAll(".bc-box"),
+        ];
+        const next =
+          boxes[boxes.indexOf(box) + (e.key === "ArrowRight" ? 1 : -1)];
+        if (!next) return; // at the edge: let the card selector move as usual
+        e.preventDefault();
+        e.stopPropagation();
+        playSound("move");
+        select(next, true);
+      } else if (e.key === "Enter") {
+        e.stopPropagation(); // Enter must not "open" the card behind
+      }
+    } else if (e.key === "Enter" && e.target.closest("[data-bc-pet]")) {
+      e.stopPropagation();
+    }
+  });
 })();
