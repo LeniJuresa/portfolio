@@ -84,13 +84,12 @@ body::-webkit-scrollbar {
   background-position: center;
   background-repeat: no-repeat;
 
-  --card-bg-blur: 2px;
-  filter: blur(var(--card-bg-blur));
-  transform: scale(1.1);
+  transform: translateZ(0);
+  will-change: opacity;
 
   opacity: 0;
-  /* Crossfade speed — tweak this one value to taste. */
-  --card-bg-fade: 1s;
+  /* Crossfade speed*/
+  --card-bg-fade: 0.35s;
   transition: opacity var(--card-bg-fade) ease;
 }
 
@@ -98,16 +97,16 @@ body::-webkit-scrollbar {
   opacity: 1;
 }
 
-.card-background::after {
+.root-start::after {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: -1;
   background: #05060a;
   opacity: var(--scroll-dark, 0);
-  transition: opacity 0.2s ease;
   pointer-events: none;
+  will-change: opacity;
 }
-
 /*
 Profile page
 */
@@ -321,6 +320,7 @@ Profile page
   display: flex;
   gap: 20px;
   transition: transform 0.35s ease;
+  will-change: transform;
 }
 
 .profile-card {
@@ -342,13 +342,15 @@ Profile page
   transform-origin: top left;
   margin-right: calc(180px * (var(--scale) - 1));
 
+  will-change: transform;
+  transform: scale(var(--scale)) translateZ(0);
+
   transition:
     transform 0.25s ease,
     opacity 0.25s ease,
     box-shadow 0.25s ease;
 
   opacity: 0.9;
-  transform: scale(var(--scale));
 }
 
 .profile-card.active {
@@ -562,27 +564,24 @@ Profile page
 .widget-tile {
   background: linear-gradient(
     145deg,
-    rgba(30, 34, 48, 0.72) 0%,
-    rgba(16, 18, 27, 0.88) 100%
+    rgba(22, 25, 36, 0.95) 0%,
+    rgba(12, 14, 22, 0.98) 100%
   );
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 16px;
   padding: 20px 22px;
   box-sizing: border-box;
   outline: none;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
   cursor: pointer;
+  transform: translateZ(0);
   transition:
     transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
-    background 0.22s ease,
-    border-color 0.22s ease,
-    box-shadow 0.22s ease;
+    border-color 0.22s ease;
 }
 
 .widget-tile:hover,
@@ -884,7 +883,7 @@ Profile page
   padding: 24px;
   box-sizing: border-box;
   background: rgba(8, 8, 8, 0.801);
-  backdrop-filter: blur(4px);
+
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
@@ -1607,7 +1606,6 @@ Profile page
   box-sizing: border-box;
 
   background: rgba(8, 8, 8, 0.85);
-  backdrop-filter: blur(4px);
 
   opacity: 0;
   pointer-events: none;
@@ -2119,7 +2117,6 @@ Profile page
   justify-content: center;
   padding: 24px;
   background: rgba(8, 8, 8, 0.82);
-  backdrop-filter: blur(4px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -3143,15 +3140,6 @@ Profile page
   .ps-dev {
     padding: 18px;
   }
-}
-
-html:has(.widget-popup-overlay.open),
-html:has(.image-popup-overlay.open),
-html:has(.ps-overlay.open),
-html:has(.widget-popup-overlay.open) body,
-html:has(.image-popup-overlay.open) body,
-html:has(.ps-overlay.open) body {
-  overflow: hidden;
 }
 
 .widget-popup,
@@ -4400,8 +4388,6 @@ html:has(.ps-overlay.open) body {
   inset: 0;
   opacity: 0;
   transition: opacity 1s ease;
-  pointer-events: none;
-  z-index: 0;
 }
 
 /* Sound Studio Gradient (uses ::before) */
@@ -4704,11 +4690,9 @@ html:has(.ps-overlay.open) body {
   border: 1px solid var(--ss-line);
   background: linear-gradient(
     145deg,
-    rgba(30, 34, 48, 0.72) 0%,
-    rgba(16, 18, 27, 0.88) 100%
+    rgba(22, 25, 36, 0.95) 0%,
+    rgba(12, 14, 22, 0.98) 100%
   );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
 }
 .ss-card-h {
@@ -5062,12 +5046,10 @@ html:has(.ps-overlay.open) body {
   border-radius: 18px;
   background: linear-gradient(
     145deg,
-    rgba(30, 34, 48, 0.72) 0%,
-    rgba(16, 18, 27, 0.88) 100%
+    rgba(22, 25, 36, 0.95) 0%,
+    rgba(12, 14, 22, 0.98) 100%
   );
   border: 1px solid rgba(255, 255, 255, 0.09);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
 }
 .mg-storage-top {
@@ -5497,11 +5479,9 @@ html:has(.ps-overlay.open) body {
   border: 1px solid rgba(255, 255, 255, 0.09);
   background: linear-gradient(
     145deg,
-    rgba(30, 34, 48, 0.72) 0%,
-    rgba(16, 18, 27, 0.88) 100%
+    rgba(22, 25, 36, 0.95) 0%,
+    rgba(12, 14, 22, 0.98) 100%
   );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
 }
 .bc-card h4 {

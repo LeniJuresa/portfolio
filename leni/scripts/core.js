@@ -39,14 +39,6 @@ function onActivate(selector, handler, root = document) {
 
 /* AI */
 
-window.addEventListener(
-  "wheel",
-  (e) => {
-    if (e.ctrlKey) e.preventDefault();
-  },
-  { passive: false },
-);
-
 function updateClock() {
   const now = new Date();
   let hours = now.getHours();
@@ -73,16 +65,56 @@ SOUNDS.click.volume = 0.2;
 SOUNDS.trophy.volume = 0.4;
 SOUNDS.nav.volume = 0.2;
 
-Object.values(SOUNDS).forEach((a) => (a.preload = "auto"));
+Object.values(SOUNDS).forEach((a) => {
+  a.preload = "auto";
+  a.load();
+});
 
 let soundOn = true;
 
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+const actx = AudioCtx ? new AudioCtx({ latencyHint: "interactive" }) : null;
+const sfxBuffers = {};
+const SFX = {
+  move: ["../assets/sounds/move.mp3", 0.2],
+  click: ["../assets/sounds/click.mp3", 0.2],
+  trophy: ["../assets/sounds/Trophy.mp3", 0.4],
+  nav: ["../assets/sounds/Navigation_Back.mp3", 0.2],
+};
+if (actx) {
+  Object.entries(SFX).forEach(([name, [url]]) => {
+    fetch(url)
+      .then((r) => r.arrayBuffer())
+      .then((d) => actx.decodeAudioData(d))
+      .then((b) => (sfxBuffers[name] = b))
+      .catch(() => {});
+  });
+  ["pointerdown", "keydown"].forEach((ev) =>
+    window.addEventListener(
+      ev,
+      () => {
+        if (actx.state === "suspended") actx.resume();
+      },
+      { capture: true, passive: true },
+    ),
+  );
+}
+
 function playSound(name) {
   if (!soundOn) return;
-  const base = SOUNDS[name];
-  if (!base) return;
-  const s = base.cloneNode();
-  s.volume = base.volume;
+  const buf = sfxBuffers[name];
+  if (actx && buf && actx.state === "running") {
+    const src = actx.createBufferSource();
+    const gain = actx.createGain();
+    src.buffer = buf;
+    gain.gain.value = SFX[name][1];
+    src.connect(gain).connect(actx.destination);
+    src.start(0);
+    return;
+  }
+  const s = SOUNDS[name]; // fallback to the old way
+  if (!s) return;
+  s.currentTime = 0;
   s.play().catch(() => {});
 }
 
@@ -180,6 +212,13 @@ document.addEventListener("click", (e) => {
   if (el) showAchievement(el.dataset.achievement);
 });
 
+function syncScrollLock() {
+  const open = [".widget-popup-overlay", ".image-popup-overlay"].some((s) =>
+    document.querySelector(s + ".open"),
+  );
+  document.documentElement.classList.toggle("no-scroll", open);
+}
+
 function createSelector(track, onSelect) {
   const cards = Array.from(track.querySelectorAll(".profile-card"));
   const defaultIndex = Math.min(1, cards.length - 1);
@@ -270,6 +309,18 @@ let visibleBgLayerIndex = -1;
 const BG_INTERVAL = 8000;
 let bgTimer = null;
 
+document.querySelectorAll(".profile-item[data-bg]").forEach((it) => {
+  (it.dataset.bg || "")
+    .split(/[|,]/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      if (img.decode) img.decode().catch(() => {});
+    });
+});
+
 // crossfades to one image using the two background layers
 function showBackground(src) {
   if (!cardBgLayers.length) return;
@@ -323,7 +374,16 @@ function updateCardBackground(item) {
   }, BG_INTERVAL);
 }
 
+let detailTimer = null;
+let lastDetailItem = null;
 function updateCardDetail(item) {
+  if (!item || item === lastDetailItem) return;
+  lastDetailItem = item;
+  clearTimeout(detailTimer);
+  detailTimer = setTimeout(() => renderCardDetail(item), 30);
+}
+
+function renderCardDetail(item) {
   if (!item) return;
   if (window.applyCardMusic) window.applyCardMusic(item);
 
@@ -482,7 +542,6 @@ function fitScene() {
   const scale = Math.min(scaleX, scaleY);
 
   wrapper.style.transform = `translate(-50%, 0) scale(${scale})`;
-  widgetsPanel.style.zoom = Math.max(1, scale);
 }
 
 fitScene();
@@ -832,7 +891,8 @@ if (widgetPopupOverlay && widgetPopupTitle && widgetPopupBody) {
 
   document.addEventListener("click", (e) => {
     const tile = e.target.closest("[data-popup]");
-    if (tile) playSound("click");
+    if (!tile) return;
+    playSound("click");
     openWidgetPopup(tile.dataset.popup, tile);
   });
 
@@ -967,10 +1027,11 @@ if (
       (currentGalleryIndex + direction + galleryItems.length) %
       galleryItems.length;
     showGalleryImage(nextIndex);
-    void imagePopupImg.offsetWidth;
-    imagePopupImg.classList.add(
-      direction > 0 ? "slide-from-right" : "slide-from-left",
-    );
+    requestAnimationFrame(() => {
+      imagePopupImg.classList.add(
+        direction > 0 ? "slide-from-right" : "slide-from-left",
+      );
+    });
   }
 
   document.addEventListener("click", (e) => {
@@ -1160,7 +1221,7 @@ if (
       title: "Resume",
       tag: "In development",
       status: "soon",
-      badges: ["job", "featured"],
+      badges: ["job"],
       rating: 0,
       count: 0,
       price: 24.99, // the old / full price in euros
@@ -1848,17 +1909,7 @@ if (
     closeGame();
 
     const fire = (el) => {
-      ["pointerdown", "mousedown", "pointerup", "mouseup", "click"].forEach(
-        (type) =>
-          el.dispatchEvent(
-            new MouseEvent(type, {
-              bubbles: true,
-              cancelable: true,
-              view: window,
-            }),
-          ),
-      );
-      updateHint();
+      el.click();
     };
 
     const select = () => {
@@ -1952,7 +2003,7 @@ if (
   /* ---------- build the browser whenever the Discover card is shown ---------- */
   function initStore() {
     const root = $("psStore");
-    if (!root || root.dataset.ready) return;
+    if (!root || root.dataset.ready === "1") return;
     root.dataset.ready = "1";
     lock(false);
     clearTimeout(S.timer);
@@ -1961,16 +2012,23 @@ if (
     S.step = "detail";
     S.hero = 0;
     renderHero();
-    $("psGrid").innerHTML = GAMES.map(tileHTML).join("");
+    const grid = $("psGrid");
+    if (grid && !grid.hasChildNodes()) {
+      grid.innerHTML = GAMES.map(tileHTML).join("");
+    }
     sync();
   }
 
   const panel = document.getElementById("widgetsPanel");
   if (!panel) return;
 
-  // script.js replaces the panel's innerHTML on every card change,
-  // so we watch for the store appearing and fill it in.
-  new MutationObserver(initStore).observe(panel, { childList: true });
+  // Disconnect any self-triggering loops and run on next tick
+  let storeObserver = new MutationObserver(() => {
+    storeObserver.disconnect();
+    initStore();
+    storeObserver.observe(panel, { childList: true });
+  });
+  storeObserver.observe(panel, { childList: true });
   initStore();
 
   startHeroAuto();
@@ -2150,81 +2208,112 @@ if (
 // AI made
 // ==========================================================
 (function () {
-  // Cards that should NOT darken. Match the card's data-title or data-project.
   const DARKEN_IGNORE = [
     "Discover",
     "Welcome",
     "Sound studio",
     "MEDIA GALLERY",
   ];
-
-  const DISTANCE = 0.8; // screens of scrolling until fully dark (smaller = faster)
-  const MAX_DARK = 0.9; // 1 = fully black
-
+  const DISTANCE = 0.8;
+  const MAX_DARK = 0.9;
   const root = document.documentElement;
 
-  // the selected card in the currently visible tab
   function activeItem() {
     const card = document.querySelector(
-      ".profile-selector.active-view .profile-card.active",
+      ".view.active-view .profile-card.active",
     );
     return card ? card.closest(".profile-item") : null;
   }
 
   function isIgnored(item) {
-    if (!item) return true;
+    if (!item) return false; // no card found: don't block darkening
     return (
       DARKEN_IGNORE.includes(item.dataset.title) ||
       DARKEN_IGNORE.includes(item.dataset.project)
     );
   }
 
+  let scrollPos = 0;
+  let lastDarkVal = -1;
+
+  function readScroll(e) {
+    const t = e && e.target;
+    // ignore scrolling inside popups / store panels
+    if (t && t.closest && t.closest(".widget-popup, .ps-overlay, .image-popup"))
+      return;
+    const el = t && t !== document && t.scrollTop !== undefined ? t : null;
+    scrollPos = Math.max(
+      window.scrollY,
+      document.scrollingElement ? document.scrollingElement.scrollTop : 0,
+      el ? el.scrollTop : 0,
+    );
+  }
+
   function update() {
     if (isIgnored(activeItem())) {
-      root.style.setProperty("--scroll-dark", "0");
+      if (lastDarkVal !== 0) {
+        root.style.setProperty("--scroll-dark", "0");
+        lastDarkVal = 0;
+      }
       return;
     }
     const progress = Math.min(
       1,
-      Math.max(0, window.scrollY / (window.innerHeight * DISTANCE)),
+      Math.max(0, scrollPos / (window.innerHeight * DISTANCE)),
     );
-    root.style.setProperty("--scroll-dark", (progress * MAX_DARK).toFixed(3));
+    const newDark = parseFloat((progress * MAX_DARK).toFixed(2));
+    if (newDark !== lastDarkVal) {
+      root.style.setProperty("--scroll-dark", String(newDark));
+      lastDarkVal = newDark;
+    }
   }
 
-  window.addEventListener("scroll", update, { passive: true });
+  let scrollTicking = false;
+  document.addEventListener(
+    "scroll",
+    (e) => {
+      readScroll(e);
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          update();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    },
+    { passive: true },
+  );
   window.addEventListener("resize", update);
 
-  // re-check whenever the selected card or the Projects/Media tab changes
-  const hero = document.querySelector(".hero");
-  if (hero) {
-    new MutationObserver(update).observe(hero, {
-      subtree: true,
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-  }
+  const hero = document.querySelector(".hero") || document.body;
+  new MutationObserver(update).observe(hero, {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class"],
+  });
 
   update();
 })();
 
-//temp fix
+// Remove capture flag (true) so clicks on actual buttons are not delayed or blocked
 document.addEventListener(
   "click",
   (e) => {
     if (
-      !e.target.matches(
-        ".widget-popup-overlay, .ps-overlay, .image-popup-overlay, .tr-pop-overlay",
-      )
+      !e.target.classList.contains("widget-popup-overlay") &&
+      !e.target.classList.contains("ps-overlay") &&
+      !e.target.classList.contains("image-popup-overlay") &&
+      !e.target.classList.contains("tr-pop-overlay")
     )
       return;
+
     const top = escapeLayers
       .filter((layer) => layer.isOpen())
       .sort((a, b) => b.z - a.z)[0];
     if (!top) return;
-    e.stopPropagation(); // stops the old per-popup listeners from also firing
     top.close();
   },
-  true,
+  false,
 );
 
 /* ==========================================================
@@ -2322,7 +2411,7 @@ AI ASSISTED
   // ---------- state ----------
   // @@MUSIC-2  background music settings + state
   const AMBIENT_ID = "s1"; // the background song, it loops until someone picks another
-  const MUSIC_VOLUME = 0.25; // 0 to 1, background music should stay quiet
+  const MUSIC_VOLUME = 0.15; // 0 to 1, background music should stay quiet
   const FADE_MS = 1500;
   const audio = new Audio();
   audio.preload = "metadata";
@@ -2408,9 +2497,14 @@ AI ASSISTED
   }
 
   // ---------- keeping the UI in step with the audio ----------
+  let ssCachedEl = null;
   function updateTime() {
-    const el = root();
-    const bar = el && el.querySelector("[data-ss-scrub]");
+    if (!ssCachedEl || !ssCachedEl.isConnected) {
+      ssCachedEl = root();
+    }
+    const el = ssCachedEl;
+    if (!el) return;
+    const bar = el.querySelector("[data-ss-scrub]");
     if (!bar) return;
     const dur = audio.duration;
     const hasDur = isFinite(dur) && dur > 0;
@@ -2418,8 +2512,10 @@ AI ASSISTED
       S.scrubbing && hasDur ? (bar.value / 1000) * dur : audio.currentTime;
     if (!S.scrubbing) bar.value = hasDur ? (audio.currentTime / dur) * 1000 : 0;
     bar.style.setProperty("--p", bar.value / 10 + "%");
-    el.querySelector("[data-ss-cur]").textContent = fmt(cur);
-    el.querySelector("[data-ss-total]").textContent = fmt(dur);
+    const curEl = el.querySelector("[data-ss-cur]");
+    const totalEl = el.querySelector("[data-ss-total]");
+    if (curEl) curEl.textContent = fmt(cur);
+    if (totalEl) totalEl.textContent = fmt(dur);
   }
 
   function sync() {
@@ -2621,8 +2717,9 @@ AI ASSISTED
     if (pad) {
       if (typeof playSound === "function") playSound(pad.dataset.sfx);
       pad.classList.remove("is-hit");
-      void pad.offsetWidth;
-      pad.classList.add("is-hit");
+      requestAnimationFrame(() => {
+        pad.classList.add("is-hit");
+      });
     }
   });
 
