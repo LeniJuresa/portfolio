@@ -89,7 +89,7 @@ body::-webkit-scrollbar {
 
   opacity: 0;
   /* Crossfade speed*/
-  --card-bg-fade: 0.35s;
+  --card-bg-fade: 1s;
   transition: opacity var(--card-bg-fade) ease;
 }
 
@@ -2145,7 +2145,8 @@ Profile page
   transform: none;
 }
 .ps-scroll {
-  max-height: 88vh;
+  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
   overflow-y: auto;
   padding: 40px;
 }
