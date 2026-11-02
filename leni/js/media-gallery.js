@@ -2,77 +2,84 @@
 // MEDIA GALLERY 
 
 (function () {
-  const STORAGE = {
-    capacityGB: 500,
-    usedGB: 438.6,
-    capturesGB: 254.4458,
-  };
+const STORAGE = {
+  main: {unit:"GB", capacityGB: 500, usedGB: 438.6, capturesGB: 254.44, otherGB: 184.16 },
+  life: {unit:"Years", capacityGB: 100, usedGB: 21.4,    capturesGB: 14.4,     otherGB: 7 },
+};
 
   const fmtGB = (gb) => +gb.toFixed(2) + " GB";
 
   function initMediaGallery() {
-    const root = widgetsPanel.querySelector("#mgRoot");
-    if (!root || root.dataset.ready) return;
-    root.dataset.ready = "1";
+    widgetsPanel.querySelectorAll("[data-mg-root]").forEach((root) => {
+      if (root.dataset.ready) return;
 
-    const q = (s) => root.querySelector(s);
-    const items = [...root.querySelectorAll(".mg-grid .gallery-item")];
+      const S = STORAGE[root.dataset.mgRoot];
+      if (!S) {
+        console.error(`No STORAGE entry for "${root.dataset.mgRoot}"`);
+        return;
+      }
+      root.dataset.ready = "1";
 
-    // hover info (date + size) and category tag on every tile
-    items.forEach((it) => {
-      const gb = parseFloat(it.dataset.gb) || 0;
-      const tag = document.createElement("span");
-      tag.className = "mg-tag";
-      tag.textContent = (it.dataset.cat || "").toUpperCase();
-      const info = document.createElement("span");
-      info.className = "mg-info";
-      info.innerHTML = `<span>${it.dataset.date || ""}</span>`;
-      it.append(tag, info);
+      const q = (s) => root.querySelector(s);
+      const items = [...root.querySelectorAll(".mg-grid .gallery-item")];
+
+      // category tag + date on every tile
+      items.forEach((it) => {
+        const tag = document.createElement("span");
+        tag.className = "mg-tag";
+        tag.textContent = (it.dataset.cat || "").toUpperCase();
+        const info = document.createElement("span");
+        info.className = "mg-info";
+        info.innerHTML = `<span>${it.dataset.date || ""}</span>`;
+        it.append(tag, info);
+      });
+
+      const otherGb = Math.max(0, S.usedGB - S.capturesGB);
+      const freeGb = Math.max(0, S.capacityGB - S.usedGB);
+
+     const fmt = (n) => +n.toFixed(2) + " " + S.unit;
+
+      q("[data-mg-used]").textContent = S.usedGB;
+      q("[data-mg-cap]").textContent = S.capacityGB;
+      root.querySelectorAll("[data-mg-unit]").forEach((el) => {
+        el.textContent = S.unit;
+      });
+      q("[data-mg-captures]").textContent = fmt(S.capturesGB);
+      q("[data-mg-other]").textContent = fmt(S.otherGB);
+      q("[data-mg-free]").textContent = fmt(Math.max(0, S.capacityGB - S.usedGB));
+      q("[data-mg-count]").textContent =
+        items.length + (items.length === 1 ? " capture" : " captures");
+
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          q("[data-mg-seg-other]").style.width =
+            (S.otherGB / S.capacityGB) * 100 + "%";
+          q("[data-mg-seg-captures]").style.width =
+            (S.capturesGB / S.capacityGB) * 100 + "%";
+        }),
+      );
+
+      // filter chips built from data-cat
+      const cats = [...new Set(items.map((i) => i.dataset.cat).filter(Boolean))];
+      q("[data-mg-filters]").innerHTML = ["all", ...cats]
+        .map(
+          (c) =>
+            `<button type="button" class="mg-chip${c === "all" ? " active" : ""}" data-mg-f="${c}">${c === "all" ? "All" : c}</button>`,
+        )
+        .join("");
     });
-
-    // storage numbers (typed in above, nothing is calculated from the tiles)
-    const otherGb = Math.max(0, STORAGE.usedGB - STORAGE.capturesGB);
-    const freeGb = Math.max(0, STORAGE.capacityGB - STORAGE.usedGB);
-
-    q("[data-mg-used]").textContent = STORAGE.usedGB;
-    q("[data-mg-cap]").textContent = STORAGE.capacityGB;
-    q("[data-mg-captures]").textContent = fmtGB(STORAGE.capturesGB);
-    q("[data-mg-other]").textContent = fmtGB(otherGb);
-    q("[data-mg-free]").textContent = fmtGB(freeGb);
-    q("[data-mg-count]").textContent =
-      items.length + (items.length === 1 ? " capture" : " captures");
-
-    // animate the bar in after first paint
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        q("[data-mg-seg-other]").style.width =
-          (otherGb / STORAGE.capacityGB) * 100 + "%";
-        q("[data-mg-seg-captures]").style.width =
-          (STORAGE.capturesGB / STORAGE.capacityGB) * 100 + "%";
-      }),
-    );
-
-    // filter chips built from data-cat
-    const cats = [...new Set(items.map((i) => i.dataset.cat).filter(Boolean))];
-    q("[data-mg-filters]").innerHTML = ["all", ...cats]
-      .map(
-        (c) =>
-          `<button type="button" class="mg-chip${c === "all" ? " active" : ""}" data-mg-f="${c}">${c === "all" ? "All" : c}</button>`,
-      )
-      .join("");
   }
 
-  // the panel's innerHTML is replaced on every card change, so watch for it
   new MutationObserver(initMediaGallery).observe(widgetsPanel, {
     childList: true,
   });
   initMediaGallery();
 
-  // filtering (delegated, because the panel itself is never replaced)
+  // filtering (delegated, scoped to the clicked chip's own gallery)
   widgetsPanel.addEventListener("click", (e) => {
     const chip = e.target.closest("[data-mg-f]");
     if (!chip) return;
-    const root = chip.closest("#mgRoot");
+    const root = chip.closest("[data-mg-root]");
     const f = chip.dataset.mgF;
     root
       .querySelectorAll(".mg-chip")
